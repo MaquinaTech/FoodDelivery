@@ -13,7 +13,7 @@
     <div class="login-box">
       <img src="${pageContext.request.contextPath}/public/logo.png" class="avatar" alt="Logo">
       <h1>Iniciar sesión</h1>
-      <form action="ListRestaurantServlet.do" method="POST">
+      <form action="LoginServlet.do" method="POST">
         <label class="inputRed" for="username">Nombre de usuario</label>
         <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario" required >
         <label class="inputGreen" for="password">Contraseña</label>
