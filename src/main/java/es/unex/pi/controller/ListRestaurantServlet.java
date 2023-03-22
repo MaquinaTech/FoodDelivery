@@ -62,6 +62,7 @@ public class ListRestaurantServlet extends HttpServlet {
 		RestaurantDAO RestaurantDAO = new JDBCRestaurantDAOImpl();
 		RestaurantDAO.setConnection(conn);
 		
+		
 		CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
 		categoryDAO.setConnection(conn);
 		
@@ -76,6 +77,7 @@ public class ListRestaurantServlet extends HttpServlet {
 
 		while(itRestaurantList.hasNext()) {
 			Restaurant restaurant = (Restaurant) itRestaurantList.next();
+			
 			User user = userDAO.get(restaurant.getIdu());
 			List<RestaurantCategories> restaurantsCategories = restaurantsCategoriesDAO.getAllByRestaurant(restaurant.getId());
 			
@@ -99,10 +101,22 @@ public class ListRestaurantServlet extends HttpServlet {
 		request.setAttribute("restaurantsList",restaurantsUserList);
 		request.setAttribute("usersMap", userRestaurantsMap);
 		
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/ListRestaurantUser.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 		view.forward(request,response);
 		
 	
+	}
+	
+	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("Atendiendo GET");
+		
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		UserDAO userDAO = new JDBCUserDAOImpl();
+		userDAO.setConnection(conn);
+		
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
+		view.forward(request,response);
+		
 	}
 
 	

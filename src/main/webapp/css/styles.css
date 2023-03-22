@@ -1,0 +1,862 @@
+	/*-------------- HEADER ---------------*/
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    background-color: #f8ede9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 0 30px;
+  }
+  
+  .logo img {
+    height: 100px;
+  }
+  
+  .header-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* El resto de elemento de la lista si tiene margen izquierdo */
+  .header-nav li {
+    margin-left: 30px;
+  }
+  
+  /* El primer elemento de la lista no tiene margin (iniciar sesion) */
+  .header-nav li:first-child {
+    margin-left: 0;
+  }
+  
+  .header-nav a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  footer {
+    display: flex;
+    align-items: center;
+    
+    height: 90px;
+    background-color: #f8ede9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer-nav{
+    width:50%;
+    justify-content: center;
+    margin: auto;
+  }
+  .footer-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  .footer-nav a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #3a0d0e;
+  }
+
+	.registrobox {
+		width: 600px;
+		height: auto;
+		background-color: #f8ede9;
+		color: #333;
+		margin: 80px auto;
+		padding: 30px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+	}
+
+  .login-box {
+    width: 600px;
+    height: auto;
+    background-color: #f8ede9;
+    color: #333;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+  }
+
+  .editbox {
+		width: 600px;
+		height: auto;
+		background-color: #f8ede9;
+		color: #333;
+		margin: 80px auto;
+		padding: 30px;
+		border-radius: 5px;
+		box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+	}
+
+  .editbox img{
+    width:130px;
+  }
+
+  .editbox label{
+    left:0;
+  }
+
+  .avatar {
+    width: 250px;
+    height: 250px;
+    border-radius: 25%;
+		display:grid;
+    margin: 0 auto 0px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 20px;
+  }
+
+  label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  input[type="text"], input[type="password"], input[type="email"], input[type="number"],input[type="tel"], textarea {
+    width: 500px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+		display:grid;
+    text-align: center;
+  }
+
+  textarea {
+    max-width:525px;
+    min-width:380px;
+  }
+
+  select {
+    width:250px;
+    border-radius: 5px;
+    padding:10px;
+    border:none;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+  }
+
+  .input_flex {
+    display:flex;
+    justify-content: space-around;
+    width:80%;
+    padding-bottom: 40px;
+  }
+
+  .input_flex div{
+    justify-content: center;
+    display: grid;
+    height:70px;
+  }
+
+  input[type="submit"] {
+    background-color: #ff3e3e;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+		width:auto;
+    cursor: pointer;
+		margin-left:auto;
+		margin-right:auto;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #ff3e3e;
+    position: relative;
+  }
+
+	form {
+		display:grid;
+	}
+
+	.center {
+		display:grid;
+	}
+
+  a {
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .inputRed {
+    color: #9e2229;
+  }
+
+	.inputGreen {
+			color: #397b54;
+	}
+
+  /* -------------------- SEARCH -------------------- */
+
+  .search {
+    height: 100%;
+    width: 100%;
+  }
+
+  .search_background {
+    width:100%;
+    height:540px;
+    background-image:url(../public/search_banner.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position:center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .search_card {
+    background-color:#f8ede9;
+    height: 250px;
+    width: 60%;
+    top: 50%;
+    position: absolute;
+    border-radius: 30px;
+  }
+
+  .search_card_text {
+    justify-content: center;
+    display: grid;
+    text-align: center;
+    font-family: system-ui;
+  }
+  .search_card_text p {
+    margin-top:10px;
+    margin-bottom:10px;
+    font-size:xx-large;
+  }
+
+  .search_card_bar {
+    justify-content: center;
+    display:flex;
+    height:50px;
+    margin-top:30px;
+  }
+
+  .search_card_bar input[name="searchBar"] {
+    width:50%;
+    position: relative;
+    padding: 0 !important;
+    margin-left:0px !important;
+    margin-bottom: 0;
+    right: -20px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: larger;
+  }
+
+  .search_card_bar button {
+    width:15%;
+    min-width: fit-content;
+    padding: 15px;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 30px;
+    position: relative;
+    left: -31px;
+  }
+
+  .search_card_bar a {
+    margin-top:-2px !important;
+  }
+
+  .search_card_bar button b{
+    font-size: large;
+  }
+
+  .search_card_bar button:hover {
+    background-color: #ff3e3e;
+    cursor:pointer;
+  }
+
+  .search_categories {
+    font-size:xx-large;
+    font-family: system-ui;
+    color: #f8ede9 !important;
+    margin-top: 100px;
+    padding-left:10px;
+    
+  }
+
+  .search_slide h1 {
+    color:white;
+  }
+
+  .search_categories p {
+    color:white;
+  }
+
+  .carousel {
+    transition: transform 0.5s ease-in-out;
+    overflow:hidden;
+  }
+
+  .carousel .controls {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    position: absolute;
+    margin-top: 38px;
+    right: 0;
+  }
+
+  .carousel button {
+    width: 80px;
+    height: 80px;
+    z-index: 2;
+    border-radius: 50px;
+    opacity: 50%;
+    font-size: 60px;
+    align-content: center;
+    display: grid;
+    padding-bottom: 18px;
+  }
+
+  .carousel img {
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .search_slide {
+    width: 150%;
+    display: flex;
+    justify-content: space-around;
+    transition: transform 1.5s ease-in-out;
+  }
+
+  
+
+  .search_slide img {
+    width:250px;
+    height:150px;
+    margin-right: 20px;
+    border-radius: 15px;
+    z-index:1;
+  }
+  /* -------------- lista de restaurantes -------------- */
+
+  .wrapRestaurants {
+    display:grid;
+  }
+
+  .wrapRestaurants .carousel {
+    padding-top:20px;
+  }
+
+  .wrapRestaurants .search_card_bar {
+    justify-content: right;
+    justify-self: right;
+    margin-top: 100px;
+    padding-right: 35px;
+    max-width: 80%;
+    min-width: 80%;
+  }
+
+  /* ------- lista desplegable ------- */
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display:grid;
+  }
+
+  .dropbtn.open {
+    display:none;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 25%;
+  }
+
+  .dropdown-contentVisible {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    min-width: 160px;
+    display:grid;
+  }
+
+  .dropdown-content {
+    color: black;
+    display:none;
+    padding: 0px 16px;
+    text-decoration: none;
+  }
+
+  .dropdown-content.open {
+    display:grid;
+  }
+
+  .dropdown-contentVisible a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown-contentVisible a:hover {
+    background-color: #ddd;
+  }
+
+  
+
+  /* ------- lista restaurantes ------- */
+
+  
+  .wrapList {
+    margin-top:2%;
+    display:flex;
+    justify-content: space-between;
+  }
+
+  .listRestaurants {
+    height:100%;
+    width:100%;
+    padding-left:10%;
+    padding-right:3%;
+  }
+
+  .listRestaurants .card {
+    width: 100%;
+    height: 220px;
+    margin-bottom: 25px;
+    background-color: #ddd;
+    background-clip: content-box;
+    border-radius:20px;
+  }
+
+  .listRestaurants .card .details {
+    display: inline-flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 50%;
+    height: 210px;
+  }
+
+  .listRestaurants .card .description {
+    display:grid;
+    align-content: flex-start;
+    width: 33%;
+    height: 100%;
+  }
+
+  .listRestaurants .card .description a{
+    
+    text-align:left;
+    
+  }
+
+  .listRestaurants .card .description .valoracion {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 37px;
+    padding-bottom: 15px;
+    padding-top: 20px;
+    width: 100px;
+    height: 25px;
+  }
+
+  .listRestaurants .card .description .valoracion img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .services {
+    display: grid;
+    padding: 30px;
+    padding-right: 60px;
+  }
+
+  .services .item {
+    display:inline-flex;
+  }
+
+  .services p{
+    color: #9e2229;
+  }
+
+  .listRestaurants .card .services .item img {
+    width:25px;
+    height:25px;
+    padding-top:12px;
+    padding-right:8px;
+    border-radius:0px;
+  }
+  .listRestaurants .card .title {
+    display: inline;
+    font-size: x-large;
+    margin: 0;
+    margin-left: 30px;
+    padding-top: 15px;
+    height: fit-content;
+  }
+
+  .listRestaurants .card .subtitle {
+    display: inline;
+    font-size: medium;
+    margin: 0;
+    margin-left: 35px;
+    height: fit-content;
+  }
+
+  .listRestaurants .card img{
+    width:350px;
+    height:200px;
+    border-radius:60px;
+    padding-top:10px;
+    padding-left:10px;
+  }
+  
+
+
+  /* Restaurant Detail */
+
+  .details {
+    height: 5700px;
+    width: 100%;
+  }
+
+  .details_background {
+    width:100%;
+    height:200px;
+    background-image:url(../public/search_banner.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position:center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .logo_details img {
+    width: 145px;
+    height: 145px;
+    position: absolute;
+    top: 5%;
+    right: 886px;
+    border-radius: 30%;
+  }
+
+  .info-menu{
+    display: grid;
+    margin-top: 7%;
+    grid-gap: 20px;
+  }
+
+  .info-box {
+    width: 650px;
+    height: auto;
+    background-color: #f8ede9;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+
+  .info-box img{
+    width:60px;
+  }
+
+   .rating {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+  }
+  
+  .rating input[type="radio"] {
+    display: none;
+  }
+  
+  .rating label {
+    color: #ddd;
+    font-size: 2.5em;
+    padding: 0 0.1em;
+    cursor: pointer;
+  }
+  
+  .rating input[type="radio"]:checked ~ label {
+    color: #ffdd00;
+  }
+  
+  
+  /*MENU*/
+
+  .dish-info h3{
+    display: inline;
+  }
+
+  .menuList {
+    width: 650px;
+    background-color: #f8ede9;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    display: grid;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .dish-card {
+    display: grid;
+    flex-direction: row;
+    background-color: #f8ede9;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .dish-card img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  .dish-info {
+    flex-grow: 1;
+  }
+  
+  .dish-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .dish-info p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .dish-info p.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .Cesta-pedido{
+    width: 40px !important;
+    height: 40px !important;
+    transform: translateY(8px) !important;
+  }
+
+  
+
+  /*PEDIDO*/
+
+  .pedido-box {
+    width: 400px;
+    height: auto;
+    background-color: #f8ede9;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    position: absolute;
+    right: 5%;
+    top: 31%;
+  }
+
+  .info-box p{
+      color: #397b54;
+      line-height: 175%;
+
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  input[type="radio"] {
+    appearance: none;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+  }
+  
+  input[type="radio"]:before {
+    content: '';
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  input[type="radio"]:checked:before {
+    background-color: #397b54;
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #ff3e3e;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #ff3e3e;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  /*CATEGORIA MENU*/
+
+
+  .details ul{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: start;
+    position: absolute;
+    top: 30%;
+    left: 2%;
+  }
+  .details ul li{
+    position: relative;
+    list-style: none;
+  }
+  .details ul li a{
+    position: relative;
+    font-size: 50px;
+    text-decoration: none;
+    line-height: 1em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+  }
+  .details ul li a::before{
+    content: attr(data-text);
+    position: absolute;
+    color: var(--color);
+    width: 0;
+    overflow: hidden;
+    transition: 1s;
+    border-right: 8px solid  var(--color);
+    -webkit-text-stroke: 1px  var(--color);
+  }
+  .details ul li a:hover::before{
+    width: 100%;
+    filter: drop-shadow(0 0 25px var(--color));
+  } 
+
+  h2{
+    color: #9e2229;
+    text-align: center;
+  }
+
+  p{
+    color: #397b54;
+  }
+
+  .p-search{
+    color: #555;
+  }
+
+
+  /* ----------------- Editar Restaurante ----------------- */
+
+  .dish div{
+    padding-top:20px;
+    background-color:#ddd5;
+    padding:10px 20px 20px 20px;
+    margin-top:30px;
+  }
+
+  .dishButton {
+    display:flex;
+    justify-content: space-around;
+    width:80%;
+    padding-top:20px;
+    padding-bottom:40px;
+  }
+
+  .dishButton button{
+    border:none;
+    cursor:pointer;
+  }
+
+  .dishButton img{
+    width:40px;
+  }
+
+
+
+
+  
