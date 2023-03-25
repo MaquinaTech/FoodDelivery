@@ -35,7 +35,6 @@ public class ServletContextListener implements jakarta.servlet.ServletContextLis
             Class.forName("org.sqlite.JDBC");
             String dbURL = "jdbc:sqlite:file:"+System.getProperty("user.home")+"/JustEat.db";
             //String dbURL = "jdbc:sqlite:file:"+"home/nicolas/JustEat.db";
-            logger.info("------------ wwwwww ------------------- " + dbURL);
             conn = DriverManager.getConnection(dbURL);
             if (conn != null) {
                 System.out.println("Connected to the database");

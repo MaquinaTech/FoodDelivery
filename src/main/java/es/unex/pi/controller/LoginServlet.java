@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
@@ -51,15 +51,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		logger.info("Login");
 		
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		UserDAO userDAO = new JDBCUserDAOImpl();
 		userDAO.setConnection(conn);
-		
-		
 		
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 		view.forward(request,response);
@@ -68,15 +64,37 @@ public class LoginServlet extends HttpServlet {
 	}
 	
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Atendiendo GET");
+		logger.info("Inicio de sesión");
 		
+		String username = request.getParameter("username");
+	    String password = request.getParameter("password");
+
+	    if (isValidUser(username, password)) {
+	        HttpSession session = request.getSession(true);
+	        session.setAttribute("username", username);
+	        response.sendRedirect("home.jsp");
+	    } else {
+	        response.sendRedirect("login.jsp?error=1");
+	    }
+
+		//RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
+		//view.forward(request,response);
+		
+	}
+	
+	private boolean isValidUser(String username, String password) {
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		UserDAO userDAO = new JDBCUserDAOImpl();
 		userDAO.setConnection(conn);
 		
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
-		view.forward(request,response);
-		
+		User user = userDAO.get(username);
+		if(user != null) {
+			if(user.getPassword() == password) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	
