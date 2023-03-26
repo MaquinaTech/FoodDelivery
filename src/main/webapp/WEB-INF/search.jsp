@@ -13,7 +13,7 @@
   <body>
     <header>
       <div class="logo">
-      <img src="../logo.ico" alt="Logo de mi sitio web">
+      <img src="${pageContext.request.contextPath}/logo.ico" alt="Logo de mi sitio web">
       </div>
       <nav class="header-nav">
       <ul>
@@ -48,37 +48,37 @@
 
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/hamburguesa.jpg" alt="hamburguesaCategory">
+                <img src="${pageContext.request.contextPath}/public/hamburguesa.jpg" alt="hamburguesaCategory">
               </a>
               <h1>Burguer</h1>
             </div>
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/pizza.jpg" alt="pizzaCategory">
+                <img src="${pageContext.request.contextPath}/public/pizza.jpg" alt="pizzaCategory">
               </a>
               <h1>Pizza</h1>
             </div>
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/sushi.jpg" alt="sushiCategory">
+                <img src="${pageContext.request.contextPath}/public/sushi.jpg" alt="sushiCategory">
               </a>
               <h1>Sushi</h1>
             </div>
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/italiano.jpg" alt="italianoCategory">
+                <img src="${pageContext.request.contextPath}/public/italiano.jpg" alt="italianoCategory">
               </a>
               <h1>Italiano</h1>
             </div>
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/kebab.jpg" alt="kebabCategory">
+                <img src="${pageContext.request.contextPath}/public/kebab.jpg" alt="kebabCategory">
               </a>
               <h1>Kebab</h1>
             </div>
             <div class="slide_card">
               <a href="list.html">
-                <img src="../public/pollo.jpg" alt="polloCategory">
+                <img src="${pageContext.request.contextPath}/public/pollo.jpg" alt="polloCategory">
               </a>
               <h1>Pollo</h1>
             </div>
@@ -102,6 +102,7 @@
     </footer>
   
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
       let slidePosition = 0;
       const slides = document.getElementsByClassName('search_slide')[0];
       const slidesLength = slides.querySelectorAll('div').length / 1.5;
@@ -152,6 +153,7 @@
   
       prevButton.addEventListener('click', prevSlide);
       nextButton.addEventListener('click', nextSlide);
+  	});
     </script>
   </body>
   

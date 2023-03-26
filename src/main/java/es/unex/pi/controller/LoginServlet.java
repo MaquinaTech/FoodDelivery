@@ -72,9 +72,11 @@ public class LoginServlet extends HttpServlet {
 	    if (isValidUser(username, password)) {
 	        HttpSession session = request.getSession(true);
 	        session.setAttribute("username", username);
-	        response.sendRedirect("home.jsp");
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
+			view.forward(request,response);
 	    } else {
-	        response.sendRedirect("login.jsp?error=1");
+	    	RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp?error=1");
+			view.forward(request,response);
 	    }
 
 		//RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
@@ -89,10 +91,15 @@ public class LoginServlet extends HttpServlet {
 		
 		User user = userDAO.get(username);
 		if(user != null) {
-			if(user.getPassword() == password) {
+			logger.info("hola");
+			logger.info(password);
+			logger.info(user.getPassword());
+			if(user.getPassword().equals(password)) {
+				logger.info("siuuuuup");
 				return true;
 			}
 		}
+		logger.info("NOOOOO");
 		return false;
 
 	}
