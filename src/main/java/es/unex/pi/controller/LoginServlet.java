@@ -91,17 +91,14 @@ public class LoginServlet extends HttpServlet {
 		
 		User user = userDAO.get(username);
 		if(user != null) {
-			logger.info("hola");
-			logger.info(password);
-			logger.info(user.getPassword());
+			logger.info("Login user: ");
+			logger.info(username);
 			if(user.getPassword().equals(password)) {
-				logger.info("siuuuuup");
 				return true;
 			}
 		}
-		logger.info("NOOOOO");
+		logger.info("Intento fallido: ");
 		return false;
-
 	}
 
 	

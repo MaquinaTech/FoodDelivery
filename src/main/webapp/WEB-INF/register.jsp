@@ -5,21 +5,21 @@
 <head>
   <meta charset="utf-8">
   <title>Registro</title>
-  <link rel="shortcut icon" href="../logo.ico">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/logo.ico">
   <link rel="stylesheet"  href="${pageContext.request.contextPath}/css/styles.css"   />
 </head>
 <body>
   <div class="registrobox">
-    <form action="login.html" method="POST">
-      <img src="../public/logo.png" class="avatar" alt="Logo">
+    <form action="RegisterServlet.do" method="POST">
+      <img src="${pageContext.request.contextPath}/public/logo.jpg" class="avatar" alt="Logo">
       <h1>Registro de cuenta</h1>
       <div class="form-group">
           <label class="inputRed" for="nombre">Nombre:</label>
-          <input type="text" id="nombre" name="nombre" required >
+          <input type="text" id="username" name="username" required >
       </div>
       <div class="form-group">
           <label class="inputGreen" for="apellidos">Apellidos:</label>
-          <input type="text" id="apellidos" name="apellidos" required >
+          <input type="text" id="lastName" name="lastName" required >
       </div>
       <div class="form-group">
           <label class="inputRed" for="email">Correo electrónico:</label>
@@ -36,7 +36,7 @@
     </form>
     <div class="center">
       <a>Al crearte una cuenta, aceptas los Terminos y Condiciones de la pagina.</a>
-      <a href="login.html"> ¿Ya tienes cuenta en Foodie?</a>
+      <a href="LoginServlet.do"> ¿Ya tienes cuenta en Foodie?</a>
     </div>
   </div>
 </body>

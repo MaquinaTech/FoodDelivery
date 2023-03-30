@@ -23,7 +23,7 @@
         <input type="submit" value="Ingresar" >
       </form>
       <div style="display:grid">
-        <a href="registro.html"> ¿Nuevo en Foodie? Crear cuenta</a>
+        <a href="RegisterServlet.do"> ¿Nuevo en Foodie? Crear cuenta</a>
       </div>
     </div>
   </body>
