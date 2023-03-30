@@ -2,3 +2,4 @@
 build/classes/es/unex/pi/listener/ServletContextListener.class
 build/classes/es/unex/pi/controller/ListRestaurantServlet.class
 src/main/webapp/WEB-INF/web.xml
+.classpath
