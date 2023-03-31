@@ -15,7 +15,7 @@
       <h1>Registro de cuenta</h1>
       <div class="form-group">
           <label class="inputRed" for="nombre">Nombre:</label>
-          <input type="text" id="username" name="username" required >
+          <input type="text" id="firstName" name="firstName" required >
       </div>
       <div class="form-group">
           <label class="inputGreen" for="apellidos">Apellidos:</label>

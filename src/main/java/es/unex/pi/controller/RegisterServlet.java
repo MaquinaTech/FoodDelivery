@@ -5,9 +5,6 @@ import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 import jakarta.servlet.ServletException;
@@ -45,11 +42,6 @@ import java.sql.SQLException;
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
-	
-	// Validate user email
-    private static final String EMAIL_PATTERN = "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$";
-    // Validate user password
-    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$";
 
     
     /**
@@ -64,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Register");
+		logger.info("Start Register");
 
         
         
@@ -75,81 +67,57 @@ public class RegisterServlet extends HttpServlet {
 	
 	}
 	
-	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
-		UserDAO userDAO = new JDBCUserDAOImpl();
-		userDAO.setConnection(conn);
-		
-		String username = request.getParameter("username");
-        String lastName = request.getParameter("lastName");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        logger.info("Parametros: ");
-        logger.info(username);
-        logger.info(lastName);
-        logger.info(email);
-        logger.info(password);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String firstName = request.getParameter("firstName");
+	    String lastName = request.getParameter("lastName");
+	    String email = request.getParameter("email");
+	    String password = request.getParameter("password");
+	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
 
-        // Validar que se ingresen los campos requeridos
-        if (username == null || lastName == null || email == null || password == null || username.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-        	logger.info("Error en parametros");
-            request.setAttribute("errorMessage", "Porfavor, rellene todos los campos requeridos");
-            RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
-            view.forward(request, response);
-            return;
-        }
-        
-        // Validate email pattern
-        Pattern emailPattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher emailMatcher = emailPattern.matcher(email);
-        if (!emailMatcher.matches()) {
-        	logger.info("Error email");
-            request.setAttribute("errorMessage", "Please enter a valid email address");
-            RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
-            view.forward(request, response);
-            return;
-        }
+	    // Validate parameters
+	    if (firstName == null || lastName == null || email == null || password == null) {
+	    	logger.info("Error parametros");
+	        response.sendRedirect("WEB-INF/register.jsp");
+	        return;
+	    }
 
-        // Validate password is strong
-        Pattern passwordPattern = Pattern.compile(PASSWORD_PATTERN);
-        Matcher passwordMatcher = passwordPattern.matcher(password);
-        if (!passwordMatcher.matches()) {
-        	logger.info("Error contraseña");
-            request.setAttribute("errorMessage", "La contraseña debe tener, al menor, 8 caracteres, además de incluir una mayúscula, una minúscula y un número");
-            RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
-            view.forward(request, response);
-            return;
-        }
-        
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(password.getBytes());
-            byte[] hashedPassword = md.digest();
-            String passwordString = new String(hashedPassword, StandardCharsets.UTF_8);
-            // Insertar los datos del usuario en la base de datos
-            User user = new User();
-            user.setName(username);
-            user.setSurname(lastName);
-            user.setEmail(email);
-            user.setPassword(passwordString);
-            userDAO.add(user);
+	    // Validate email
+	    if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+	        request.setAttribute("error", "El correo electrónico no es válido");
+	        logger.info("Error email");
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
+	        view.forward(request, response);
+	        return;
+	    }
 
-            // Redirigir al usuario a la página de inicio de sesión
-            RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
-            view.forward(request, response);
-        } catch (NoSuchAlgorithmException e) {
-        	logger.info("Error inserción");
-            throw new ServletException("Error inserting user data into database", e);
-        }
+	    // Validate password
+	    if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
+	    	logger.info("password");
+	        request.setAttribute("error", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número");
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
+	        view.forward(request, response);
+	        return;
+	    }
+
+	    // Encode password
+	    String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+
+
+	    // Create User
+	    User user = new User();
+	    user.setEmail(email);
+	    user.setName(firstName);
+	    user.setPassword(encodedPassword);
+	    user.setSurname(lastName);
+	    // Insert user in DB
+	    userDAO.add(user); 
 	    
-        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
-		view.forward(request,response);
 
-		//RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
-		//view.forward(request,response);
-		
+	    // Go to login
+	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
+	    view.forward(request, response);
 	}
 
 	

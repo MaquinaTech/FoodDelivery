@@ -1,6 +1,7 @@
 package es.unex.pi.controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.logging.Logger;
@@ -78,28 +79,32 @@ public class LoginServlet extends HttpServlet {
 	    	RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp?error=1");
 			view.forward(request,response);
 	    }
-
-		//RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
-		//view.forward(request,response);
 		
 	}
 	
 	private boolean isValidUser(String username, String password) {
-		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
-		UserDAO userDAO = new JDBCUserDAOImpl();
-		userDAO.setConnection(conn);
-		
-		User user = userDAO.get(username);
-		if(user != null) {
-			logger.info("Login user: ");
-			logger.info(username);
-			if(user.getPassword().equals(password)) {
-				return true;
-			}
-		}
-		logger.info("Intento fallido: ");
-		return false;
+	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+
+	    User user = userDAO.get(username);    
+
+	    if(user != null) {
+	        String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+	        if(user.getPassword().equals(encodedPassword)) {
+	            logger.info("Login user: ");
+	            logger.info(username);
+	            return true;
+	        }
+	    }
+
+
+	    logger.info("Intento fallido: ");
+	    return false;
 	}
+
+
+
 
 	
 }
