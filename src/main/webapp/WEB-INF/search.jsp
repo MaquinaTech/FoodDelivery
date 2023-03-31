@@ -7,22 +7,12 @@
   <title>Search</title>
   <link rel="shortcut icon" href="../logo.ico">
   <link rel="stylesheet"  href="${pageContext.request.contextPath}/css/styles.css"   />
+  <script type="text/javascript" src="searchScript.js"></script>
   
 </head>
   
   <body>
-    <header>
-      <div class="logo">
-      <img src="${pageContext.request.contextPath}/logo.ico" alt="Logo de mi sitio web">
-      </div>
-      <nav class="header-nav">
-      <ul>
-        <li><a href="search.html">Inicio</a></li>
-        <li><a href="login.html">Cerrar sesión</a></li>
-        <li><a href="#">Carrito de compra</a></li>
-      </ul>
-      </nav>
-    </header>
+    <jsp:include page="/WEB-INF/include/header.jsp" />
     <div class="search">
       <div class="search_background" >
         <div class="search_card">
@@ -31,8 +21,11 @@
             <p class="p-search"><b>¡Cuando quieras!</b></p>
           </div>
           <div class="search_card_bar">
-            <input type="text" id="searchBar" name="searchBar" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Madrid.">
-            <a href="list.html"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
+            <form action="searchServlet.do" method="GET" class="search_card_form" id="searchForm">
+			    <input type="text" id="searchBar" name="searchBar" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Cáceres.">
+			    <button id="searchButton" type="submit"><b>Search</b></button>
+			</form>
+
           </div>
         </div>
       </div>
@@ -87,74 +80,7 @@
       </div>
     </div>
 
-    <footer>
-      <div class="logo">
-        <img src="../logo.ico" alt="Logo de mi sitio web">
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="#">Sobre nosotros</a></li>
-          <li><a href="#">Ayuda</a></li>
-          <li><a href="#">Contacto</a></li>
-          <li><a href="#">Email</a></li>
-        </ul>
-      </nav>
-    </footer>
-  
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      let slidePosition = 0;
-      const slides = document.getElementsByClassName('search_slide')[0];
-      const slidesLength = slides.querySelectorAll('div').length / 1.5;
-      let interval;
-    
-      // Detener el intervalo cuando se coloca el cursor del ratón sobre el carrusel
-      slides.addEventListener('mouseover', () => {
-        clearInterval(interval);
-      });
-    
-      // Volver a iniciar el intervalo cuando se quita el cursor del ratón del carrusel
-      slides.addEventListener('mouseout', () => {
-        startCarousel();
-      });
-    
-      function startCarousel() {
-        interval = setInterval(function() {
-          nextSlide();
-        }, 5000);
-      }
-    
-      function nextSlide() {
-        slidePosition = (slidePosition + 1) % slidesLength;
-        slides.style.transform = `translateX(-${slidePosition * 17}%)`;
-    
-        for (let slide of slides.querySelectorAll('div')) {
-          slide.classList.remove('active');
-        }
-        slides.querySelectorAll('div')[slidePosition].classList.add('active');
-      }
-    
-      function prevSlide() {
-        slidePosition = (slidePosition - 1 + slidesLength) % slidesLength;
-        slides.style.transform = `translateX(-${slidePosition * 17}%)`;
-    
-        for (let slide of slides.querySelectorAll('div')) {
-          slide.classList.remove('active');
-        }
-        slides.querySelectorAll('div')[slidePosition].classList.add('active');
-      }
-    
-      // Iniciar el carrusel
-      startCarousel();
-    
-      // Añadir eventos a los botones
-      const prevButton = document.getElementById('prevBtn');
-      const nextButton = document.getElementById('nextBtn');
-  
-      prevButton.addEventListener('click', prevSlide);
-      nextButton.addEventListener('click', nextSlide);
-  	});
-    </script>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
   </body>
   
   

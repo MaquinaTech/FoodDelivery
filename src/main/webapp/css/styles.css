@@ -263,14 +263,18 @@
     height:50px;
     margin-top:30px;
   }
+  
+  .search_card_form {
+  	width:50%;
+  }
 
   .search_card_bar input[name="searchBar"] {
-    width:50%;
+    width:100%;
+    min-height: 50px;
     position: relative;
     padding: 0 !important;
     margin-left:0px !important;
     margin-bottom: 0;
-    right: -20px;
     border-radius: 30px;
     text-align: center;
     font-size: larger;
@@ -279,12 +283,13 @@
   .search_card_bar button {
     width:15%;
     min-width: fit-content;
-    padding: 15px;
-    padding-right: 30px;
-    padding-left: 30px;
+    padding-right: 50px !important;
+    padding-left: 50px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    margin-top:3px;
     border-radius: 30px;
     position: relative;
-    left: -31px;
   }
 
   .search_card_bar a {
@@ -758,7 +763,7 @@
     background-color: #397b54;
   }
   
-  button[type="submit"] {
+  .inputSubmit {
     padding: 10px 20px;
     border-radius: 5px;
     background-color: #ff3e3e;

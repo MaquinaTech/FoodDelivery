@@ -13,18 +13,7 @@
 
 
 <body>
-	<header>
-		<div class="logo">
-			<img src="../logo.ico" alt="Logo de mi sitio web">
-		</div>
-		<nav class="header-nav">
-			<ul>
-				<li><a href="search.html">Inicio</a></li>
-				<li><a href="login.html">Cerrar sesión</a></li>
-				<li><a href="#">Carrito de compra</a></li>
-			</ul>
-		</nav>
-	</header>
+	<jsp:include page="/WEB-INF/include/header.jsp" />
 
 	<div class="wrapRestaurants">
 		<div class="carousel">
@@ -249,19 +238,7 @@
 		</div>
 	</div>
 
-	<footer>
-		<div class="logo">
-			<img src="../logo.ico" alt="Logo de mi sitio web">
-		</div>
-		<nav class="footer-nav">
-			<ul>
-				<li><a href="#">Sobre nosotros</a></li>
-				<li><a href="#">Ayuda</a></li>
-				<li><a href="#">Contacto</a></li>
-				<li><a href="#">Email</a></li>
-			</ul>
-		</nav>
-	</footer>
+	<jsp:include page="/WEB-INF/include/footer.jsp" />
 
 	<script>
 		//Lista de categorias

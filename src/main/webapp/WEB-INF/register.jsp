@@ -30,7 +30,7 @@
           <input type="password" id="password" name="password" required >
       </div>
       <div class="center">
-        <input type="submit" value="Registrarse" >
+        <input class="inputSubmit" type="submit" value="Registrarse" >
       </div>
       
     </form>

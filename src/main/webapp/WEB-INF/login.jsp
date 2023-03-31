@@ -20,7 +20,7 @@
         <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required >
         <a href="#">¿Olvidaste tu contraseña?</a>
         <br>
-        <input type="submit" value="Ingresar" >
+        <input class="inputSubmit" type="submit" value="Ingresar" >
       </form>
       <div style="display:grid">
         <a href="RegisterServlet.do"> ¿Nuevo en Foodie? Crear cuenta</a>
