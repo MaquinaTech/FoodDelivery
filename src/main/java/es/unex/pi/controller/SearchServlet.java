@@ -62,6 +62,18 @@ public class SearchServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
 		}
+		
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
+	    restaurantDAO.setConnection(conn);
+	    List<Restaurant> restaurants = restaurantDAO.getAll();
+	    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+	    categoryDAO.setConnection(conn);
+	    List<Category> categories = categoryDAO.getAll();
+	    
+	    
+		request.setAttribute("restaurants", restaurants);
+		request.setAttribute("categories", categories);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/list.jsp");
 		view.forward(request,response);
 		
@@ -69,19 +81,7 @@ public class SearchServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    //String firstName = request.getParameter("firstName");
-	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
-	    UserDAO userDAO = new JDBCUserDAOImpl();
-	    userDAO.setConnection(conn);
-	    
-		HttpSession session = request.getSession(false);
-		String username = "";
-		if (session != null) {
-		    username = (String) session.getAttribute("username");
-		} else {
-			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
-			view.forward(request,response);
-		}
+	   
 	    
 
 	    // Go to login

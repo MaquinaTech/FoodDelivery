@@ -70,9 +70,18 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 
+	    //User auth
 	    if (isValidUser(username, password)) {
 	        HttpSession session = request.getSession(true);
 	        session.setAttribute("username", username);
+	        
+	        //Get categories
+	        Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	        CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+		    categoryDAO.setConnection(conn);
+		    List<Category> categories = categoryDAO.getAll();
+		    
+		    request.setAttribute("categories", categories);
 	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
 			view.forward(request,response);
 	    } else {

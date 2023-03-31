@@ -22,44 +22,14 @@
 				<button id="nextBtn">&rarr;</button>
 			</div>
 			<div class="search_slide">
-
-
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/hamburguesa.jpg" alt="hamburguesaCategory">
-					</a>
-					<h1>Burguer</h1>
-				</div>
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/pizza.jpg" alt="pizzaCategory" >
-					</a>
-					<h1>Pizza</h1>
-				</div>
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/sushi.jpg" alt="sushiCategory" >
-					</a>
-					<h1>Sushi</h1>
-				</div>
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/italiano.jpg" alt="italianoCategory" >
-					</a>
-					<h1>Italiano</h1>
-				</div>
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/kebab.jpg" alt="kebabCategory" >
-					</a>
-					<h1>Kebab</h1>
-				</div>
-				<div class="slide_card">
-					<a href="list.html">
-						<img src="../public/pollo.jpg" alt="polloCategory" >
-					</a>
-					<h1>Pollo</h1>
-				</div>
+				<c:forEach var="category" items="${categories}">
+				    <div class="slide_card">
+				        <a href="list.html">
+				            <img src="${pageContext.request.contextPath}/public/${category.img}" alt="Category">
+				        </a>
+				        <h1>${category.name}</h1>
+				    </div>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="search_card_bar">
