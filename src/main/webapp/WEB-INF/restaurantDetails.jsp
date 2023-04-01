@@ -55,107 +55,107 @@
                     <p><strong>Categoría:</strong> Burguer</p>
                     <p><strong>Media de valoraciones:</strong> 4/5</p>
                     <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="false"></p>
-                    <a href="restaurantEdit.html"><img src="../public/editar.png" alt="editIcon"></a>
+                    <a href="restaurantEdit.html"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
                 </div>
                 <div class="menuList">
                     <section id="hamburguesas">
                         <h1>Hamburguesas</h1>
                         <div class="dish-card">
-                            <img src="../public/whopper.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/whopper.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Whopper</h3>
                             <p>El Whopper® siempre será nuestro número uno. 
                                 Jugosa carne de vacuno de estupenda calidad a la parrilla, tomate y lechuga fresca traídos de la huerta murciana, 
                                 suave cebolla y sabroso pepinillo acompañado de mayonesa y kétchup. No olvides el esponjoso pan de semillas, 
                                 que hacen en su conjunto una hamburguesa de sabor único y que reconocerías con los ojos cerrados.</p>
-                            <p class="price">5€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">5€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/doublecheesebaconXXL.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/doublecheesebaconXXL.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Doble Cheese Bacon XXL </h3>
                             <p>Haz doble tu hamburguesa de queso, añádele bacon y ahora aumenta su tamaño… lo sabemos, impresiona. 
                                 Carne a la parrilla como nos gusta en BURGER KING, pepinillos, kétchup y mostaza comparten escenario 
                                 para mostrarte esta obra de arte.</p>
-                            <p class="price">8€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">8€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/DOBLE_CHEESEBURGER_BBQ.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/DOBLE_CHEESEBURGER_BBQ.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Doble Cheeseburger BBQ </h3>
                             <p>Es la mezcla perfecta. Doble de carne para los más hambrientos Y doble de queso para los más detallistas. 
                                 Y con una deliciosa salsa barbacoa. La Doble Cheeseburger BBQ lo tiene todo.</p>
-                            <p class="price">6€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">6€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                     </section>
                     <section id="complementos">
                         <h1>Complementos</h1>
                         <div class="dish-card">
-                            <img src="../public/patatasnormales.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/patatasnormales.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Patatas clasicas</h3>
                             <p>Las famosas patatas fritas de las que tanto has oído hablar, si estás son, las mejores, las más crujientes, 
                                 las que tienen más sabor, si las pruebas entenderás el por qué de su fama. Disponibles en varios tamaños.</p>
-                            <p class="price">3€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">3€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/patatassupreme.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/patatassupreme.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Patatas Supreme</h3>
                             <p>Ahora puedes acompañar tus menús con las deliciosas Patatas Supreme. Pruébalas además con la nueva salsa Sour Cream.</p>
-                            <p class="price">3€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">3€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/nuggets.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/nuggets.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Chicken Nuggets </h3>
                             <p>Nuevos deliciosos, crujientes, dorados… dipealos en su sabrosa salsa. disponibles en 6, 9 ó 20 uds.</p>
-                            <p class="price">3€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">3€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                     </section>
                     <section id="postres">
                         <h1>Postres</h1>
                         <div class="dish-card">
-                            <img src="../public/tarta.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/tarta.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Tarta de Queso </h3>
                             <p>Recuerda calentarlo 20 segundos en el microondas para disfrutarlo al 100%</p>
-                            <p class="price">4€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">4€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/benandjerry.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/benandjerry.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Ben & Jerrys Chocolate Fudge 465 ML </h3>
                             <p>Si eres amante del chocolate, este postre te volverá loco. Ben & Jerry,s Chocolate Fudge Brownie es la elección perfecta 
                                 para terminar una gran comida. Solo imagina una base de helado de chocolate con trozos de brownie, ¿te resistirás?. (465 ml)</p>
-                            <p class="price">8€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">8€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                     </section> 
                     <section id="bebidas">
                         <h1>Bebidas</h1>
                         <div class="dish-card">
-                            <img src="../public/cocacola.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/cocacola.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Cocacola </h3>
                             <p>Coca-Cola Sabor Original botella 500ml. Envase 100% reciclable.</p>
-                            <p class="price">3€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">3€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                         <div class="dish-card">
-                            <img src="../public/fanta.png" alt="Imagen del plato">
+                            <img src="${pageContext.request.contextPath}/public/fanta.png" alt="Imagen del plato">
                             <div class="dish-info">
                             <h3>Fanta de Naranja </h3>
                             <p>Fanta Naranja botella 500ml. Envase 100% reciclable.</p>
-                            <p class="price">3€ <img class = "Cesta-pedido" src="../public/cesta.png" alt="Cesta"></p>
+                            <p class="price">3€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             </div>
                         </div>
                     </section>  
@@ -176,7 +176,7 @@
                 </form>      
             </div>
             <div class="logo_details">
-                <img src="../public/burguerking.png" alt="logoBurguerKing">
+                <img src="${pageContext.request.contextPath}/public/burguerking.png" alt="logoBurguerKing">
             </div>
         </div>
     </div>

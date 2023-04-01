@@ -14,7 +14,7 @@
 
   <div class="editbox">
     <form action="restaurantDetails.html" method="POST">
-      <img src="../public/burguerking.png" alt="logoBurguerKing">
+      <img src="${pageContext.request.contextPath}/public/burguerking.png" alt="logoBurguerKing">
       <br><br>
       <h1>Datos Restaurante</h1>
       <div class="form-group">
@@ -127,8 +127,8 @@
         </div>
       </div>
       <div class="dishButton">
-        <button type="button" id="addNewDish"><img src="../public/add.png" alt="Añadir plato"></button>
-        <button type="button" id="deleteLastDish"><img src="../public/remove.png" alt="Eliminar plato"></button>
+        <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button>
+        <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button>
       </div>
 
 

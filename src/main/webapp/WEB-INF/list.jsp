@@ -24,7 +24,7 @@
 			<div class="search_slide">
 				<c:forEach var="category" items="${categories}">
 				    <div class="slide_card">
-				        <a href="list.html">
+				        <a href="list.jsp">
 				            <img src="${pageContext.request.contextPath}/public/${category.img}" alt="Category">
 				        </a>
 				        <h1>${category.name}</h1>
@@ -35,7 +35,7 @@
 		<div class="search_card_bar">
 			<input type="text" id="searchBar" name="searchBar"
 				placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Madrid." >
-				<a href="list.html"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
+				<a href="list.jsp"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
 		</div>
 		<div class="wrapList">
 			<div class="dropdown">
@@ -55,7 +55,8 @@
 			<div class="listRestaurants">
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="../public/hamburguesa.jpg" alt="hamburguesaCategory" >
+						<img src="${pageContext.request.contextPath}/public/hamburguesa.jpg" alt="hamburguesaCategory" >
+						
 					</a>
 					<div class="details">
 						<div class="description">
@@ -64,20 +65,20 @@
 							</a>
 							<div class="valoracion">
 								<p>4.8/5</p>
-								<img src="../public/estrella.png" alt="calificación" >
+								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
 								<b>Hamburguesas, helados, patatas</b>
 							</p>
 						</div>
 						<div class="services">
-							<div class="item"><img src="../public/reloj.png" alt="relojIcon">
+							<div class="item"><img src="${pageContext.request.contextPath}/public/reloj.png" alt="relojIcon">
 								<p>25-40 min</p>
 							</div>
-							<div class="item"><img src="../public/dinero.png" alt="dineroIcon">
+							<div class="item"><img src="${pageContext.request.contextPath}/public/dinero.png" alt="dineroIcon">
 								<p>Entrega GRATIS</p>
 							</div>
-							<div class="item"><img src="../public/send.png" alt="sendIcon">
+							<div class="item"><img src="${pageContext.request.contextPath}/public/send.png" alt="sendIcon">
 								<p>Sin pedido mínimo </p>
 							</div>
 						</div>
@@ -86,7 +87,7 @@
 				</div>
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="../public/pizza.jpg" alt="pizaaCategory" >
+						<img src="${pageContext.request.contextPath}/public/pizza.jpg" alt="pizaaCategory" >
 					</a>
 					<div class="details">
 						<div class="description">
@@ -95,20 +96,20 @@
 							</a>
 							<div class="valoracion">
 								<p>4.6 / 5</p>
-								<img src="../public/estrella.png" alt="calificación" >
+								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
 								<b>Pizzas, Calzone, Bebidas</b>
 							</p>
 						</div>
 						<div class="services">
-							<div class="item"><img src="../public/reloj.png" alt="relojIcon">
+							<div class="item"><img src="${pageContext.request.contextPath}/public/reloj.png" alt="relojIcon">
 								<p>25-40 min</p>
 							</div>
-							<div class="item"><img src="../public/dinero.png" alt="dineroIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/dinero.png" alt="dineroIcon" >
 								<p>Entrega GRATIS</p>
 							</div>
-							<div class="item"><img src="../public/send.png" alt="sendIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/send.png" alt="sendIcon" >
 								<p>Sin pedido mínimo </p>
 							</div>
 						</div>
@@ -116,7 +117,7 @@
 				</div>
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="../public/sushi.jpg" alt="sushiCategory" >
+						<img src="${pageContext.request.contextPath}/public/sushi.jpg" alt="sushiCategory" >
 					</a>
 					<div class="details">
 						<div class="description">
@@ -125,20 +126,20 @@
 							</a>
 							<div class="valoracion">
 								<p>4.2 / 5</p>
-								<img src="../public/estrella.png" alt="calificación" >
+								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
 								<b>Rolls, Niguiris, Tartar</b>
 							</p>
 						</div>
 						<div class="services">
-							<div class="item"><img src="../public/reloj.png" alt="relojIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/reloj.png" alt="relojIcon" >
 								<p>25-40 min</p>
 							</div>
-							<div class="item"><img src="../public/dinero.png" alt="dineroIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/dinero.png" alt="dineroIcon" >
 								<p>Entrega GRATIS</p>
 							</div>
-							<div class="item"><img src="../public/send.png" alt="sendIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/send.png" alt="sendIcon" >
 								<p>Sin pedido mínimo </p>
 							</div>
 						</div>
@@ -146,7 +147,7 @@
 				</div>
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="../public/italiano.jpg" alt="italianoCategory" >
+						<img src="${pageContext.request.contextPath}/public/italiano.jpg" alt="italianoCategory" >
 					</a>
 					<div class="details">
 						<div class="description">
@@ -155,20 +156,20 @@
 							</a>
 							<div class="valoracion">
 								<p>4.0 / 5</p>
-								<img src="../public/estrella.png" alt="calificación" >
+								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
 								<b>Pasta, Lasagna, Risoto</b>
 							</p>
 						</div>
 						<div class="services">
-							<div class="item"><img src="../public/reloj.png" alt="relojIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/reloj.png" alt="relojIcon" >
 								<p>25-40 min</p>
 							</div>
-							<div class="item"><img src="../public/dinero.png" alt="dineroIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/dinero.png" alt="dineroIcon" >
 								<p>Entrega GRATIS</p>
 							</div>
-							<div class="item"><img src="../public/send.png" alt="sendIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/send.png" alt="sendIcon" >
 								<p>Sin pedido mínimo </p>
 							</div>
 						</div>
@@ -176,7 +177,7 @@
 				</div>
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="../public/kebab.jpg" alt="kebabCategory" >
+						<img src="${pageContext.request.contextPath}/public/kebab.jpg" alt="kebabCategory" >
 					</a>
 					<div class="details">
 						<div class="description">
@@ -185,20 +186,20 @@
 							</a>
 							<div class="valoracion">
 								<p>3.5 / 5</p>
-								<img src="../public/estrella.png" alt="calificación" >
+								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
 								<b>Kebab, Durum, Lamacum</b>
 							</p>
 						</div>
 						<div class="services">
-							<div class="item"><img src="../public/reloj.png" alt="relojIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/reloj.png" alt="relojIcon" >
 								<p>25-40 min</p>
 							</div>
-							<div class="item"><img src="../public/dinero.png" alt="dineroIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/dinero.png" alt="dineroIcon" >
 								<p>Entrega GRATIS</p>
 							</div>
-							<div class="item"><img src="../public/send.png" alt="sendIcon" >
+							<div class="item"><img src="${pageContext.request.contextPath}/public/send.png" alt="sendIcon" >
 								<p>Sin pedido mínimo </p>
 							</div>
 						</div>
