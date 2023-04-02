@@ -30,6 +30,7 @@ public class JDBCCategoryDAOImpl implements CategoryDAO {
 			category.setId(rs.getInt("id"));
 			category.setName(rs.getString("name"));
 			category.setDescription(rs.getString("description"));
+			category.setImg(rs.getString("img"));
 			
 			logger.info("fetching Category by id: "+id+" -> "+category.getId()+" "+category.getName()+" "+category.getDescription());
 		} catch (SQLException e) {
@@ -53,6 +54,7 @@ public class JDBCCategoryDAOImpl implements CategoryDAO {
 			category.setId(rs.getInt("id"));
 			category.setName(rs.getString("name"));
 			category.setDescription(rs.getString("description"));
+			category.setImg(rs.getString("img"));
 			
 			logger.info("fetching Category by name: "+category.getId()+" "+category.getName()+" "+category.getDescription());
 		} catch (SQLException e) {
@@ -78,6 +80,7 @@ public class JDBCCategoryDAOImpl implements CategoryDAO {
 				category.setId(rs.getInt("id"));
 				category.setName(rs.getString("name"));
 				category.setDescription(rs.getString("description"));
+				category.setImg(rs.getString("img"));
 				
 				categories.add(category);
 				logger.info("fetching Categories: "+category.getId()+" "+category.getName()+" "+category.getDescription());
@@ -107,6 +110,7 @@ public class JDBCCategoryDAOImpl implements CategoryDAO {
 				category.setId(rs.getInt("id"));
 				category.setName(rs.getString("name"));
 				category.setDescription(rs.getString("description"));
+				category.setImg(rs.getString("img"));
 				
 				categories.add(category);
 				

@@ -38,6 +38,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Get Restaurants Details");
+		long id = request.getParameter("id");
 		
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -49,14 +50,14 @@ public class restaurantDetailsServlet extends HttpServlet {
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
-	    List<Restaurant> restaurants = restaurantDAO.getAll();
-	    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
-	    categoryDAO.setConnection(conn);
-	    List<Category> categories = categoryDAO.getAll();
+	    Restaurant restaurant = restaurantDAO.get(id);
+	    
+	    DishDAO dishDAO = new JDBCDishDAOImpl();
+	    restaurantDAO.setConnection(conn);
+	    Restaurant restaurant = restaurantDAO.get(id);
 	    
 	    
-		request.setAttribute("restaurants", restaurants);
-		request.setAttribute("categories", categories);
+		request.setAttribute("restaurant", restaurant);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
 		view.forward(request,response);
 		

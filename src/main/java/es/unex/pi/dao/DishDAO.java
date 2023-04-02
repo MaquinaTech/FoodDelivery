@@ -35,6 +35,16 @@ public interface DishDAO {
 	 * @return Dish object with that name.
 	 */
 	public Dish get(String name);
+	
+	/**
+	 * Gets a dish from the DB using name.
+	 * 
+	 * @param name
+	 *            Dish name.
+	 * 
+	 * @return Dish object with that name.
+	 */
+	public List<Dish> getByRestaurant(long idr);
 
 	
 	/**

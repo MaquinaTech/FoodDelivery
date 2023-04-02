@@ -13,6 +13,8 @@ public class Restaurant {
 	private int gradesAverage;
 	private int bikeFriendly;
 	private int available;
+	private String img;
+	private String desc;
 	private int idu;
 	
 	

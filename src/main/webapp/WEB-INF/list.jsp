@@ -53,15 +53,16 @@
 
 			</div>
 			<div class="listRestaurants">
+			<c:forEach var="restaurant" items="${restaurants}">
 				<div class="card">
 					<a href="restaurantDetails.html">
-						<img src="${pageContext.request.contextPath}/public/hamburguesa.jpg" alt="hamburguesaCategory" >
+						<img src="${pageContext.request.contextPath}/public/${restaurant.img}" alt="hamburguesaCategory" >
 						
 					</a>
 					<div class="details">
 						<div class="description">
 							<a href="restaurantDetails.html">
-								<p class="title"><b>Burguer King</b></p>
+								<p class="title"><b>${restaurant.name}</b></p>
 							</a>
 							<div class="valoracion">
 								<p>4.8/5</p>
