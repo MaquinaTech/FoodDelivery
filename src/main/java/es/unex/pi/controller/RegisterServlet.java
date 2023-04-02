@@ -72,6 +72,7 @@ public class RegisterServlet extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String email = request.getParameter("email");
 	    String password = request.getParameter("password");
+	    
 	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    UserDAO userDAO = new JDBCUserDAOImpl();
 	    userDAO.setConnection(conn);
