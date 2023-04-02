@@ -7,8 +7,10 @@ import java.util.logging.Logger;
 
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
+import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.RestaurantDAO;
+import es.unex.pi.dao.DishDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Restaurant;
 import jakarta.servlet.RequestDispatcher;
@@ -38,7 +40,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Get Restaurants Details");
-		long id = request.getParameter("id");
+		long id = Long.parseLong(request.getParameter("id"));
 		
 		HttpSession session = request.getSession(false);
 		if (session != null) {
@@ -53,8 +55,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    Restaurant restaurant = restaurantDAO.get(id);
 	    
 	    DishDAO dishDAO = new JDBCDishDAOImpl();
-	    restaurantDAO.setConnection(conn);
-	    Restaurant restaurant = restaurantDAO.get(id);
+	    dishDAO.setConnection(conn);
 	    
 	    
 		request.setAttribute("restaurant", restaurant);

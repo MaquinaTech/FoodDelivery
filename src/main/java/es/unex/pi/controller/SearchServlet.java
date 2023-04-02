@@ -82,8 +82,6 @@ public class SearchServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	   
-	    
-
 	    // Go to login
 	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 	    view.forward(request, response);

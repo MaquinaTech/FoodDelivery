@@ -31,13 +31,14 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			restaurant.setAddress(rs.getString("address"));
 			restaurant.setTelephone(rs.getString("telephone"));
 			restaurant.setCity(rs.getString("city"));
-			restaurant.setIdu(rs.getInt("idu"));
 			restaurant.setGradesAverage(rs.getInt("gradesAverage"));
 			restaurant.setMinPrice(rs.getInt("minPrice"));
 			restaurant.setContactEmail(rs.getString("contactemail"));
 			restaurant.setMaxPrice(rs.getInt("maxPrice"));
 			restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 			restaurant.setAvailable(rs.getInt("available"));
+			restaurant.setImg(rs.getString("img"));
+			restaurant.setSubtitulo(rs.getString("subtitulo"));
 
 			logger.info("fetching restaurant: "+restaurant.getId());
 			
@@ -66,13 +67,15 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setAddress(rs.getString("address"));
 				restaurant.setTelephone(rs.getString("telephone"));
 				restaurant.setCity(rs.getString("city"));
-				restaurant.setIdu(rs.getInt("idu"));
 				restaurant.setGradesAverage(rs.getInt("gradesAverage"));
 				restaurant.setMinPrice(rs.getInt("minPrice"));
 				restaurant.setContactEmail(rs.getString("contactemail"));
 				restaurant.setMaxPrice(rs.getInt("maxPrice"));
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
+				restaurant.setAvailable(rs.getInt("available"));
+				restaurant.setImg(rs.getString("img"));
+				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				
 				restaurants.add(restaurant);
 				logger.info("fetching restaurant: "+restaurant.getId());							
@@ -111,6 +114,8 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setMaxPrice(rs.getInt("maxPrice"));
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
+				restaurant.setImg(rs.getString("img"));
+				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				
 				restaurants.add(restaurant);
 				
@@ -153,6 +158,8 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setMaxPrice(rs.getInt("maxPrice"));
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
+				restaurant.setImg(rs.getString("img"));
+				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				restaurants.add(restaurant);
 		
 				logger.info("fetching restaurants: "+restaurant.getId());
@@ -195,7 +202,7 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				stmt.executeUpdate("INSERT INTO restaurant (name,address,telephone,idu,gradesAverage,city,minPrice,contactemail,maxPrice,bikeFriendly,available) VALUES('"
 									+restaurant.getName()+"','"+restaurant.getAddress()+"','" + restaurant.getTelephone() + "'," 
 									+ restaurant.getIdu() + "," + restaurant.getGradesAverage()+",'"+ restaurant.getCity() +"',"+ restaurant.getMinPrice() +",'" + restaurant.getContactEmail() + "'," 
-									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() + ")");
+									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() + restaurant.getImg() + restaurant.getSubtitulo() + ")");
 				
 								
 			} catch (SQLException e) {
@@ -239,6 +246,8 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				+"', maxPrice="+restaurant.getMaxPrice()
 				+", bikeFriendly="+restaurant.getBikeFriendly()
 				+", available="+restaurant.getAvailable()
+				+", img="+restaurant.getImg()
+				+", subtitulo="+restaurant.getSubtitulo()
 				+" WHERE id = "+restaurant.getId());
 				logger.info("updating restaurant: "+restaurant.getId());
 						

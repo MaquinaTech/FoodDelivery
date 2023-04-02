@@ -7,6 +7,7 @@ public class Restaurant {
 	private String address;
 	private String telephone;
 	private String city;
+	private int Idu;
 	private int minPrice;
 	private int maxPrice;
 	private String contactEmail;
@@ -14,12 +15,23 @@ public class Restaurant {
 	private int bikeFriendly;
 	private int available;
 	private String img;
-	private String desc;
-	private int idu;
+	private String subtitulo;
 	
 	
 	
 	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getSubtitulo() {
+		return subtitulo;
+	}
+	public void setSubtitulo(String subtitulo) {
+		this.subtitulo = subtitulo;
+	}
 	public String getName() {
 		return name;
 	}
@@ -69,6 +81,12 @@ public class Restaurant {
 		this.id = id;
 	}
 	
+	public int getIdu() {
+		return Idu;
+	}
+	public void setIdu(int idu) {
+		Idu = idu;
+	}
 	
 	public String getTelephone() {
 		return telephone;
@@ -88,12 +106,7 @@ public class Restaurant {
 	public void setAvailable(int available) {
 		this.available = available;
 	}
-	public int getIdu() {
-		return idu;
-	}
-	public void setIdu(int idu) {
-		this.idu = idu;
-	}
+
 
 
 	
