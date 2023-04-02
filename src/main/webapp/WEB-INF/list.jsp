@@ -86,6 +86,7 @@
 					</div>
 
 				</div>
+			</c:forEach>
 				<div class="card">
 					<a href="restaurantDetails.html">
 						<img src="${pageContext.request.contextPath}/public/pizza.jpg" alt="pizaaCategory" >
