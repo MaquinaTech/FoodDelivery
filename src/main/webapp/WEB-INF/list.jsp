@@ -39,11 +39,36 @@
 		</div>
 		<div class="wrapList">
 			<div class="dropdown">
-			<c:forEach var="category" items="${categories}">
-				    <div class="dropdown-contentVisible">
-			           <a href="list.jsp">${category.name}</a>
-				    </div>
+
+				<c:forEach var="category" items="${categories}" varStatus="loopStatus">
+				    <c:choose>
+				        <c:when test="${loopStatus.index < 3}">
+				            <c:if test="${loopStatus.index == 0}">
+				                <div class="dropdown-contentVisible">
+				            </c:if>
+				            <a href="list.jsp">${category.name}</a>
+				            <c:if test="${loopStatus.index == 2}">
+				                </div>
+				            </c:if>
+				        </c:when>
+				        <c:otherwise>
+				        	<c:if test="${loopStatus.index == 3}">
+				                <span class="dropdown-content">
+				            </c:if>
+				            <a href="list.jsp">${category.name}</a>
+				            
+				            <c:if test="${loopStatus.index == 6}">
+								</span>
+							</c:if>            
+				        </c:otherwise>
+				    </c:choose>
 				</c:forEach>
+				
+
+
+								
+
+				<button class="dropbtn">Más</button>
 
 			</div>
 			<div class="listRestaurants">
@@ -54,9 +79,9 @@
 					</a>
 					<div class="details">
 						<div class="description">
-							<a href="restaurantDetailsServlet.do">
-								<p class="title"><b>${restaurant.name}</b></p>
-							</a>
+								<p class="title">
+									<a href="restaurantDetailsServlet.do"><b>${restaurant.name}</b></a>
+								</p>
 							<div class="valoracion">
 								<p>${restaurant.gradesAverage}</p>
 								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
