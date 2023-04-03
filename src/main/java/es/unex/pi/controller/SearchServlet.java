@@ -70,9 +70,32 @@ public class SearchServlet extends HttpServlet {
 	    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
 	    categoryDAO.setConnection(conn);
 	    List<Category> categories = categoryDAO.getAll();
+	    RestaurantCategoriesDAO restaurantCategoriesDAO = new JDBCRestaurantCategoriesDAOImpl();
+	    restaurantCategoriesDAO.setConnection(conn);
 	    
 	    
-		request.setAttribute("restaurants", restaurants);
+	    String address = request.getParameter("address");
+		String category = request.getParameter("category");
+		Category cat = categoryDAO.get(category);
+		
+		List<Restaurant> filterRestaurants = new ArrayList<Restaurant>();
+		List<Long> RestCat = restaurantCategoriesDAO.getAllIdsByCategory(cat.getId());
+		
+		if(category != null) {
+			Iterator<Restaurant> itRestaurantList = restaurants.iterator();
+			while(itRestaurantList.hasNext()) {
+				Restaurant it = (Restaurant) itRestaurantList.next();
+				if(RestCat.contains(it.getId())) {
+					filterRestaurants.add((it) );
+				}
+			}
+		}
+		/*if(address != null) {
+			
+		}*/
+	    
+	    
+		request.setAttribute("restaurants", filterRestaurants);
 		request.setAttribute("categories", categories);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/list.jsp");
 		view.forward(request,response);

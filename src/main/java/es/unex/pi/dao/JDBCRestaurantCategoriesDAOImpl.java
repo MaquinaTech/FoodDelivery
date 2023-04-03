@@ -71,6 +71,33 @@ public class JDBCRestaurantCategoriesDAOImpl implements RestaurantCategoriesDAO 
 	}
 	
 	@Override
+	public List<Long> getAllIdsByCategory(long idct) {
+		
+		if (conn == null) return null;
+						
+		ArrayList<Long> restaurantCategoriesList = new ArrayList<Long>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM RestaurantCategories WHERE idct="+idct);
+
+			while ( rs.next() ) {
+				RestaurantCategories restaurantCategories = new RestaurantCategories();
+				restaurantCategories.setIdr(rs.getInt("idr"));
+				restaurantCategories.setIdct(rs.getInt("idct"));
+
+				restaurantCategoriesList.add(restaurantCategories.getIdr());
+				logger.info("fetching all RestaurantCategories by idr: "+restaurantCategories.getIdr()+"->"+restaurantCategories.getIdct());
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return restaurantCategoriesList;
+	}
+	
+	@Override
 	public List<RestaurantCategories> getAllByRestaurant(long idr) {
 		
 		if (conn == null) return null;

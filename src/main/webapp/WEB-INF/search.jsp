@@ -22,7 +22,7 @@
           </div>
           <div class="search_card_bar">
             <form action="SearchServlet.do" method="GET" class="search_card_form" id="searchForm">
-			    <input type="text" id="searchBar" name="searchBar" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Cáceres.">
+			    <input type="text" id="address" name="address" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Cáceres.">
 			    <button id="searchButton" type="submit"><b>Search</b></button>
 			</form>
 
@@ -40,9 +40,10 @@
             
 		<c:forEach var="category" items="${categories}">
 		    <div class="slide_card">
-		        <a href="list.html">
-		            <img src="${pageContext.request.contextPath}/public/${category.img}" alt="Category">
-		        </a>
+		        <a href='SearchServlet.do?category=${category.name}'>
+				    <img src="${pageContext.request.contextPath}/public/${category.img}" alt="Category">
+				</a>
+
 		        <h1>${category.name}</h1>
 		    </div>
 		</c:forEach>

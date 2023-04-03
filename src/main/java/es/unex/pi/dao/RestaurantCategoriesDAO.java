@@ -35,6 +35,16 @@ public interface RestaurantCategoriesDAO {
 	public List<RestaurantCategories> getAllByCategory(long idct);
 	
 	/**
+	 *Gets all the Restaurants id that are related to a category.
+	 * 
+	 * @param idct
+	 *            Category identifier
+	 * 
+	 * @return List of all the Restaurants ids related to a category.
+	 */
+	public List<Long> getAllIdsByCategory(long idct);
+	
+	/**
 	 * Gets all the RestaurantCategory that contains an specific restaurant.
 	 * 
 	 * @param idr
