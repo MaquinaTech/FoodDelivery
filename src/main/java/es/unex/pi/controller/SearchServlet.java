@@ -76,27 +76,52 @@ public class SearchServlet extends HttpServlet {
 	    
 	    String address = request.getParameter("address");
 		String category = request.getParameter("category");
-		Category cat = categoryDAO.get(category);
 		
-		List<Restaurant> filterRestaurants = new ArrayList<Restaurant>();
-		List<Long> RestCat = restaurantCategoriesDAO.getAllIdsByCategory(cat.getId());
-		
+		//Filter category
+		List<Restaurant> filterRestaurantsCategory = null;
 		if(category != null) {
+			filterRestaurantsCategory = new ArrayList<Restaurant>();
+			Category cat = categoryDAO.get(category);
+			List<Long> RestCat = restaurantCategoriesDAO.getAllIdsByCategory(cat.getId());
 			Iterator<Restaurant> itRestaurantList = restaurants.iterator();
 			while(itRestaurantList.hasNext()) {
 				Restaurant it = (Restaurant) itRestaurantList.next();
 				if(RestCat.contains(it.getId())) {
-					filterRestaurants.add((it) );
+					filterRestaurantsCategory.add((it) );
 				}
 			}
 		}
-		/*if(address != null) {
-			
-		}*/
+		
+		//Filter address
+		List<Restaurant> filterRestaurantsAddressCat = null;
+		if(address != null) {
+			filterRestaurantsAddressCat = new ArrayList<Restaurant>();
+			filterRestaurantsAddressCat = restaurantDAO.getAllBySearchAddress(address);
+			if(category != null) {
+				Iterator<Restaurant> itRestaurantListAddress = filterRestaurantsCategory.iterator();
+				while(itRestaurantListAddress.hasNext()) {
+					Restaurant it = (Restaurant) itRestaurantListAddress.next();
+					if(!filterRestaurantsAddressCat.contains(it)) {
+						filterRestaurantsAddressCat.remove(it);
+					}
+					
+				}
+			}
+		}
+		
 	    
-	    
-		request.setAttribute("restaurants", filterRestaurants);
+	    if(filterRestaurantsAddressCat !=  null) {
+	    	request.setAttribute("restaurants", filterRestaurantsAddressCat);
+	    }
+	    else if(filterRestaurantsCategory !=  null) {
+	    	request.setAttribute("restaurants", filterRestaurantsCategory);
+	    }
+	    else {
+	    	request.setAttribute("restaurants", restaurants);
+	    }
+	    String categoryFilter = request.getParameter("categoryFilter");
 		request.setAttribute("categories", categories);
+		request.setAttribute("category", categoryFilter);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/list.jsp");
 		view.forward(request,response);
 		

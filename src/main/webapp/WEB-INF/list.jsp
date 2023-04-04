@@ -24,7 +24,7 @@
 			<div class="search_slide">
 				<c:forEach var="category" items="${categories}">
 				    <div class="slide_card">
-				        <a href="list.jsp">
+				        <a href='SearchServlet.do?category=${category.name}'>
 				            <img src="${pageContext.request.contextPath}/public/${category.img}" alt="Category">
 				        </a>
 				        <h1>${category.name}</h1>
@@ -32,10 +32,12 @@
 				</c:forEach>
 			</div>
 		</div>
+		
+		AQUI HAY QUE PASAR EL SEARCH BAR A UN DOCUMENTO APARTE E IMPORTARLO COMO SE HACE CON EL HEAD Y EL FOOTER
 		<div class="search_card_bar">
-			<input type="text" id="searchBar" name="searchBar"
+				<input type="text" id="searchBar" name="searchBar"
 				placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Madrid." >
-				<a href="list.jsp"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
+				<a href="SearchServlet.do"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
 		</div>
 		<div class="wrapList">
 			<div class="dropdown">
@@ -46,7 +48,7 @@
 				            <c:if test="${loopStatus.index == 0}">
 				                <div class="dropdown-contentVisible">
 				            </c:if>
-				            <a href="list.jsp">${category.name}</a>
+				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
 				            <c:if test="${loopStatus.index == 2}">
 				                </div>
 				            </c:if>
@@ -55,7 +57,7 @@
 				        	<c:if test="${loopStatus.index == 3}">
 				                <span class="dropdown-content">
 				            </c:if>
-				            <a href="list.jsp">${category.name}</a>
+				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
 				            
 				            <c:if test="${loopStatus.index == 6}">
 								</span>

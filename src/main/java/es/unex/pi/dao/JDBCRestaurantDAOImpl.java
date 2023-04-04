@@ -1,6 +1,7 @@
 package es.unex.pi.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,6 +84,43 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+		return restaurants;
+	}
+	
+	public List<Restaurant> getAllBySearchAddress(String address) {
+
+		if (conn == null) return null;
+		
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE ? OR city LIKE ?");
+			pstmt.setString(1, "%" + address + "%");
+			pstmt.setString(2, "%" + address + "%");
+		    ResultSet rs = pstmt.executeQuery();
+		    while (rs.next()) {
+		        Restaurant restaurant = new Restaurant();
+		        restaurant.setId(rs.getInt("id"));
+		        restaurant.setName(rs.getString("name"));
+		        restaurant.setAddress(rs.getString("address"));
+		        restaurant.setTelephone(rs.getString("telephone"));
+		        restaurant.setCity(rs.getString("city"));
+		        restaurant.setGradesAverage(rs.getInt("gradesAverage"));
+		        restaurant.setMinPrice(rs.getInt("minPrice"));
+		        restaurant.setContactEmail(rs.getString("contactemail"));
+		        restaurant.setMaxPrice(rs.getInt("maxPrice"));
+		        restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
+		        restaurant.setAvailable(rs.getInt("available"));
+		        restaurant.setImg(rs.getString("img"));
+		        restaurant.setSubtitulo(rs.getString("subtitulo"));
+		        
+		        restaurants.add(restaurant);
+		        logger.info("fetching restaurant: " + restaurant.getId());                            
+		    }
+
+		} catch (SQLException e) {
+		    e.printStackTrace();
 		}
 
 		return restaurants;
