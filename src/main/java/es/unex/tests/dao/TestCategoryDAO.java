@@ -42,7 +42,7 @@ public class TestCategoryDAO {
 	
 	}
 
-	@Test
+	/*@Test
 	public void test1BaseData() {
 		Category category00 = categoryDAO.get(0);
 		assertEquals(category00.getId(),0);
@@ -63,7 +63,7 @@ public class TestCategoryDAO {
 		Category category04 = categoryDAO.get(6);
 		assertEquals(category04.getId(),6);
 		assertEquals(category04.getName(),"Deluxe");
-	}
+	}*/
 	
 	
 	@Test

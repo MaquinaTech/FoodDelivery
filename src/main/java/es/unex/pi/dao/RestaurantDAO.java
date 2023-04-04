@@ -46,6 +46,16 @@ public interface RestaurantDAO {
 	/**
 	 * Gets all the restaurants from the database that contain a text in the name.
 	 * 
+	 * @param address
+	 *            Search string .
+	 * 
+	 * @return List of all the restaurants from the database that contain a text either in the address.
+	 */	
+	public List<Restaurant> getAllBySearchAddressCategory(String address, Integer category);
+	
+	/**
+	 * Gets all the restaurants from the database that contain a text in the name.
+	 * 
 	 * @param search
 	 *            Search string .
 	 * 

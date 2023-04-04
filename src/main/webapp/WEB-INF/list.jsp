@@ -32,13 +32,13 @@
 				</c:forEach>
 			</div>
 		</div>
-		
-		AQUI HAY QUE PASAR EL SEARCH BAR A UN DOCUMENTO APARTE E IMPORTARLO COMO SE HACE CON EL HEAD Y EL FOOTER
-		<div class="search_card_bar">
-				<input type="text" id="searchBar" name="searchBar"
-				placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Madrid." >
-				<a href="SearchServlet.do"><button id="searchButton" name="searchButton"><b>Search</b></button></a>
+		<div class="search_card_bar_list">
+			<form action="SearchServlet.do" method="GET" class="search_card_form_list" id="searchForm">
+			    <input type="text" id="address" name="address" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Cáceres.">
+			    <button id="searchButton" type="submit"><b>Search</b></button>
+			</form>
 		</div>
+		
 		<div class="wrapList">
 			<div class="dropdown">
 
@@ -76,7 +76,7 @@
 			<div class="listRestaurants">
 			<c:forEach var="restaurant" items="${restaurants}">
 				<div class="card">
-					<a href="restaurantDetails.html">
+					<a href="restaurantDetailsServlet.do?name=${restaurant.name}">
 						<img src="${pageContext.request.contextPath}/public/${restaurant.img}" alt="hamburguesaCategory" >						
 					</a>
 					<div class="details">

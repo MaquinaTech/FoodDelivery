@@ -126,6 +126,54 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 		return restaurants;
 	}
 	
+	public List<Restaurant> getAllBySearchAddressCategory(String address, Integer category) {
+
+		if (conn == null) return null;
+		
+		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE ? OR city LIKE ? ");
+			pstmt.setString(1, "%" + address + "%");
+			pstmt.setString(2, "%" + address + "%");
+		    ResultSet rs = pstmt.executeQuery();
+		    PreparedStatement pstmt2 = conn.prepareStatement("SELECT * FROM restaurantCategories WHERE idct = "+category);
+		    ResultSet ct = pstmt2.executeQuery();
+		    boolean bandera = false;
+		    while (rs.next()) {
+		    	bandera = false;
+		    	while (ct.next() && bandera==false) {
+		    		if(ct.getInt("idr") == rs.getInt("id")) {
+		    			bandera=true;
+		    		}
+		    	}
+		    	if(bandera == true) {
+			        Restaurant restaurant = new Restaurant();
+			        restaurant.setId(rs.getInt("id"));
+			        restaurant.setName(rs.getString("name"));
+			        restaurant.setAddress(rs.getString("address"));
+			        restaurant.setTelephone(rs.getString("telephone"));
+			        restaurant.setCity(rs.getString("city"));
+			        restaurant.setGradesAverage(rs.getInt("gradesAverage"));
+			        restaurant.setMinPrice(rs.getInt("minPrice"));
+			        restaurant.setContactEmail(rs.getString("contactemail"));
+			        restaurant.setMaxPrice(rs.getInt("maxPrice"));
+			        restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
+			        restaurant.setAvailable(rs.getInt("available"));
+			        restaurant.setImg(rs.getString("img"));
+			        restaurant.setSubtitulo(rs.getString("subtitulo"));
+			        
+			        restaurants.add(restaurant);
+			        logger.info("fetching restaurant: " + restaurant.getId());
+		    	}
+		    }
+
+		} catch (SQLException e) {
+		    e.printStackTrace();
+		}
+
+		return restaurants;
+	}
+	
 	public List<Restaurant> getAllBySearchName(String search) {
 		search = search.toUpperCase();
 		if (conn == null)

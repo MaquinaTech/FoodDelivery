@@ -23,7 +23,6 @@
           <div class="search_card_bar">
             <form action="SearchServlet.do" method="GET" class="search_card_form" id="searchForm">
 			    <input type="text" id="address" name="address" placeholder="Introduce tu dirección, Ej. Calle Alcalá, 6, Cáceres.">
-			    <input type="text" id="categoryFilter" name="categoryFilter" hidden="true" value="${category}" }>
 			    <button id="searchButton" type="submit"><b>Search</b></button>
 			</form>
 

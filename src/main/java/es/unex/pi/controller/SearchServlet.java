@@ -76,7 +76,7 @@ public class SearchServlet extends HttpServlet {
 	    
 	    String address = request.getParameter("address");
 		String category = request.getParameter("category");
-		
+			
 		//Filter category
 		List<Restaurant> filterRestaurantsCategory = null;
 		if(category != null) {
@@ -91,6 +91,7 @@ public class SearchServlet extends HttpServlet {
 				}
 			}
 		}
+		
 		
 		//Filter address
 		List<Restaurant> filterRestaurantsAddressCat = null;
@@ -108,8 +109,8 @@ public class SearchServlet extends HttpServlet {
 				}
 			}
 		}
-		
-	    
+	
+		//Set attributes to request
 	    if(filterRestaurantsAddressCat !=  null) {
 	    	request.setAttribute("restaurants", filterRestaurantsAddressCat);
 	    }
@@ -119,9 +120,9 @@ public class SearchServlet extends HttpServlet {
 	    else {
 	    	request.setAttribute("restaurants", restaurants);
 	    }
-	    String categoryFilter = request.getParameter("categoryFilter");
+		
+		//Set categories to request
 		request.setAttribute("categories", categories);
-		request.setAttribute("category", categoryFilter);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/list.jsp");
 		view.forward(request,response);
 		

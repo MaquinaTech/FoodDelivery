@@ -1,5 +1,9 @@
 	/*-------------- HEADER ---------------*/
 
+  .none {
+	display:none !important;
+  }
+
   header {
     display: flex;
     align-items: center;
@@ -267,8 +271,13 @@
   .search_card_form {
   	width:50%;
   }
+  
+  .search_card_form_list {
+  	width:100%;
+  	display:flex;
+  }
 
-  .search_card_bar input[name="searchBar"] {
+  .search_card_bar input[name="address"] {
     width:100%;
     min-height: 50px;
     position: relative;
@@ -301,6 +310,65 @@
   }
 
   .search_card_bar button:hover {
+    background-color: #ff3e3e;
+    cursor:pointer;
+  }
+  
+  /*--------------------------------------*/
+  
+  .search_card_bar_list {
+    justify-content: flex-end;
+    display:flex;
+    height:50px;
+    width:100%;
+    margin-top:30px;
+  }
+  
+  .search_card_form_list {
+  	width:40%;
+  	align-items: flex-end;
+  	
+  }
+  
+  .search_card_form_list {
+  	width:40%;
+  	display:flex;
+  	padding-right:3%;
+  }
+
+  .search_card_bar_list input[name="address"] {
+    width:100%;
+    min-height: 50px;
+    position: relative;
+    padding: 0;
+    margin-left:0px !important;
+    margin-bottom: 0;
+    border-radius: 30px;
+    text-align: center;
+    font-size: larger;
+    padding-right: 40px;
+  }
+  
+  .search_card_bar_list button {
+    width:10%;
+    position: absolute;
+    min-width: fit-content;
+    padding-right: 50px !important;
+    padding-left: 50px !important;
+    padding-top: 10px !important;
+    padding-bottom: 15px !important;
+    border-radius: 30px;
+  }
+  
+  .search_card_bar_list a {
+   margin-top:-2px !important;
+  }
+
+  .search_card_bar_list button b{
+    font-size: large;
+  }
+
+  .search_card_bar_list button:hover {
     background-color: #ff3e3e;
     cursor:pointer;
   }
