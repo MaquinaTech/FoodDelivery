@@ -38,12 +38,12 @@
       <div class="input_flex">
         <div>
           <p>Mínimo:</p>
-          <input type="range" id="range-min" name="range-min" min="0" max="100" value="0">
+          <input type="range" id="range-min" name="range-min" min="0" max="100" value="${restaurant.minPrice }">
           <p id="range-value-min"></p>
         </div>
         <div>
           <p>Máximo:</p>
-          <input type="range" id="range-max" name="range-max" min="0" max="100" value="100">
+          <input type="range" id="range-max" name="range-max" min="0" max="100" value="${restaurant.maxPrice }">
           <p id="range-value-max"></p>
         </div>
       </div>
@@ -51,16 +51,16 @@
       <br><br>
       <h2>Media de Valoración de los usuarios</h2>
       <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4" checked>
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
+        <input type="radio" id="star5" name="rating" value="5" ${restaurant.gradesAverage == 5 ? 'checked' : ''}>
+	    <label for="star5">&#9733;</label>
+	    <input type="radio" id="star4" name="rating" value="4" ${restaurant.gradesAverage == 4 ? 'checked' : ''}>
+	    <label for="star4">&#9733;</label>
+	    <input type="radio" id="star3" name="rating" value="3" ${restaurant.gradesAverage == 3 ? 'checked' : ''}>
+	    <label for="star3">&#9733;</label>
+	    <input type="radio" id="star2" name="rating" value="2" ${restaurant.gradesAverage == 2 ? 'checked' : ''}>
+	    <label for="star2">&#9733;</label>
+	    <input type="radio" id="star1" name="rating" value="1" ${restaurant.gradesAverage	 == 1 ? 'checked' : ''}>
+	    <label for="star1">&#9733;</label>
       </div>  
 
       <br><br>
@@ -88,25 +88,20 @@
       </div>
 
       <div class="dish" id="dish">
-        <div>
-          <h2>Nuevo Plato</h2>
-          <label>Foto:</label>
-          <input type="file" name="dishPhoto">
-          <br><br>
-          <label>Nombre:</label>
-          <input type="text" name="dishName" placeholder="Nombre del plato">
-          <label>Descripción:</label>
-          <textarea name="dishDescription" placeholder="Descripción del plato"></textarea>
-          <label>Precio:</label>
-          <input type="number" name="dishPrice" step="0.01" placeholder="Precio del plato (usar . para decimales)">
-          <label>Tipo:</label>
-          <select name="typeDish">
-            <option value="principal">Principal</option>
-            <option value="complemento">Complemento</option>
-            <option value="postre">Postre</option>
-            <option value="bebida">Bebida</option>
-          </select>          
-        </div>
+      	<c:forEach var="dish" items="${dishes}">
+	        <div>
+	          <h2>Nuevo Plato</h2>
+	          <label>Foto:</label>
+	          <input type="file" name="dishPhoto">
+	          <br><br>
+	          <label>Nombre:</label>
+	          <input type="text" name="dishName" placeholder="Nombre del plato" value="${dish.name}">
+	          <label>Descripción:</label>
+	          <textarea name="dishDescription" placeholder="Descripción del plato">${dish.description}</textarea>
+	          <label>Precio:</label>
+	          <input type="number" name="dishPrice" step="0.01" placeholder="Precio del plato (usar . para decimales)" value="${dish.price}">
+	        </div>
+        </c:forEach>
       </div>
       <div class="dishButton">
         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button>
