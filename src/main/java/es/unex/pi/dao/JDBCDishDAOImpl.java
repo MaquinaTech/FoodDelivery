@@ -31,8 +31,9 @@ public class JDBCDishDAOImpl implements DishDAO {
 			dish.setName(rs.getString("name"));
 			dish.setPrice(rs.getInt("price"));
 			dish.setDescription(rs.getString("description"));
+			dish.setImg(rs.getString("img"));
 			
-			logger.info("fetching Dish by id: "+id+" -> "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
+			logger.info("fetching Dish by id: "+id+" -> "+dish.getId()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getImg());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -56,8 +57,9 @@ public class JDBCDishDAOImpl implements DishDAO {
 			dish.setPrice(rs.getInt("price"));
 			dish.setDescription(rs.getString("description"));
 			dish.setIdr(rs.getInt("idr"));
+			dish.setImg(rs.getString("img"));
 			
-			logger.info("fetching Dish by name: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
+			logger.info("fetching Dish by name: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getImg());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -82,10 +84,11 @@ public class JDBCDishDAOImpl implements DishDAO {
 				dish.setPrice(rs.getInt("price"));
 				dish.setDescription(rs.getString("description"));
 				dish.setIdr(rs.getInt("idr"));
+				dish.setImg(rs.getString("img"));
 				
 				dishes.add(dish);
 				
-				logger.info("fetching Dish by name: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
+				logger.info("fetching Dish by name: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getImg());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,9 +115,10 @@ public class JDBCDishDAOImpl implements DishDAO {
 				dish.setPrice(rs.getInt("price"));
 				dish.setDescription(rs.getString("description"));
 				dish.setIdr(rs.getInt("idr"));
+				dish.setImg(rs.getString("img"));
 				
 				dishes.add(dish);
-				logger.info("fetching Dishes: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
+				logger.info("fetching Dishes: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getImg());
 								
 			}
 
@@ -143,10 +147,11 @@ public class JDBCDishDAOImpl implements DishDAO {
 				dish.setPrice(rs.getInt("price"));
 				dish.setDescription(rs.getString("description"));
 				dish.setIdr(rs.getInt("idr"));
+				dish.setImg(rs.getString("img"));
 				
 				dishes.add(dish);
 				
-				logger.info("fetching dishs by text in the name: "+search+": "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
+				logger.info("fetching dishs by text in the name: "+search+": "+dish.getId()+" "+dish.getName()+" "+dish.getDescription()+" "+dish.getImg());
 				
 			}
 
@@ -181,7 +186,7 @@ public class JDBCDishDAOImpl implements DishDAO {
 			try {
 				stmt = conn.createStatement();
 				stmt.executeUpdate("INSERT INTO Dishes (name,price,description,idr) VALUES('"
-									+dish.getName()+"', " + dish.getPrice() +", '" + dish.getDescription() +"', " + dish.getIdr()+ ")");
+									+dish.getName()+"', " + dish.getPrice() +", '" + dish.getDescription() +"', " + dish.getIdr()+"', " + dish.getImg()+ ")");
 				
 								
 			} catch (SQLException e) {
@@ -214,7 +219,7 @@ public class JDBCDishDAOImpl implements DishDAO {
 				stmt = conn.createStatement();
 				
 				stmt.executeUpdate("UPDATE Dishes SET name='"+dish.getName()
-				+"', price = " + dish.getPrice() +", description = '" + dish.getDescription() +"', idr= " + dish.getIdr()+ " WHERE id = "+dish.getId());
+				+"', price = " + dish.getPrice() +", description = '" + dish.getDescription() +"', idr= " + dish.getIdr()+"', img= " + dish.getImg()+ " WHERE id = "+dish.getId());
 				
 				logger.info("updating Dish: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
 				
