@@ -13,7 +13,7 @@
       <nav class="header-nav">
       <ul>
         <li><a href="search.html">Inicio</a></li>
-      	<li><a href="login.html">¡Bienvenido ${empty sessionScope.username ? "Iniciar sesión" : sessionScope.username}!</a></li>
+      	<li><a href="LoginServlet.do">¡Bienvenido ${empty sessionScope.username ? "Iniciar sesión" : sessionScope.username}!</a></li>
       	<li><a href="#">Carrito de compra</a></li>
       </ul>
       </nav>

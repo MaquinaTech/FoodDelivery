@@ -19,15 +19,15 @@
       <h1>Datos Restaurante</h1>
       <div class="form-group">
           <label class="username" for="nombre">Nombre</label>
-          <input type="text" id="nombre" name="nombre" required value="Burguer King">
+          <input type="text" id="name" name="name" required value="Burguer King">
       </div>
       <div class="form-group">
         <label class="username" for="direccion">Dirección</label>
-        <textarea id="direccion" name="direccion" required >Calle Gomez Becerra, 1</textarea>
+        <textarea id="address" name="address" required >Calle Gomez Becerra, 1</textarea>
       </div>
       <div class="form-group">
           <label class="username" for="phone">Teléfono</label>
-          <input type="tel" id="phone" name="phone" required value="654984865468" >
+          <input type="tel" id="telephone" name="telephone" required value="654984865468" >
       </div>
       <div class="form-group">
           <label class="username" for="email">Correo electrónico</label>
@@ -66,30 +66,12 @@
       <br><br>
       <h2>Categoría</h2>
       <div class="input_flex">
-          <div>
-            <label class="username" for="burguer">Burguer</label>
-            <input type="radio" id="burguer" name="categorias" checked >
-          </div>
-          <div>
-          <label class="username" for="pizza">Pizza</label>
-          <input type="radio" id="pizza" name="categorias" >
-          </div>
-          <div>
-            <label class="username" for="sushi">Sushi</label>
-            <input type="radio" id="sushi" name="categorias" >
-          </div>
-          <div>
-            <label class="username" for="kebab">Kebab</label>
-            <input type="radio" id="kebab" name="categorias" >
-          </div>
-          <div>
-            <label class="username" for="italiano">Italiano</label>
-            <input type="radio" id="italiano" name="categorias" >
-          </div>
-          <div>
-            <label class="username" for="pollo">Pollo</label>
-            <input type="radio" id="pollo" name="categorias" >
-          </div>
+	      <c:forEach var="category" items="${categories}">
+	          <div>
+	            <label class="username" for="${category.name}">${category.name}</label>
+	            <input type="radio" id="${category.name}" name="categorias" checked >
+	          </div>
+	      </c:forEach>
       </div>
 
       <br><br>
@@ -97,11 +79,11 @@
       <div class="input_flex">
         <div>
           <label>SI</label>
-          <input type="radio" id="bike" name="bikeFriendly">
+          <input type="radio" id="bike" name="bikeFriendly" ${restaurant.bikeFriendly == 1 ? 'checked' : ''}>
         </div>
         <div>
           <label>NO</label>
-          <input type="radio" id="noBike" name="bikeFriendly" checked>
+          <input type="radio" id="noBike" name="bikeFriendly" ${restaurant.bikeFriendly == 0 ? 'checked' : ''}>
         </div>
       </div>
 

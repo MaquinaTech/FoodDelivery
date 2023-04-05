@@ -6,6 +6,7 @@ public class Dish {
 	private String name;
 	private int price;
 	private String description;
+	private String img;
 	private long idr;
 	public long getId() {
 		return id;
@@ -36,6 +37,12 @@ public class Dish {
 	}
 	public void setIdr(long idr) {
 		this.idr = idr;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	
 	

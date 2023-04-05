@@ -56,7 +56,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Get Restaurants");
 		
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		if (session != null) {
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");

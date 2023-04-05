@@ -17,7 +17,7 @@
         <div class="details_background" >
             <ul>
                 <li style="--color:#9e2229">
-                  <a href="#hamburguesas" data-text="&nbsp;Hamburguesas">&nbsp;Hamburguesas&nbsp;</a>
+                  <a href="#principales" data-text="&nbsp;Principales">&nbsp;Principales&nbsp;</a>
                 </li>
                 <li style="--color:#397b54">
                   <a href="#complementos" data-text="&nbsp;Complementos">&nbsp;Complementos&nbsp;</a>
@@ -35,62 +35,60 @@
                     <br>
                     <br>
                     <h1>Información del restaurante</h1>
-                    <h2>Burguer King</h2>
-                    <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5">
-                        <label for="star5">&#9733;</label>
-                        <input type="radio" id="star4" name="rating" value="4" checked>
-                        <label for="star4">&#9733;</label>
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3">&#9733;</label>
-                        <input type="radio" id="star2" name="rating" value="2">
-                        <label for="star2">&#9733;</label>
-                        <input type="radio" id="star1" name="rating" value="1">
-                        <label for="star1">&#9733;</label>
-                    </div>                      
-                    <p><strong>Dirección:</strong> Calle Gomez Becerra, 1</p>
-                    <p><strong>Teléfono:</strong> 654984865468</p>
-                    <p><strong>Correo de contacto:</strong> burguerking@gmail.com</p>
-                    <p><strong>Rango de precio:</strong> 5-15€</p>
-                    <p><strong>Categoría:</strong> Burguer</p>
+                    <h2>${restaurant.name}</h2>
+                    <% if (request.getSession().getAttribute("username") != null) { %>
+	                    <div class="rating">
+						    <input type="radio" id="star5" name="rating" value="5" ${restaurant.gradesAverage == 5 ? 'checked' : ''}>
+						    <label for="star5">&#9733;</label>
+						    <input type="radio" id="star4" name="rating" value="4" ${restaurant.gradesAverage == 4 ? 'checked' : ''}>
+						    <label for="star4">&#9733;</label>
+						    <input type="radio" id="star3" name="rating" value="3" ${restaurant.gradesAverage == 3 ? 'checked' : ''}>
+						    <label for="star3">&#9733;</label>
+						    <input type="radio" id="star2" name="rating" value="2" ${restaurant.gradesAverage == 2 ? 'checked' : ''}>
+						    <label for="star2">&#9733;</label>
+						    <input type="radio" id="star1" name="rating" value="1" ${restaurant.gradesAverage	 == 1 ? 'checked' : ''}>
+						    <label for="star1">&#9733;</label>
+						</div>
+					<% } else { %>
+					    <div class="rating">
+					        <input type="radio" id="star5" name="rating" value="5" disabled>
+					        <label for="star5">&#9733;</label>
+					        <input type="radio" id="star4" name="rating" value="4" disabled>
+					        <label for="star4">&#9733;</label>
+					        <input type="radio" id="star3" name="rating" value="3" disabled>
+					        <label for="star3">&#9733;</label>
+					        <input type="radio" id="star2" name="rating" value="2" disabled>
+					        <label for="star2">&#9733;</label>
+					        <input type="radio" id="star1" name="rating" value="1" disabled>
+					        <label for="star1">&#9733;</label>
+					    </div>
+					<% } %>
+                    
+                    <p><strong>Dirección:</strong> ${restaurant.address}</p>
+                    <p><strong>Teléfono:</strong> ${restaurant.telephone}</p>
+                    <p><strong>Correo de contacto:</strong> ${restaurant.contactEmail}</p>
+                    <p><strong>Rango de precio:</strong> ${restaurant.minPrice}€-${restaurant.maxPrice}€</p>
+                    <p><strong>Categoría:</strong> ${category.name}</p>
                     <p><strong>Media de valoraciones:</strong> 4/5</p>
-                    <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="false"></p>
-                    <a href="restaurantEdit.html"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
+                    <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="${restaurant.bikeFriendly}"></p>
+                    <% if (request.getSession().getAttribute("username") != null) { %>
+                    	<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
+                    <% } %>
                 </div>
                 <div class="menuList">
-                    <section id="hamburguesas">
-                        <h1>Hamburguesas</h1>
+                    <section id="principales">
+                    <c:forEach var="dish" items="${dishes}">
+                        <h1>Principales</h1>
                         <div class="dish-card">
                             <img src="${pageContext.request.contextPath}/public/whopper.png" alt="Imagen del plato">
                             <div class="dish-info">
-                            <h3>Whopper</h3>
-                            <p>El Whopper® siempre será nuestro número uno. 
-                                Jugosa carne de vacuno de estupenda calidad a la parrilla, tomate y lechuga fresca traídos de la huerta murciana, 
-                                suave cebolla y sabroso pepinillo acompañado de mayonesa y kétchup. No olvides el esponjoso pan de semillas, 
-                                que hacen en su conjunto una hamburguesa de sabor único y que reconocerías con los ojos cerrados.</p>
-                            <p class="price">5€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
+                            <h3>${dish.name}</h3>
+                            <p>${dish.description}</p>
+                            <p class="price">${dish.price}€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
                             
                             </div>
                         </div>
-                        <div class="dish-card">
-                            <img src="${pageContext.request.contextPath}/public/doublecheesebaconXXL.png" alt="Imagen del plato">
-                            <div class="dish-info">
-                            <h3>Doble Cheese Bacon XXL </h3>
-                            <p>Haz doble tu hamburguesa de queso, añádele bacon y ahora aumenta su tamaño… lo sabemos, impresiona. 
-                                Carne a la parrilla como nos gusta en BURGER KING, pepinillos, kétchup y mostaza comparten escenario 
-                                para mostrarte esta obra de arte.</p>
-                            <p class="price">8€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
-                            </div>
-                        </div>
-                        <div class="dish-card">
-                            <img src="${pageContext.request.contextPath}/public/DOBLE_CHEESEBURGER_BBQ.png" alt="Imagen del plato">
-                            <div class="dish-info">
-                            <h3>Doble Cheeseburger BBQ </h3>
-                            <p>Es la mezcla perfecta. Doble de carne para los más hambrientos Y doble de queso para los más detallistas. 
-                                Y con una deliciosa salsa barbacoa. La Doble Cheeseburger BBQ lo tiene todo.</p>
-                            <p class="price">6€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
-                            </div>
-                        </div>
+                   </c:forEach>
                     </section>
                     <section id="complementos">
                         <h1>Complementos</h1>

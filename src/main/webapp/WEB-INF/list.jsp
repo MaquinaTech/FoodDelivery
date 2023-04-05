@@ -82,7 +82,7 @@
 					<div class="details">
 						<div class="description">
 								<p class="title">
-									<a href="restaurantDetailsServlet.do"><b>${restaurant.name}</b></a>
+									<a href="restaurantDetailsServlet.do?idR=${restaurant.id}"><b>${restaurant.name}</b></a>
 								</p>
 							<div class="valoracion">
 								<p>${restaurant.gradesAverage}</p>

@@ -25,8 +25,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/restaurantDetailsServlet.do")
-public class restaurantDetailsServlet extends HttpServlet {
+@WebServlet("/restaurantEditServlet.do")
+public class restaurantEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
 
@@ -34,7 +34,7 @@ public class restaurantDetailsServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public restaurantDetailsServlet() {
+    public restaurantEditServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,9 +42,8 @@ public class restaurantDetailsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Get Restaurants Details");
-		
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		if (session != null) {
 		} else {
@@ -61,31 +60,24 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    restaurantDAO.setConnection(conn);
 	    Restaurant restaurant = restaurantDAO.get(restaurantId);
 	    
-	    DishDAO dishDAO = new JDBCDishDAOImpl();
-	    dishDAO.setConnection(conn);
-	    List<Dish> dishes = dishDAO.getByRestaurant(restaurantId);
+	    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+	    categoryDAO.setConnection(conn);
+	    List<Category> categories = categoryDAO.getAll();
 	    
-	    
-	    RestaurantCategoriesDAO resCatDAO = new JDBCRestaurantCategoriesDAOImpl();
-	    resCatDAO.setConnection(conn);
-	    List<RestaurantCategories> resCatList = resCatDAO.getAllByRestaurant(restaurantId);
-	    
-	    CategoryDAO catDAO = new JDBCCategoryDAOImpl();
-	    catDAO.setConnection(conn);
-	    Category cat = catDAO.get(resCatList.get(0).getIdct());
-	    
-	    
-		request.setAttribute("restaurant", restaurant);
-		request.setAttribute("category", cat);
-		request.setAttribute("dishes", dishes);
-		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
+	    request.setAttribute("restaurant", restaurant);
+	    request.setAttribute("categories", categories);
+		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");
 		view.forward(request,response);
-		
-	
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   
+		/*String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");
+		String idParam= request.getParameter("idR");*/
 	    
 
 	    // Go to login

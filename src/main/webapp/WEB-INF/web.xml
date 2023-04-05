@@ -14,4 +14,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>restaurantEdit</display-name>
+    <servlet-name>restaurantEdit</servlet-name>
+    <servlet-class>es.unex.pi.controller.restaurantEdit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>restaurantEdit</servlet-name>
+    <url-pattern>/restaurantEdit</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>restaurantEditServlet</display-name>
+    <servlet-name>restaurantEditServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.restaurantEditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>restaurantEditServlet</servlet-name>
+    <url-pattern>/restaurantEditServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
