@@ -13,7 +13,7 @@
   <jsp:include page="/WEB-INF/include/header.jsp" />
 
   <div class="editbox">
-    <form action="restaurantDetails.html" method="POST">
+    <form action="restaurantEditServlet.do" method="POST">
       <img src="${pageContext.request.contextPath}/public/burguerking.png" alt="logoBurguerKing">
       <br><br>
       <h1>Datos Restaurante</h1>

@@ -76,17 +76,51 @@ public class restaurantEditServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");
-		String idParam= request.getParameter("idR");*/
+		String name= request.getParameter("name");
+		String address= request.getParameter("address");
+		String email= request.getParameter("email");
+		String telephone= request.getParameter("telephone");
+		String range_min = request.getParameter("range-min");
+		String range_max = request.getParameter("range-max");
+		String rating= request.getParameter("rating");
+		String categories= request.getParameter("categorias");
+		String bikeFriendly = request.getParameter("bikeFriendly");
+		logger.info("--------------------------------------------------");
+		logger.info(name);
+		logger.info(address);
+		logger.info(email);
+		logger.info(telephone);
+		logger.info(range_min);
+		logger.info(range_max);
+		logger.info(rating);
+		logger.info(categories);
+		logger.info(bikeFriendly);
+		logger.info("--------------------------------------------------");
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
+	    restaurantDAO.setConnection(conn);
+	    Restaurant restaurant = new Restaurant();
+	    restaurant.setName(name);
+	    restaurant.setAddress(address);
+	    restaurant.setContactEmail(email);
+	    restaurant.setTelephone(telephone);
+	    Integer minPrice = Integer.parseInt(range_min);
+	    Integer maxPrice = Integer.parseInt(range_max);
+	    Integer gardesAverage = Integer.parseInt(rating);
+	    Integer bike = 0;
+	    if(bikeFriendly == "on") {
+	    	bike = 1;
+	    }
+	    restaurant.setMinPrice(minPrice);
+	    restaurant.setMaxPrice(maxPrice);
+	    restaurant.setGradesAverage(gardesAverage);
+	    restaurant.setBikeFriendly(bike);
+	    restaurantDAO.update(restaurant);
 	    
 
-	    // Go to login
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
+	    // Go to edit
+	    request.setAttribute("idR", restaurant.getId());
+	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");
 	    view.forward(request, response);
 	}
 
