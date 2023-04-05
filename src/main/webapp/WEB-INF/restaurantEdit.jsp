@@ -19,19 +19,19 @@
       <h1>Datos Restaurante</h1>
       <div class="form-group">
           <label class="username" for="nombre">Nombre</label>
-          <input type="text" id="name" name="name" required value="Burguer King">
+          <input type="text" id="name" name="name" required value="${restaurant.name}">
       </div>
       <div class="form-group">
         <label class="username" for="direccion">Dirección</label>
-        <textarea id="address" name="address" required >Calle Gomez Becerra, 1</textarea>
+        <textarea id="address" name="address" required >${restaurant.address}</textarea>
       </div>
       <div class="form-group">
           <label class="username" for="phone">Teléfono</label>
-          <input type="tel" id="telephone" name="telephone" required value="654984865468" >
+          <input type="tel" id="telephone" name="telephone" required value="${restaurant.telephone}" >
       </div>
       <div class="form-group">
           <label class="username" for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required value="burguerking@gmail.com">
+          <input type="email" id="email" name="email" required value="${restaurant.contactEmail}">
       </div>
       <br><br>
       <h2>Rango de Precio</h2>
