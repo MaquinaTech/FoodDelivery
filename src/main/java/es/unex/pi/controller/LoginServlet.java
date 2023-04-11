@@ -70,13 +70,20 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 	    String password = request.getParameter("password");
 
+	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+	    User user = userDAO.get(username);
 	    //User auth
 	    if (isValidUser(username, password)) {
 	        HttpSession session = request.getSession(true);
 	        session.setAttribute("username", username);
+	        Long idUser = user.getId();
+	        session.setAttribute("id", idUser);
+	        
 	        
 	        //Get categories
-	        Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	        
 	        CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
 		    categoryDAO.setConnection(conn);
 		    List<Category> categories = categoryDAO.getAll();

@@ -30,7 +30,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/restaurantEditServlet.do")
+@WebServlet("/UserEditServlet.do")
 public class UserEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
@@ -48,7 +48,6 @@ public class UserEditServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
 		if (session != null) {
 		} else {
@@ -75,19 +74,21 @@ public class UserEditServlet extends HttpServlet {
 		String name= request.getParameter("name");
 		String surname= request.getParameter("surname");
 		String email= request.getParameter("email");
-		String password= request.getParameter("password");
+		String userId= request.getParameter("userId");
+		Long id = Long.parseLong(userId);
+		String passwordNew= request.getParameter("passwordNew");
 		logger.info("----------------------");
 		logger.info(name);
 		logger.info(surname);
 		logger.info(email);
-		logger.info(password);
+		logger.info(passwordNew);
 		logger.info("----------------------");
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    UserDAO userDAO = new JDBCUserDAOImpl();
 	    userDAO.setConnection(conn);
 	    
 	    // Validate parameters
-	    if (name == null || surname == null || email == null || password == null) {
+	    if (name == null || surname == null || email == null || passwordNew == null) {
 	    	logger.info("Error parametros");
 	        response.sendRedirect("WEB-INF/UserEdit.jsp");
 	        return;
@@ -101,33 +102,33 @@ public class UserEditServlet extends HttpServlet {
 	        view.forward(request, response);
 	        return;
 	    }
-
-	    // Validate password
-	    if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
-	    	logger.info("password");
-	        request.setAttribute("error", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número");
-	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp");
-	        view.forward(request, response);
-	        return;
-	    }
-
-	    // Encode password
-	    String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
-	    
-	    
 	    
 	    User user = new User();
+	    
+	    if(passwordNew.isEmpty()) {
+	    	// Validate password
+		    if (!passwordNew.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
+		    	logger.info("password");
+		    	logger.info(passwordNew);
+		        request.setAttribute("error", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número");
+		        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp?id=" + userId);
+		        view.forward(request, response);
+		        return;
+		    }
+		    // Encode passwordNew
+		    String encodedPasswordNew = Base64.getEncoder().encodeToString(passwordNew.getBytes(StandardCharsets.UTF_8));
+		    user.setPassword(encodedPasswordNew);
+	    }
 	    user.setName(name);
 	    user.setSurname(surname);
 	    user.setEmail(email);
-	    user.setPassword(encodedPassword);
-
 	    userDAO.update(user);
 	    
 	    // Go to edit
 	    request.setAttribute("id", user.getId());
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp");
+	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp?id=" + userId);
 	    view.forward(request, response);
+	  
 	}
 
 	

@@ -19,6 +19,7 @@
       <div class="form-group">
           <label class="username" for="nombre">Nombre</label>
           <input type="text" id="name" name="name" required value="${user.name}">
+          <input class="none" type="number" id="userId" name="userId" required value="${user.id}">
       </div>
       <div class="form-group">
         <label class="username" for="apellido">Apellidos</label>
@@ -28,10 +29,10 @@
           <label class="username" for="email">Correo electrónico</label>
           <input type="email" id="email" name="email" required value="${user.email}">
       </div>
+      <h2>------  Contraseña  ------</h2>
       <div class="form-group">
-          <label class="username" for="password">Nombre</label>
-          <input type="text" id="password" name="name" required value="${user.password}">
-      </div>      
+          <input type="password" id="passwordNew" name="passwordNew" >	
+      </div>
       <div class="center">
         <input type="submit" value="Editar" >
       </div>    
