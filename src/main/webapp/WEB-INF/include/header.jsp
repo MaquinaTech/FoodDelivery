@@ -12,7 +12,7 @@
       </div>
       <nav class="header-nav">
       <ul>
-        <li><a href="search.html">Inicio</a></li>
+        <li><a href="SearchServlet.do">Inicio</a></li>
       	<li><a href="LoginServlet.do">¡Bienvenido ${empty sessionScope.username ? "Iniciar sesión" : sessionScope.username}!</a></li>
         <li><a href="UserEditServlet.do?id=${sessionScope.id}"><img width="25px" src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a></li>
       	<li><a href="#">Carrito de compra</a></li>

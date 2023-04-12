@@ -34,4 +34,24 @@
     <servlet-name>restaurantEditServlet</servlet-name>
     <url-pattern>/restaurantEditServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EliminarCuentaServlet</display-name>
+    <servlet-name>EliminarCuentaServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.EliminarCuentaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EliminarCuentaServlet</servlet-name>
+    <url-pattern>/EliminarCuentaServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogOutServlet</display-name>
+    <servlet-name>LogOutServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.LogOutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogOutServlet</servlet-name>
+    <url-pattern>/LogOutServlet.do</url-pattern>
+  </servlet-mapping>
 </web-app>

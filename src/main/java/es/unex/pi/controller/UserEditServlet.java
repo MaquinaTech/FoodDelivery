@@ -71,24 +71,28 @@ public class UserEditServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		String name= request.getParameter("name");
 		String surname= request.getParameter("surname");
 		String email= request.getParameter("email");
 		String userId= request.getParameter("userId");
 		Long id = Long.parseLong(userId);
 		String passwordNew= request.getParameter("passwordNew");
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");		
+		UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);    
+		User inicio = userDAO.get(id);
+	    
 		logger.info("----------------------");
 		logger.info(name);
 		logger.info(surname);
 		logger.info(email);
 		logger.info(passwordNew);
 		logger.info("----------------------");
-		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
-	    UserDAO userDAO = new JDBCUserDAOImpl();
-	    userDAO.setConnection(conn);
+
 	    
 	    // Validate parameters
-	    if (name == null || surname == null || email == null || passwordNew == null) {
+	    if (name == null || surname == null || email == null) {
 	    	logger.info("Error parametros");
 	        response.sendRedirect("WEB-INF/UserEdit.jsp");
 	        return;
@@ -105,10 +109,8 @@ public class UserEditServlet extends HttpServlet {
 	    
 	    User user = new User();
 	    
-	    if(passwordNew.isEmpty()) {
-	    	// Validate password
+	    if(!passwordNew.equals("")) {
 		    if (!passwordNew.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
-		    	logger.info("password");
 		    	logger.info(passwordNew);
 		        request.setAttribute("error", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número");
 		        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp?id=" + userId);
@@ -119,14 +121,22 @@ public class UserEditServlet extends HttpServlet {
 		    String encodedPasswordNew = Base64.getEncoder().encodeToString(passwordNew.getBytes(StandardCharsets.UTF_8));
 		    user.setPassword(encodedPasswordNew);
 	    }
+	    else{
+	    	user.setPassword(inicio.getPassword());
+	    }
+	    user.setId(id);
 	    user.setName(name);
 	    user.setSurname(surname);
-	    user.setEmail(email);
+	    user.setEmail(email);	    
+	    session.removeAttribute("id");
+	    session.removeAttribute("username");
+		session.setAttribute("id", id);
+		session.setAttribute("username", name);
 	    userDAO.update(user);
 	    
 	    // Go to edit
 	    request.setAttribute("id", user.getId());
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/UserEdit.jsp?id=" + userId);
+	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
 	    view.forward(request, response);
 	  
 	}
