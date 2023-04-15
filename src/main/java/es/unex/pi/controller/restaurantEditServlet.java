@@ -68,7 +68,7 @@ public class restaurantEditServlet extends HttpServlet {
 	    dishDAO.setConnection(conn);
 	    List<Dish> dishes = dishDAO.getByRestaurant(restaurantId);
 	    
-	    request.setAttribute("restaurant", restaurant);
+	    session.setAttribute("restaurant", restaurant);
 	    request.setAttribute("categories", categories);
 	    request.setAttribute("dishes", dishes);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");

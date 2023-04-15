@@ -54,4 +54,10 @@
     <servlet-name>LogOutServlet</servlet-name>
     <url-pattern>/LogOutServlet.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EliminarRestauranteServlet</display-name>
+    <servlet-name>EliminarRestauranteServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.EliminarRestauranteServlet</servlet-class>
+  </servlet>
 </web-app>

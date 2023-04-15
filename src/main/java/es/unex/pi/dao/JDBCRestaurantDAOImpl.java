@@ -95,9 +95,7 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 		
 		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE ? OR city LIKE ?");
-			pstmt.setString(1, "%" + address + "%");
-			pstmt.setString(2, "%" + address + "%");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE '%" + address + "%'");
 		    ResultSet rs = pstmt.executeQuery();
 		    while (rs.next()) {
 		        Restaurant restaurant = new Restaurant();
@@ -132,7 +130,7 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 		
 		ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE ? OR city LIKE ? ");
+			PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM restaurant WHERE address LIKE '%" + address + "%'");
 			pstmt.setString(1, "%" + address + "%");
 			pstmt.setString(2, "%" + address + "%");
 		    ResultSet rs = pstmt.executeQuery();
@@ -285,10 +283,10 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO restaurant (name,address,telephone,idu,gradesAverage,city,minPrice,contactemail,maxPrice,bikeFriendly,available) VALUES('"
+				stmt.executeUpdate("INSERT INTO restaurant (name,address,telephone,idu,gradesAverage,city,minPrice,contactemail,maxPrice,bikeFriendly,available,img,subtitulo) VALUES('"
 									+restaurant.getName()+"','"+restaurant.getAddress()+"','" + restaurant.getTelephone() + "'," 
 									+ restaurant.getIdu() + "," + restaurant.getGradesAverage()+",'"+ restaurant.getCity() +"',"+ restaurant.getMinPrice() +",'" + restaurant.getContactEmail() + "'," 
-									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() + restaurant.getImg() + restaurant.getSubtitulo() + ")");
+									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() +"," + restaurant.getImg() +"," + restaurant.getSubtitulo() + ")");
 				
 								
 			} catch (SQLException e) {

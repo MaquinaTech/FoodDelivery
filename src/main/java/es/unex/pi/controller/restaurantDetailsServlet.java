@@ -16,6 +16,7 @@ import es.unex.pi.dao.DishDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.RestaurantCategories;
+import es.unex.pi.model.User;
 import es.unex.pi.model.Dish;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -51,6 +52,9 @@ public class restaurantDetailsServlet extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
 		}
+		User user = (User) session.getAttribute("user");
+		Long idUser = user.getId();
+		session.setAttribute("idUser", idUser);
 		String idParam= request.getParameter("idR");
 		Long restaurantId = null;
 	    if (idParam != null && !idParam.isEmpty()) {
@@ -60,6 +64,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
 	    Restaurant restaurant = restaurantDAO.get(restaurantId);
+	    session.setAttribute("idurestaurante", restaurant.getIdu());
 	    
 	    DishDAO dishDAO = new JDBCDishDAOImpl();
 	    dishDAO.setConnection(conn);
@@ -72,11 +77,13 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    
 	    CategoryDAO catDAO = new JDBCCategoryDAOImpl();
 	    catDAO.setConnection(conn);
-	    Category cat = catDAO.get(resCatList.get(0).getIdct());
+	    if(resCatList != null) {
+	    	Category cat = catDAO.get(resCatList.get(0).getIdct());
+	    	request.setAttribute("category", cat);
+	    }
 	    
 	    
-		request.setAttribute("restaurant", restaurant);
-		request.setAttribute("category", cat);
+		request.setAttribute("restaurant", restaurant);		
 		request.setAttribute("dishes", dishes);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
 		view.forward(request,response);

@@ -86,6 +86,8 @@
           <input type="radio" id="noBike" name="bikeFriendly" ${restaurant.bikeFriendly == 0 ? 'checked' : ''}>
         </div>
       </div>
+      
+      <a id="eliminar"  href="<c:url value='EliminarRestauranteServlet.do?id=${restaurant.id}'/>">Eliminar Restaurante</a>
 
       <div class="dish" id="dish">
       	<c:forEach var="dish" items="${dishes}">
@@ -104,7 +106,6 @@
 <%--         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button> --%>
 <%--         <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button> --%>
 <!--       </div> -->
-
 
       <div class="center">
         <input type="submit" value="Editar" >

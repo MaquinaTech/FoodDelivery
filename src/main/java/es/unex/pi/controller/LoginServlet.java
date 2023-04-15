@@ -80,7 +80,7 @@ public class LoginServlet extends HttpServlet {
 	        session.setAttribute("username", username);
 	        Long idUser = user.getId();
 	        session.setAttribute("id", idUser);
-	        
+	        session.setAttribute("user", user);
 	        
 	        //Get categories
 	        

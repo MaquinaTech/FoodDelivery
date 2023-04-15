@@ -57,9 +57,11 @@
                     <p><strong>Categoría:</strong> ${category.name}</p>
                     <p><strong>Media de valoraciones:</strong> 4/5</p>
                     <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="${restaurant.bikeFriendly}"></p>
-                    <% if (request.getSession().getAttribute("username") != null) { %>
-                    	<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
-                    <% } %>
+                    <c:choose>
+		    			<c:when test="${restaurant.idu==id}">
+		    					<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
+		    				</c:when>
+		    		</c:choose>
                 </div>
                 <div class="menuList">
                     <section id="principales">

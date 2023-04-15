@@ -37,7 +37,7 @@
         <input type="submit" value="Editar" >
       </div>    
     </form>
-    <a id="eliminarCuenta"  href="<c:url value='EliminarCuentaServlet.do'/>">Eliminar cuenta</a>    
+    <a id="eliminar"  href="<c:url value='EliminarCuentaServlet.do?id=${user.id}'/>">Eliminar cuenta</a>    
   </div>
   <jsp:include page="/WEB-INF/include/footer.jsp" />  
 </body>
