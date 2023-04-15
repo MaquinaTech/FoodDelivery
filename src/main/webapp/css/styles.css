@@ -524,6 +524,10 @@
     display:flex;
     justify-content: space-between;
   }
+  
+   .estados h3{
+   color:white;
+  }
 
   .listRestaurants {
     height:100%;

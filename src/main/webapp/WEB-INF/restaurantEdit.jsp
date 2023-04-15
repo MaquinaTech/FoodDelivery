@@ -87,6 +87,19 @@
         </div>
       </div>
       
+      <br><br>
+      <h2>¿Acepta pedidos?</h2>
+      <div class="input_flex">
+        <div>
+          <label>SI</label>
+          <input type="radio" id="available" name="available" ${restaurant.available == 1 ? 'checked' : ''}>
+        </div>
+        <div>
+          <label>NO</label>
+          <input type="radio" id="noavailable" name="available" ${restaurant.available == 0 ? 'checked' : ''}>
+        </div>
+      </div>
+      
       <a id="eliminar"  href="<c:url value='EliminarRestauranteServlet.do?id=${restaurant.id}'/>">Eliminar Restaurante</a>
 
       <div class="dish" id="dish">

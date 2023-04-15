@@ -41,7 +41,6 @@
 		
 		<div class="wrapList">
 			<div class="dropdown">
-
 				<c:forEach var="category" items="${categories}" varStatus="loopStatus">
 				    <c:choose>
 				        <c:when test="${loopStatus.index < 3}">
@@ -50,51 +49,33 @@
 				            </c:if>
 				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
 				            <c:if test="${loopStatus.index == 2}">
-				                </div>
+				  				</div>
 				            </c:if>
 				        </c:when>
-				        <c:otherwise>
-				        	<c:if test="${loopStatus.index == 3}">
-				                <span class="dropdown-content">
-				            </c:if>
-				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
-				            
-				            <c:if test="${loopStatus.index == 6}">
-								</span>
-							</c:if>            
-				        </c:otherwise>
+			        <c:otherwise>
+			        	<c:if test="${loopStatus.index == 3}">
+			                <span class="dropdown-content">
+			            </c:if>
+			            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>			            
+			            <c:if test="${loopStatus.index == 6}">
+							</span>
+						</c:if>            
+			        </c:otherwise>
 				    </c:choose>
 				</c:forEach>				
 				<button class="dropbtn">Más</button>
 				
-				<div class="dropdown">
-
-				<c:forEach var="category" items="${restaurant}" varStatus="loopStatus">
-				    <c:choose>
-				        <c:when test="${loopStatus.index < 3}">
-				            <c:if test="${loopStatus.index == 0}">
-				                <div class="dropdown-contentVisible">
-				            </c:if>
-				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
-				            <c:if test="${loopStatus.index == 2}">
-				                </div>
-				            </c:if>
-				        </c:when>
-				        <c:otherwise>
-				        	<c:if test="${loopStatus.index == 3}">
-				                <span class="dropdown-content">
-				            </c:if>
-				            <a href='SearchServlet.do?category=${category.name}'>${category.name}</a>
-				            
-				            <c:if test="${loopStatus.index == 6}">
-								</span>
-							</c:if>            
-				        </c:otherwise>
-				    </c:choose>
-				</c:forEach>				
-				<button class="dropbtn">Más</button>
+				<div class="estados">
+        			<form method="post" action="SearchServlet.do" class="estado">
+        			<label for="acepta" class="acepta"><h3>Acepta Pedidos</h3></label>
+            		<input type="radio" id="acepta" name="estado" value="acepta" ${requestScope.acepta} required >
+            		<label for="noacepta" class="noacepta"><h3>No acepta pedidos</h3></label>
+            		<input type="radio" id="noacepta" name="estado" value="noacepta" ${requestScope.noacepta} >
+            		<br></br>
+    				<input type="submit" value="Buscar" id="noacepta">
+        			</form>
+				</div>
 			</div>
-			
 			<div class="listRestaurants">
 			<c:forEach var="restaurant" items="${restaurants}">
 				<div class="card">

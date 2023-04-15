@@ -85,6 +85,7 @@ public class restaurantEditServlet extends HttpServlet {
 		String rating= request.getParameter("rating");
 		String categories= request.getParameter("categorias");
 		String bikeFriendly = request.getParameter("bikeFriendly");
+		String available = request.getParameter("available");
 		String img = request.getParameter("img");
 		String subtitulo = request.getParameter("subtitulo");
 		logger.info("--------------------------------------------------");
@@ -113,10 +114,16 @@ public class restaurantEditServlet extends HttpServlet {
 	    if(bikeFriendly == "on") {
 	    	bike = 1;
 	    }
+	    Integer ava = 0;
+	    if(available == "on") {
+	    	ava = 1;
+	    }
+	    
 	    restaurant.setMinPrice(minPrice);
 	    restaurant.setMaxPrice(maxPrice);
 	    restaurant.setGradesAverage(gardesAverage);
 	    restaurant.setBikeFriendly(bike);
+	    restaurant.setAvailable(ava);
 	    restaurant.setImg(img);
 	    restaurant.setSubtitulo(subtitulo);
 	    restaurantDAO.update(restaurant);

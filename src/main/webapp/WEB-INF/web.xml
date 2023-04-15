@@ -60,4 +60,14 @@
     <servlet-name>EliminarRestauranteServlet</servlet-name>
     <servlet-class>es.unex.pi.controller.EliminarRestauranteServlet</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>BusquedaEstadosServlet</display-name>
+    <servlet-name>BusquedaEstadosServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.BusquedaEstadosServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BusquedaEstadosServlet</servlet-name>
+    <url-pattern>/BusquedaEstadosServlet.do</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -17,19 +17,11 @@ import es.unex.pi.dao.RestaurantCategoriesDAO;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
-import es.unex.pi.dao.JDBCUserDAOImpl;
-import es.unex.pi.dao.UserDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Restaurant;
-import es.unex.pi.model.RestaurantCategories;
-import es.unex.pi.model.User;
-import es.unex.pi.util.Triplet;
-import java.nio.charset.StandardCharsets;
-
 import jakarta.servlet.RequestDispatcher;
-
 import java.sql.Connection;
-import java.sql.SQLException;
+
 
 
 
@@ -104,11 +96,11 @@ public class SearchServlet extends HttpServlet {
 					Restaurant it = (Restaurant) itRestaurantListAddress.next();
 					if(!filterRestaurantsAddressCat.contains(it)) {
 						filterRestaurantsAddressCat.remove(it);
-					}
-					
+					}					
 				}
 			}
 		}
+		
 	
 		//Set attributes to request
 	    if(filterRestaurantsAddressCat !=  null) {
@@ -130,10 +122,40 @@ public class SearchServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   
-	    // Go to login
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
-	    view.forward(request, response);
+		String busqueda = request.getParameter("estado");
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
+		restaurantDAO.setConnection(conn);
+		CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+	    categoryDAO.setConnection(conn);
+	    List<Category> categories = categoryDAO.getAll();
+	    RestaurantCategoriesDAO restaurantCategoriesDAO = new JDBCRestaurantCategoriesDAOImpl();
+	    restaurantCategoriesDAO.setConnection(conn);
+		List<Restaurant> restaurantsAll = restaurantDAO.getAll();
+		List<Restaurant> restaurants = new ArrayList<>();
+		if (busqueda.equals("noacepta")) {
+			for (Restaurant rest : restaurantsAll) {
+				if (rest.getAvailable() == 0) {
+					restaurants.add(rest);
+				}
+			}
+			request.setAttribute("noacepta", "checked");
+		} else if (busqueda.equals("acepta")) {
+			for (Restaurant rest : restaurantsAll) {
+				if (rest.getAvailable() == 1) {
+					restaurants.add(rest);
+				}
+			}
+			request.setAttribute("acepta", "checked");
+		}
+		request.setAttribute("restaurants", restaurants);
+		HttpSession sesion = request.getSession();
+		if (sesion.getAttribute("usuario") != null) {
+			request.setAttribute("sesion", "sesionIniciada");
+		}
+		request.setAttribute("categories", categories);
+		RequestDispatcher vista = request.getRequestDispatcher("/WEB-INF/list.jsp");
+		vista.forward(request, response);
 	}
 
 	
