@@ -88,6 +88,7 @@ public class restaurantEditServlet extends HttpServlet {
 		String available = request.getParameter("available");
 		String img = request.getParameter("img");
 		String subtitulo = request.getParameter("subtitulo");
+		String dishes = request.getParameter("dishName");
 		logger.info("--------------------------------------------------");
 		logger.info(name);
 		logger.info(address);

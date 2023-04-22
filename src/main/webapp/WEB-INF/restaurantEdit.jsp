@@ -107,7 +107,7 @@
 	        <div>
 	          <h2>Nuevo Plato</h2>
 	          <label>Nombre:</label>
-	          <input type="text" name="dishName" placeholder="Nombre del plato" value="${dish.name}">
+	          <input type="text" name="dishName" id="${dish.id} placeholder="Nombre del plato" value="${dish.name}">
 	          <label>Descripción:</label>
 	          <textarea name="dishDescription" placeholder="Descripción del plato">${dish.description}</textarea>
 	          <label>Precio:</label>
@@ -115,10 +115,10 @@
 	        </div>
         </c:forEach>
       </div>
-<!--       <div class="dishButton"> -->
-<%--         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button> --%>
-<%--         <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button> --%>
-<!--       </div> -->
+       <div class="dishButton">
+         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button> 
+         <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button>
+		   </div>
 
       <div class="center">
         <input type="submit" value="Editar" >
