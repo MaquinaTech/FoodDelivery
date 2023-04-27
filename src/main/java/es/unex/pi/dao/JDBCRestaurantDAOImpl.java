@@ -38,8 +38,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			restaurant.setMaxPrice(rs.getInt("maxPrice"));
 			restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 			restaurant.setAvailable(rs.getInt("available"));
-			restaurant.setImg(rs.getString("img"));
-			restaurant.setSubtitulo(rs.getString("subtitulo"));
 
 			logger.info("fetching restaurant: "+restaurant.getId());
 			
@@ -75,8 +73,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
 				restaurant.setAvailable(rs.getInt("available"));
-				restaurant.setImg(rs.getString("img"));
-				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				
 				restaurants.add(restaurant);
 				logger.info("fetching restaurant: "+restaurant.getId());							
@@ -110,8 +106,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 		        restaurant.setMaxPrice(rs.getInt("maxPrice"));
 		        restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 		        restaurant.setAvailable(rs.getInt("available"));
-		        restaurant.setImg(rs.getString("img"));
-		        restaurant.setSubtitulo(rs.getString("subtitulo"));
 		        
 		        restaurants.add(restaurant);
 		        logger.info("fetching restaurant: " + restaurant.getId());                            
@@ -157,8 +151,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			        restaurant.setMaxPrice(rs.getInt("maxPrice"));
 			        restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 			        restaurant.setAvailable(rs.getInt("available"));
-			        restaurant.setImg(rs.getString("img"));
-			        restaurant.setSubtitulo(rs.getString("subtitulo"));
 			        
 			        restaurants.add(restaurant);
 			        logger.info("fetching restaurant: " + restaurant.getId());
@@ -198,8 +190,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setMaxPrice(rs.getInt("maxPrice"));
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
-				restaurant.setImg(rs.getString("img"));
-				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				
 				restaurants.add(restaurant);
 				
@@ -242,8 +232,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				restaurant.setMaxPrice(rs.getInt("maxPrice"));
 				restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 				restaurant.setAvailable(rs.getInt("available"));
-				restaurant.setImg(rs.getString("img"));
-				restaurant.setSubtitulo(rs.getString("subtitulo"));
 				restaurants.add(restaurant);
 		
 				logger.info("fetching restaurants: "+restaurant.getId());
@@ -283,10 +271,10 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO restaurant (name,address,telephone,idu,gradesAverage,city,minPrice,contactemail,maxPrice,bikeFriendly,available,img,subtitulo) VALUES('"
+				stmt.executeUpdate("INSERT INTO restaurant (name,address,telephone,idu,gradesAverage,city,minPrice,contactemail,maxPrice,bikeFriendly,available) VALUES('"
 									+restaurant.getName()+"','"+restaurant.getAddress()+"','" + restaurant.getTelephone() + "'," 
 									+ restaurant.getIdu() + "," + restaurant.getGradesAverage()+",'"+ restaurant.getCity() +"',"+ restaurant.getMinPrice() +",'" + restaurant.getContactEmail() + "'," 
-									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() +"," + restaurant.getImg() +"," + restaurant.getSubtitulo() + ")");
+									+ restaurant.getMaxPrice() + "," + restaurant.getBikeFriendly() +"," + restaurant.getAvailable() + ")");
 				
 								
 			} catch (SQLException e) {
@@ -330,8 +318,6 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 				+"', maxPrice="+restaurant.getMaxPrice()
 				+", bikeFriendly="+restaurant.getBikeFriendly()
 				+", available="+restaurant.getAvailable()
-				+", img="+restaurant.getImg()
-				+", subtitulo="+restaurant.getSubtitulo()
 				+" WHERE id = "+restaurant.getId());
 				logger.info("updating restaurant: "+restaurant.getId());
 						

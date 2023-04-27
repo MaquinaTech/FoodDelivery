@@ -663,7 +663,20 @@
     margin-top: 7%;
     grid-gap: 20px;
   }
-
+  
+  .review-box {
+    width: 400px;
+    height: auto;
+    background-color: #f8ede9;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
+    position: absolute;
+    right: 5%;
+    top: 31%;
+  }
+  
   .info-box {
     width: 650px;
     height: auto;

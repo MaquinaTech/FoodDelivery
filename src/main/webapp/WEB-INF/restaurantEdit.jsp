@@ -47,23 +47,6 @@
           <p id="range-value-max"></p>
         </div>
       </div>
-
-      <br><br>
-      <h2>Media de Valoración de los usuarios</h2>
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5" ${restaurant.gradesAverage == 5 ? 'checked' : ''}>
-	    <label for="star5">&#9733;</label>
-	    <input type="radio" id="star4" name="rating" value="4" ${restaurant.gradesAverage == 4 ? 'checked' : ''}>
-	    <label for="star4">&#9733;</label>
-	    <input type="radio" id="star3" name="rating" value="3" ${restaurant.gradesAverage == 3 ? 'checked' : ''}>
-	    <label for="star3">&#9733;</label>
-	    <input type="radio" id="star2" name="rating" value="2" ${restaurant.gradesAverage == 2 ? 'checked' : ''}>
-	    <label for="star2">&#9733;</label>
-	    <input type="radio" id="star1" name="rating" value="1" ${restaurant.gradesAverage	 == 1 ? 'checked' : ''}>
-	    <label for="star1">&#9733;</label>
-      </div>  
-
-      <br><br>
       <h2>Categoría</h2>
       <div class="input_flex">
 	      <c:forEach var="category" items="${categories}">
@@ -115,10 +98,10 @@
 	        </div>
         </c:forEach>
       </div>
-<!--       <div class="dishButton"> -->
-<%--         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button> --%>
-<%--         <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button> --%>
-<!--       </div> -->
+      <div class="dishButton"> 
+         <button type="button" id="addNewDish"><img src="${pageContext.request.contextPath}/public/add.png" alt="Añadir plato"></button>
+         <button type="button" id="deleteLastDish"><img src="${pageContext.request.contextPath}/public/remove.png" alt="Eliminar plato"></button> 
+       </div> 
 
       <div class="center">
         <input type="submit" value="Editar" >

@@ -80,7 +80,7 @@
 			<c:forEach var="restaurant" items="${restaurants}">
 				<div class="card">
 					<a href="restaurantDetailsServlet.do?name=${restaurant.name}">
-						<img src="${pageContext.request.contextPath}/public/${restaurant.img}" alt="hamburguesaCategory" >						
+						<img src="${pageContext.request.contextPath}/public/restaurant.png" alt="hamburguesaCategory" >						
 					</a>
 					<div class="details">
 						<div class="description">
@@ -92,7 +92,7 @@
 								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
-								<b>${restaurant.subtitulo}</b>
+								<b>Restaurante disponible en Food Delivery.</b>
 							</p>
 						</div>
 						<div class="services">

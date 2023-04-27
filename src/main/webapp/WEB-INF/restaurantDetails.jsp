@@ -12,7 +12,7 @@
 
 <body>
     <jsp:include page="/WEB-INF/include/header.jsp" />
-
+	
     <div class="details">
         <div class="details_background" >
             <div class="info-menu">
@@ -54,14 +54,19 @@
                     <p><strong>Teléfono:</strong> ${restaurant.telephone}</p>
                     <p><strong>Correo de contacto:</strong> ${restaurant.contactEmail}</p>
                     <p><strong>Rango de precio:</strong> ${restaurant.minPrice}€-${restaurant.maxPrice}€</p>
-                    <p><strong>Categoría:</strong> ${category.name}</p>
-                    <p><strong>Media de valoraciones:</strong> 4/5</p>
+                    <p><strong>Media de valoraciones:</strong> ${restaurant.gradesAverage}</p>
                     <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="${restaurant.bikeFriendly}"></p>
                     <c:choose>
 		    			<c:when test="${restaurant.idu==id}">
 		    					<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
 		    				</c:when>
 		    		</c:choose>
+		    		<c:choose>
+		    			<c:when test="${restaurant.idu!=id}">
+		    					<a href="reviewServlet.do?idR=${restaurant.id}">Añadir Review</a>
+		    				</c:when>
+		    		</c:choose>
+		    			
                 </div>
                 <div class="menuList">
                     <section id="principales">
@@ -93,9 +98,6 @@
                     </div>
                     <button type="submit">Pagar</button>
                 </form>      
-            </div>
-            <div class="logo_details">
-                <img src="${pageContext.request.contextPath}/public/${restaurant.img}" alt="logoBurguerKing">
             </div>
         </div>
     </div>

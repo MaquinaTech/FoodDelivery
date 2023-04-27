@@ -12,9 +12,12 @@ import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
+import es.unex.pi.dao.ReviewsDAO;
+import es.unex.pi.dao.JDBCReviewsDAOImpl;
 import es.unex.pi.dao.DishDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Restaurant;
+import es.unex.pi.model.Review;
 import es.unex.pi.model.RestaurantCategories;
 import es.unex.pi.model.User;
 import es.unex.pi.model.Dish;
@@ -81,8 +84,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    	Category cat = catDAO.get(resCatList.get(0).getIdct());
 	    	request.setAttribute("category", cat);
 	    }
-	    
-	    
+	    	    
 		request.setAttribute("restaurant", restaurant);		
 		request.setAttribute("dishes", dishes);
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
@@ -92,13 +94,9 @@ public class restaurantDetailsServlet extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   
+	    	
+	    doGet(request,response);
 	    
-
-	    // Go to login
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
-	    view.forward(request, response);
 	}
 
-	
 }

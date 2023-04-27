@@ -14,24 +14,8 @@ public class Restaurant {
 	private int gradesAverage;
 	private int bikeFriendly;
 	private int available;
-	private String img;
-	private String subtitulo;
 	
-	
-	
-	
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
-	public String getSubtitulo() {
-		return subtitulo;
-	}
-	public void setSubtitulo(String subtitulo) {
-		this.subtitulo = subtitulo;
-	}
+
 	public String getName() {
 		return name;
 	}

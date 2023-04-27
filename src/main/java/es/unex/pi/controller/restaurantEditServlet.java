@@ -82,12 +82,9 @@ public class restaurantEditServlet extends HttpServlet {
 		String telephone= request.getParameter("telephone");
 		String range_min = request.getParameter("range-min");
 		String range_max = request.getParameter("range-max");
-		String rating= request.getParameter("rating");
 		String categories= request.getParameter("categorias");
 		String bikeFriendly = request.getParameter("bikeFriendly");
 		String available = request.getParameter("available");
-		String img = request.getParameter("img");
-		String subtitulo = request.getParameter("subtitulo");
 		logger.info("--------------------------------------------------");
 		logger.info(name);
 		logger.info(address);
@@ -95,7 +92,6 @@ public class restaurantEditServlet extends HttpServlet {
 		logger.info(telephone);
 		logger.info(range_min);
 		logger.info(range_max);
-		logger.info(rating);
 		logger.info(categories);
 		logger.info(bikeFriendly);
 		logger.info("--------------------------------------------------");
@@ -109,7 +105,6 @@ public class restaurantEditServlet extends HttpServlet {
 	    restaurant.setTelephone(telephone);
 	    Integer minPrice = Integer.parseInt(range_min);
 	    Integer maxPrice = Integer.parseInt(range_max);
-	    Integer gardesAverage = Integer.parseInt(rating);
 	    Integer bike = 0;
 	    if(bikeFriendly == "on") {
 	    	bike = 1;
@@ -121,11 +116,8 @@ public class restaurantEditServlet extends HttpServlet {
 	    
 	    restaurant.setMinPrice(minPrice);
 	    restaurant.setMaxPrice(maxPrice);
-	    restaurant.setGradesAverage(gardesAverage);
 	    restaurant.setBikeFriendly(bike);
 	    restaurant.setAvailable(ava);
-	    restaurant.setImg(img);
-	    restaurant.setSubtitulo(subtitulo);
 	    restaurantDAO.update(restaurant);
 	    
 

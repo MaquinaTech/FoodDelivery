@@ -10,11 +10,22 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.model.Restaurant;
+import es.unex.pi.model.User;
+import es.unex.pi.dao.CategoryDAO;
+import es.unex.pi.dao.RestaurantCategoriesDAO;
+import es.unex.pi.dao.JDBCCategoryDAOImpl;
+import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
+import es.unex.pi.model.Category;
+import es.unex.pi.model.RestaurantCategories;
+
 
 /**
  * Servlet implementation class CrearRestServlet
@@ -58,13 +69,12 @@ public class CrearRestServlet extends HttpServlet {
 		String telephone= request.getParameter("telephone");
 		String range_min = request.getParameter("minPrice");
 		String range_max = request.getParameter("maxPrice");
-		String rating= request.getParameter("gradesAverage");
 		String bikeFriendly = request.getParameter("bikeFriendly");
 		String available = request.getParameter("available");
-		String img = request.getParameter("img");
-		String subtitulo = request.getParameter("subtitulo");
 
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		HttpSession sesion = request.getSession();
+		User usuario = (User) sesion.getAttribute("user");
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
 	    Restaurant restaurant = new Restaurant();
@@ -75,7 +85,6 @@ public class CrearRestServlet extends HttpServlet {
 	    restaurant.setTelephone(telephone);
 	    Integer minPrice = Integer.parseInt(range_min);
 	    Integer maxPrice = Integer.parseInt(range_max);
-	    Integer gardesAverage = Integer.parseInt(rating);
 	    Integer bike = 0;
 	    Integer ava = 0;
 	    if(bikeFriendly.equals("1")) {
@@ -87,16 +96,38 @@ public class CrearRestServlet extends HttpServlet {
 	    
 	    restaurant.setMinPrice(minPrice);
 	    restaurant.setMaxPrice(maxPrice);
-	    restaurant.setGradesAverage(gardesAverage);
+	    restaurant.setGradesAverage(0);
 	    restaurant.setBikeFriendly(bike);
 	    restaurant.setAvailable(ava);
-	    restaurant.setImg(img);
-	    restaurant.setSubtitulo(subtitulo);
-	    restaurant.setIdu(0);
-	    restaurantDAO.add(restaurant);
-	    
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
-	    view.forward(request, response);
+	    restaurant.setIdu((int)usuario.getId());
+		List<String> listaCategorias = null; 
+		if (request.getParameterValues("categorias") != null) { 
+			listaCategorias = new ArrayList<String>(Arrays.asList(request.getParameterValues("categorias")));
+		    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+		    categoryDAO.setConnection(conn);
+		    RestaurantCategoriesDAO restaurantCatDAO = new JDBCRestaurantCategoriesDAOImpl();
+		    restaurantCatDAO.setConnection(conn);
+		    Long idR = restaurantDAO.add(restaurant);
+		    for (String categoria : listaCategorias) {
+				Category cat = categoryDAO.get(categoria);
+				RestaurantCategories restaurantCat = new RestaurantCategories();
+				restaurantCat.setIdr(idR);
+				restaurantCat.setIdct(cat.getId());
+				restaurantCatDAO.add(restaurantCat);
+			}
+		    
+		    
+		    
+		    
+		    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/search.jsp");
+		    view.forward(request, response);
+		}
+		else {
+			String error = "Se debe introducir al menos una categoria";
+			request.setAttribute("error", error);
+			doGet(request, response);
+
+		}
 	}
 
 }
