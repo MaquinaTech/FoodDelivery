@@ -90,7 +90,7 @@
 	        <div>
 	          <h2>Nuevo Plato</h2>
 	          <label>Nombre:</label>
-	          <input type="text" name="dishName" placeholder="Nombre del plato" value="${dish.name}">
+	          <input type="text" name="dishName" id="${dish.id} placeholder="Nombre del plato" value="${dish.name}">
 	          <label>Descripción:</label>
 	          <textarea name="dishDescription" placeholder="Descripción del plato">${dish.description}</textarea>
 	          <label>Precio:</label>
