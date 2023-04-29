@@ -80,4 +80,24 @@
     <servlet-name>reviewServlet</servlet-name>
     <url-pattern>/reviewServlet.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FiltroValoracionServlet</display-name>
+    <servlet-name>FiltroValoracionServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.FiltroValoracionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FiltroValoracionServlet</servlet-name>
+    <url-pattern>/FiltroValoracionServlet.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>pedidoServlet</display-name>
+    <servlet-name>pedidoServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.pedidoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>pedidoServlet</servlet-name>
+    <url-pattern>/pedidoServlet.do</url-pattern>
+  </servlet-mapping>
 </web-app>

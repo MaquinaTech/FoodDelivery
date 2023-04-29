@@ -133,8 +133,8 @@ public class JDBCOrderDishesDAOImpl implements OrderDishesDAO {
 			try {
 				stmt = conn.createStatement();
 				stmt.executeUpdate("INSERT INTO OrderDishes (ido,iddi) VALUES('"+
-									orderDishes.getIdo()+"','"+
-									orderDishes.getIddi()+"')");
+						orderDishes.getIdo()+"','"+
+						orderDishes.getIddi()+"')");
 						
 				logger.info("creating OrderDishes:("+orderDishes.getIdo()+" "+orderDishes.getIddi());
 				done= true;

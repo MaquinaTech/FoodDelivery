@@ -528,6 +528,10 @@
    .estados h3{
    color:white;
   }
+  
+   .valoracion h3{
+   	color:white;
+  }
 
   .listRestaurants {
     height:100%;
@@ -952,6 +956,10 @@
  	#eliminar {
  		color:red;
  		text-align: center;
+ 	}
+ 	
+ 	#h1pedido{
+ 		color:red;	
  	}
  	
 

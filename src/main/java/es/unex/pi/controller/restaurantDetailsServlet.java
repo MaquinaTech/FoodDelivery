@@ -2,6 +2,8 @@ package es.unex.pi.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -68,7 +70,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    restaurantDAO.setConnection(conn);
 	    Restaurant restaurant = restaurantDAO.get(restaurantId);
 	    session.setAttribute("idurestaurante", restaurant.getIdu());
-	    
+	    session.setAttribute("idrestaurante", restaurant.getId());
 	    DishDAO dishDAO = new JDBCDishDAOImpl();
 	    dishDAO.setConnection(conn);
 	    List<Dish> dishes = dishDAO.getByRestaurant(restaurantId);
@@ -95,7 +97,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	
-	    doGet(request,response);
+		doGet(request, response);
 	    
 	}
 

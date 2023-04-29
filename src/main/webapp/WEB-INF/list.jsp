@@ -66,6 +66,7 @@
 				<button class="dropbtn">Más</button>
 				
 				<div class="estados">
+					<h2>Filtro por Estado de Restaurante</h2>
         			<form method="post" action="SearchServlet.do" class="estado">
         			<label for="acepta" class="acepta"><h3>Acepta Pedidos</h3></label>
             		<input type="radio" id="acepta" name="estado" value="acepta" ${requestScope.acepta} required >
@@ -75,6 +76,19 @@
     				<input type="submit" value="Buscar" id="noacepta">
         			</form>
 				</div>
+				
+				<div class="valoracion">
+					<h2>Filtro por Valoraciones</h2>
+        			<form method="post" action="FiltroValoracionServlet.do" class="valoracion">
+        			<label for="mayoramenor" class="mayoramenor"><h3>De mayor a menor</h3></label>
+            		<input type="radio" id="mayoramenor" name="valoracion" value="mayor" ${requestScope.mayor} required >
+            		<label for="menoramayor" class="menoramayor"><h3>De menor a mayor</h3></label>
+            		<input type="radio" id="menoramayor" name="valoracion" value="menor" ${requestScope.menor} >
+            		<br></br>
+    				<input type="submit" value="Buscar">
+        			</form>
+				</div>
+				
 			</div>
 			<div class="listRestaurants">
 			<c:forEach var="restaurant" items="${restaurants}">

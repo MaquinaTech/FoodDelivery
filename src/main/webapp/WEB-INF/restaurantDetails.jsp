@@ -77,7 +77,7 @@
                             <div class="dish-info">
                             <h3>${dish.name}</h3>
                             <p>${dish.description}</p>
-                            <p class="price">${dish.price}€ <img class = "Cesta-pedido" src="${pageContext.request.contextPath}/public/cesta.png" alt="Cesta"></p>
+                            <p class="price">${dish.price}€</p>
                             
                             </div>
                         </div>
@@ -86,39 +86,12 @@
                 </div>
             </div>
             <div class="pedido-box">
-                <h1>Tu pedido</h1>
-                <form action="#" method="POST">
-                    <div class="pedido">
-                        <label>
-                            <input type="radio" name="envio" value="recoger" checked> Pedir para recoger
-                        </label>
-                        <label>
-                            <input type="radio" name="envio" value="domicilio"> Pedir a domicilio
-                        </label>
-                    </div>
-                    <button type="submit">Pagar</button>
-                </form>      
+                <a href="pedidoServlet.do?idR=${restaurant.id}">Realizar Pedido</a>          
             </div>
         </div>
     </div>
 
-    <jsp:include page="/WEB-INF/include/footer.jsp" />
-      
-    <script>
-    
-        const form = document.querySelector('form');
-        const button = form.querySelector('button[type="submit"]');
-    
-        form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const envio = form.querySelector('input[name="envio"]:checked').value;
-        
-        // aquí se puede realizar alguna acción dependiendo del valor seleccionado (envio)
-        alert(`Ha seleccionado ${envio}`);
-        });
-    
-    </script>
+    <jsp:include page="/WEB-INF/include/footer.jsp"/>
 
 </body>
 </html>
