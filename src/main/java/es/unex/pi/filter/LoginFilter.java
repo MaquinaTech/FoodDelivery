@@ -1,4 +1,4 @@
-package es.unex.giiis.pi.filter;
+package es.unex.pi.filter;
 
 import java.io.IOException;
 import java.util.logging.Logger;

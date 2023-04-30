@@ -98,10 +98,11 @@ public class OrdersResource {
 		
 		Map<String, String> messages = new HashMap<String, String>();
 
-		if ((!newOrder.validate(messages))
+/*		if ((!newOrder.validate(messages))
 			||((!user.getName().equals(newOrder.getName()))
 			  &&(!user.getRole().equals("Manager"))))
 			    throw new CustomBadRequestException("Errors in parameters");
+*/
 
 
 		//save order in DB
@@ -139,7 +140,7 @@ public class OrdersResource {
 		  
 		Response res;
 		
-        Order order = new Order();
+		Order order = new Order();
 		order.setName(formParams.getFirst("name"));
 		order.setEmail(formParams.getFirst("email"));
 		order.setTel(formParams.getFirst("tel"));
