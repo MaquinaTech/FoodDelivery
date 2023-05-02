@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.logging.Logger;
 
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.Consumes;
@@ -43,13 +44,21 @@ public class OrdersResource {
 	  
 	  @GET
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Order> getOrdersJSON(@Context HttpServletRequest request) {
+	  public String getOrdersJSON(@Context HttpServletRequest request) {
 
-		List<Order> orders=null;
+		/*List<Order> orders=null;
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		OrderDAO orderDao = new JDBCOrderDAOImpl();
 		orderDao.setConnection(conn);
 		
+		orders = orderDao.getAll(); 
+		
+		
+		HttpSession session = request.getSession();
+		Object user = "";
+		if (session.getAttribute("user")!= null) {
+			user = session.getAttribute("user");
+		}*/
 		  
 		  //TODO: Complete the code to implement this method.
 		  
@@ -60,8 +69,8 @@ public class OrdersResource {
 		  //3. If the user is a Manager, return all the orders.
 		  //   otherwise, return the orders of the current user
 		  
-	
-		return orders; 
+		  
+		return "orders"; 
 	  }
 	  /*
 	  @GET
