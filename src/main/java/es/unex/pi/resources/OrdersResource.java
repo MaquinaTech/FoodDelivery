@@ -1,9 +1,11 @@
-package es.unex.giiis.pi.resources;
+package es.unex.pi.resources;
 
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.sql.Connection;
+import java.util.logging.Logger;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +24,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-
+import es.unex.pi.dao.JDBCUserDAOImpl;
+import es.unex.pi.dao.UserDAO;
 import es.unex.pi.dao.JDBCOrderDAOImpl;
 import es.unex.pi.dao.OrderDAO;
 import es.unex.pi.model.Order;
@@ -43,6 +46,10 @@ public class OrdersResource {
 	  public List<Order> getOrdersJSON(@Context HttpServletRequest request) {
 
 		List<Order> orders=null;
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		OrderDAO orderDao = new JDBCOrderDAOImpl();
+		orderDao.setConnection(conn);
+		
 		  
 		  //TODO: Complete the code to implement this method.
 		  
@@ -56,7 +63,7 @@ public class OrdersResource {
 	
 		return orders; 
 	  }
-	  
+	  /*
 	  @GET
 	  @Path("")	  //TODO Comlete the path
 	  @Produces(MediaType.APPLICATION_JSON)
@@ -98,11 +105,11 @@ public class OrdersResource {
 		
 		Map<String, String> messages = new HashMap<String, String>();
 
-/*		if ((!newOrder.validate(messages))
+		if ((!newOrder.validate(messages))
 			||((!user.getName().equals(newOrder.getName()))
 			  &&(!user.getRole().equals("Manager"))))
 			    throw new CustomBadRequestException("Errors in parameters");
-*/
+
 
 
 		//save order in DB
@@ -176,7 +183,7 @@ public class OrdersResource {
 	  @PUT
 	  @Path("") //TODO Comlete the path
 		@Consumes(MediaType.APPLICATION_JSON)
-		public Response put(Order orderUpdate,
+	  public Response put(Order orderUpdate,
 							@PathParam("orderid") long orderid,
 							@Context HttpServletRequest request) throws Exception{
 		
@@ -237,6 +244,6 @@ public class OrdersResource {
 		}
 		else throw new CustomBadRequestException("Error in user or id");		
 			
-	  }
+	  }*/
 	  
 } 
