@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Date;
 import java.util.Calendar;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.util.logging.Logger;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,24 +31,39 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedMap;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
+import es.unex.pi.dao.CategoryDAO;
+import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.UserDAO;
 import es.unex.pi.model.User;
+import es.unex.pi.model.Category;
+import es.unex.pi.model.Dish;
+import es.unex.pi.model.Order;
 import es.unex.pi.model.Token;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
 import es.unex.pi.resources.exceptions.CustomNotFoundException;
 
 @Path("/auth")
 public class LoginResource {
+	@Context
+	ServletContext sc;
+	@Context
+	UriInfo uriInfo;
 
-    @POST
-    @Path("/login")
-    public Response login(User user) {
-    	//TODO
-        // Aquí hay que verificar usuario como en el controller
-    	return Response.ok(this.generateToken(user)).build();
-    	
-    }
+	private boolean isValidUser(String username, String password) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+	    User user = userDAO.get(username);    
+	
+	    if(user != null) {
+	        String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+	        if(user.getPassword().equals(encodedPassword)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
     @POST
     @Path("/token")
@@ -53,14 +71,15 @@ public class LoginResource {
         String tokenValue = generateRandomToken();
         Date expiryDate = calculateExpiryDate();
         Token token = new Token(tokenValue, expiryDate);
-
-        //TODO
-        // Aquí se guarda el token en la base de datos (nueva tabla en bd Token -> campos:id, idUser, token, token_expiry)
-        // Tambien hay que crear un modelo, un DAO y un JDBC...
-        //Opcional: Se pueden añadir los campos token y expiryDate a la tabla user pero hay que cambiar la manera de tratar los tokens 
-        //(actualmente es una clase Token, simplemente deberia ser un String y un Date))
-
-        return Response.ok(token).build();
+        String username = user.getSurname();
+	    String password = user.getPassword();
+	    
+	    //User auth
+	    if (isValidUser(username, password)) {
+	    	return Response.ok(token).build();
+	    } else {
+	        return Response.status(Response.Status.UNAUTHORIZED).entity("Error, usuario o contraseña no válidos").build();
+	    }
     }
 
     private String generateRandomToken() {
