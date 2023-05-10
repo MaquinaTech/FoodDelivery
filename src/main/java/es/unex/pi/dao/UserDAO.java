@@ -18,6 +18,16 @@ public interface UserDAO {
 	public void setConnection(Connection conn);
 
 	/**
+	 * Gets an user from the DB using email.
+	 * 
+	 * @param email
+	 *            User Identifier.
+	 * 
+	 * @return User object with that email.
+	 */
+	public User find(String email);
+	
+	/**
 	 * Gets an user from the DB using idu.
 	 * 
 	 * @param id

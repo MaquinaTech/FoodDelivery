@@ -49,7 +49,10 @@ public class UserResources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getUserSesion(@Context HttpServletRequest request) {
 		HttpSession sesion = request.getSession();
+		//TODO no vale ya session
+		//Todo se recoge desde React
 		User usuario = (User) sesion.getAttribute("usuario");
+		
 		if (usuario != null) {
 			return usuario;
 		} else {

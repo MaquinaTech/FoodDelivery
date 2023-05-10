@@ -59,7 +59,7 @@ public class OrderResources {
 		return orderDAO.get(id);
 	}
 	
-	@POST
+	/*@POST
 	@Path("/crearOrder/{Dishes}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response crearOrder(Order order, @PathParam("Dishes") List <Dish> Dishes, @Context HttpServletRequest request) {
@@ -88,5 +88,5 @@ public class OrderResources {
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
 				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 
-	}
+	}*/
 }

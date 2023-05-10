@@ -1,9 +1,9 @@
 package es.unex.pi.model;
-import java.util.Date;
+import java.sql.Date;
 public class Token {
     private String value;
     private Date expiryDate;
-
+    
     public Token(String value, Date expiryDate2) {
         this.value = value;
         this.expiryDate = expiryDate2;
