@@ -2,11 +2,8 @@ package es.unex.pi.resources;
 import java.util.logging.Logger;
 import java.util.Base64;
 import java.sql.Connection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.sql.Date;
-import java.util.Calendar;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -90,14 +87,23 @@ public class LoginResource {
 	@Path("/verify")
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean verifyToken(@FormParam("token") String token,
-	                              @Context HttpServletRequest request) {
-    	Connection conn = (Connection) sc.getAttribute("dbConn");
+	                          @Context HttpServletRequest request) {
+	    Connection conn = (Connection) sc.getAttribute("dbConn");
 	    TokenDAO tokenDAO = new JDBCTokenDAOImpl();
 	    tokenDAO.setConnection(conn);
-	    boolean tokenVerify = tokenDAO.verify(token);
-	    return tokenVerify;
-    }
-    
+	    List<Token> listTokens = tokenDAO.getAll();	    
+	    boolean verify = false;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	        	logger.info("Token verificado: ");
+	            verify = true;
+	            break;
+	        }
+	    }
+	    
+	    return verify;
+	}
+
     private String generateRandomToken() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] randomBytes = new byte[24];

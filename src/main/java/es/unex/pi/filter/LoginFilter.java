@@ -3,6 +3,7 @@ package es.unex.pi.filter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import jakarta.servlet.DispatcherType;
@@ -23,6 +24,7 @@ import es.unex.pi.model.Token;
 import es.unex.pi.model.User;
 import es.unex.pi.dao.JDBCTokenDAOImpl;
 import es.unex.pi.dao.JDBCUserDAOImpl;
+import es.unex.pi.dao.TokenDAO;
 import es.unex.pi.dao.UserDAO;
 import java.util.logging.Logger;
 import jakarta.servlet.GenericServlet;
@@ -61,6 +63,7 @@ public class LoginFilter implements Filter {
 	    HttpServletResponse httpResponse = (HttpServletResponse) response;
 	    String loginPath = httpRequest.getContextPath() + "/rest/auth";
 	    String verifyPath = httpRequest.getContextPath() + "/rest/auth/verify";
+	    
 	
 	    if (httpRequest.getRequestURI().equals(loginPath) || httpRequest.getRequestURI().equals(verifyPath) ) {
 	        chain.doFilter(request, response);
@@ -72,21 +75,26 @@ public class LoginFilter implements Filter {
 	        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing or invalid Authorization header");
 	        return;
 	    }
+	    logger.info("LLEGAMOS: ");
 	
 	    String tokenValue = authHeader.substring("Bearer ".length()).trim();
+	    
 	        
 	    Connection conn = (Connection) servletContext.getAttribute("dbConn");
 	    JDBCTokenDAOImpl tokenDAO = new JDBCTokenDAOImpl();
 	    tokenDAO.setConnection(conn);
-	    Token token = tokenDAO.get(tokenValue);
-	        
-	    if (token == null) {
-	        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
-	        return;
+	    List<Token> listTokens = tokenDAO.getAll();	    
+	    boolean verify = false;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(tokenValue)) {
+	        	logger.info("Token verificado: ");
+	        	verify = true;
+	            break;
+	        }
 	    }
-	
-	    if (token.getExpiryDate().before(new Date())) {
-	        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Expired token");
+	        
+	    if (!verify) {
+	        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token");
 	        return;
 	    }
 	

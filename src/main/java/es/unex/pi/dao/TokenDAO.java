@@ -2,6 +2,8 @@ package es.unex.pi.dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import es.unex.pi.model.Token;
 
 public interface TokenDAO {
@@ -15,7 +17,7 @@ public interface TokenDAO {
 	public void setConnection(Connection conn);
 
 	/**
-	 * Gets a category from the DB using id.
+	 * Gets a token from the DB using value.
 	 * 
 	 * @param value
 	 * Token Identifier.
@@ -25,6 +27,14 @@ public interface TokenDAO {
 	 * @return Token object with that value.
 	 */
 	public Token get(String value);
+	
+	/**
+	 * Gets all tokens
+	 * 
+	 * 
+	 * @return Token object with that value.
+	 */
+	public List<Token> getAll();
 	
 	/**
 	 * Add token to DB.
@@ -42,7 +52,7 @@ public interface TokenDAO {
 	 * @param token
 	 * Token.
 	 * 
-	 * @return If Token add correctly.
+	 * @return If Token update correctly.
 	 */
 	public boolean update(Token token);
 	

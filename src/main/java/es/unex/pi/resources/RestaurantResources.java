@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -52,10 +53,9 @@ public class RestaurantResources {
 		return restaurantDAO.getAll();
 	}
 	
-	@GET
-	@Path("/{idR}")
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Restaurant obtenerRestauranteDetalles(@PathParam("idR") long idR, @Context HttpServletRequest request) {
+	public Restaurant obtenerRestauranteDetalles(@FormParam("idR") long idR, @Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
 		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 		restaurantDAO.setConnection(conn);

@@ -6,14 +6,36 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
-
-
 import es.unex.pi.model.Token;
 
 public class JDBCTokenDAOImpl implements TokenDAO {
 	private Connection conn;
 	private static final Logger logger = Logger.getLogger(JDBCTokenDAOImpl.class.getName());
+
+	
+	@Override
+	public List<Token> getAll() {
+	    List<Token> tokenList = new ArrayList<>();
+
+	    if (conn == null) return tokenList;
+
+	    try {
+	        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tokens");
+	        ResultSet rs = stmt.executeQuery();
+
+	        while (rs.next()) {
+	            Token token = new Token(rs.getString("value"),rs.getDate("expiryDate"));
+	            tokenList.add(token);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return tokenList;
+	}
 
 	
 	@Override
@@ -73,14 +95,12 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	@Override
 	public boolean verify(String value) {
 	    if (conn == null || value == null) return false;
-
 	    try {
 	        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tokens WHERE value = ?");
 	        stmt.setString(1, value);
 	        ResultSet rs = stmt.executeQuery();
-
 	        if (rs.next()) {
-	            Date expiryDate = rs.getDate("expiry_date");
+	            Date expiryDate = rs.getDate("expiryDate");
 	            if (expiryDate != null && expiryDate.before(new java.util.Date())) {
 	                // El token ha caducado, eliminarlo de la base de datos
 	                PreparedStatement deleteStmt = conn.prepareStatement("DELETE FROM tokens WHERE value = ?");
