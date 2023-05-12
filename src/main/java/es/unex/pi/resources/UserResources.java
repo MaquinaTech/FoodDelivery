@@ -4,27 +4,24 @@ import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Iterator;
 import java.util.List;
-import es.unex.pi.dao.CategoryDAO;
-import es.unex.pi.dao.JDBCCategoryDAOImpl;
-import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
-import es.unex.pi.dao.JDBCRestaurantDAOImpl;
+import java.util.logging.Logger;
+
+import es.unex.pi.dao.JDBCTokenDAOImpl;
 import es.unex.pi.dao.JDBCUserDAOImpl;
-import es.unex.pi.dao.RestaurantCategoriesDAO;
-import es.unex.pi.model.Category;
-import es.unex.pi.model.Restaurant;
-import es.unex.pi.model.RestaurantCategories;
-import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.UserDAO;
+import es.unex.pi.dao.TokenDAO;
+import es.unex.pi.model.Token;
 import es.unex.pi.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -44,52 +41,60 @@ public class UserResources {
 	ServletContext sc;
 	@Context
 	UriInfo uriInfo;
+	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
 	
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public User getUserSesion(@Context HttpServletRequest request) {
-		HttpSession sesion = request.getSession();
-		//TODO no vale ya session
-		//Todo se recoge desde React
-		User usuario = (User) sesion.getAttribute("usuario");
+	public User getUser(@FormParam("token") String token, @Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+	    
+	    TokenDAO tokenDAO = new JDBCTokenDAOImpl();
+	    tokenDAO.setConnection(conn);
+	    List<Token> listTokens = tokenDAO.getAll();
+	    long idU = -1;
+	    
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	            idU = t.getIdU();
+	            break;
+	        }
+	    }
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+	    User user = userDAO.get(idU);
+	    User userFilter = new User();
+	    userFilter.setEmail(user.getEmail());
+	    userFilter.setId(user.getId());
+	    userFilter.setName(user.getName());
+	    userFilter.setSurname(user.getSurname());
 		
-		if (usuario != null) {
-			return usuario;
+		if (user != null) {
+			return userFilter;
 		} else {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 	}
 	
-	@PUT
-	@Path("/UserEdit")
+	@POST
+	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response UserEdit(User user, @Context HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Connection conn = (Connection) sc.getAttribute("dbConn");		
-		UserDAO userDAO = new JDBCUserDAOImpl();
-	    userDAO.setConnection(conn);    
-
-	    // Validate parameters
-	    if (user.getName() == null || user.getSurname() == null || user.getEmail() == null) {
-	    	throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	public Response updateUser(@FormParam("name") String name
+							,@FormParam("surname") String surname
+							,@FormParam("email") String email
+							,@FormParam("id") String id
+							, @Context HttpServletRequest request) {
+		logger.info("Hemos llegao chavales");
+	    if(name == null || surname == null || email == null) {
+	    	return Response.status(Response.Status.UNAUTHORIZED).entity("Error").build();
 	    }
-
-	    // Validate email
-	    if (!user.getEmail().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-	    	throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+	    else {
+	    	Connection conn = (Connection) sc.getAttribute("dbConn");
+	    	UserDAO userDAO = new JDBCUserDAOImpl();
+	    	User user = userDAO.get(id);
+	    	
+	    	return Response.ok().build();
 	    }
-	    
-	    if(!user.getPassword().equals("")) {
-		    if (!user.getPassword().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
-		    	throw new WebApplicationException(Response.Status.CONFLICT);
-		    }
-	    }
-	    
-	    session.removeAttribute("username");
-	    userDAO.update(user);
-		session.setAttribute("username", user);
-		return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
-				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+		
 	}
 	
 	@DELETE

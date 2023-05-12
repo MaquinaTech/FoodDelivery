@@ -73,7 +73,7 @@ public class LoginResource {
 	    if (isValidUser(user,password )) {
 	    	String tokenValue = generateRandomToken();
 	        Date expiryDate = calculateExpiryDate();
-	        Token token = new Token(tokenValue, expiryDate);
+	        Token token = new Token(tokenValue, expiryDate, user.getId());
 	        TokenDAO tokenDAO = new JDBCTokenDAOImpl();
 		    tokenDAO.setConnection(conn);
 		    tokenDAO.add(token);
@@ -91,7 +91,7 @@ public class LoginResource {
 	    Connection conn = (Connection) sc.getAttribute("dbConn");
 	    TokenDAO tokenDAO = new JDBCTokenDAOImpl();
 	    tokenDAO.setConnection(conn);
-	    List<Token> listTokens = tokenDAO.getAll();	    
+	    List<Token> listTokens = tokenDAO.getAll();
 	    boolean verify = false;
 	    for (Token t : listTokens) {
 	        if (t.getValue().equals(token)) {

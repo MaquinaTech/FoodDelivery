@@ -87,9 +87,6 @@ public class RestaurantResources {
 	        }
 	    }
 
-	    logger.info("Devolvemos restaurante: ");
-	    logger.info(restaurant.getName());
-
 	    // Estructurar los datos en un array y devolverlo
 	    Object[] result = new Object[3];
 	    result[0] = restaurant;

@@ -27,7 +27,7 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	        ResultSet rs = stmt.executeQuery();
 
 	        while (rs.next()) {
-	            Token token = new Token(rs.getString("value"),rs.getDate("expiryDate"));
+	            Token token = new Token(rs.getString("value"),rs.getDate("expiryDate"),rs.getLong("idU"));
 	            tokenList.add(token);
 	        }
 	    } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	        ResultSet rs = stmt.executeQuery();
 
 	        if (rs.next()) {
-	            Token token = new Token(rs.getString("value"), rs.getDate("expiryDate"));
+	            Token token = new Token(rs.getString("value"), rs.getDate("expiryDate"),rs.getLong("idU"));
 	            return token;
 	        }
 	    } catch (SQLException e) {
@@ -63,9 +63,10 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	    if (conn == null || token == null) return false;
 
 	    try {
-	        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tokens (value, expiryDate) VALUES (?, ?)");
+	        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tokens (value, expiryDate, idU) VALUES (?, ?, ?)");
 	        stmt.setString(1, token.getValue());
 	        stmt.setDate(2, new Date(token.getExpiryDate().getTime()));
+	        stmt.setLong(3, token.getIdU());
 	        int rowsAffected = stmt.executeUpdate();
 
 	        return rowsAffected > 0;
