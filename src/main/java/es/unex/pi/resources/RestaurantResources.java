@@ -5,19 +5,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import es.unex.pi.dao.CategoryDAO;
+import es.unex.pi.dao.DishDAO;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
+import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
 import es.unex.pi.model.Category;
+import es.unex.pi.model.Dish;
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.RestaurantCategories;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.Consumes;
@@ -38,7 +43,7 @@ import jakarta.ws.rs.core.UriInfo;
 @Path("/restaurants")
 		
 public class RestaurantResources {
-
+	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
 	@Context
 	ServletContext sc;
 	@Context
@@ -55,11 +60,42 @@ public class RestaurantResources {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Restaurant obtenerRestauranteDetalles(@FormParam("idR") long idR, @Context HttpServletRequest request) {
-		Connection conn = (Connection) sc.getAttribute("dbConn");
-		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
-		restaurantDAO.setConnection(conn);
-		return restaurantDAO.get(idR);
+	public Object[] obtenerRestauranteDetalles(@FormParam("idR") long idR, @Context HttpServletRequest request) {
+	    Connection conn = (Connection) sc.getAttribute("dbConn");
+	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
+	    restaurantDAO.setConnection(conn);
+	    Restaurant restaurant = restaurantDAO.get(idR);
+
+	    DishDAO dishDAO = new JDBCDishDAOImpl();
+	    dishDAO.setConnection(conn);
+	    List<Dish> dishes = dishDAO.getByRestaurant(idR);
+
+	    RestaurantCategoriesDAO resCatDAO = new JDBCRestaurantCategoriesDAOImpl();
+	    resCatDAO.setConnection(conn);
+	    List<RestaurantCategories> resCatList = resCatDAO.getAllByRestaurant(idR);
+	    
+	    CategoryDAO CategoryDAO = new JDBCCategoryDAOImpl();
+	    CategoryDAO.setConnection(conn);
+	    
+	    List<Category> categoryList = new ArrayList<>();
+	    
+	    for (RestaurantCategories restaurantCategories : resCatList) {
+	        long categoryId = restaurantCategories.getIdct();
+	        Category category = CategoryDAO.get(categoryId);
+	        if (category != null) {
+	            categoryList.add(category);
+	        }
+	    }
+
+	    logger.info("Devolvemos restaurante: ");
+	    logger.info(restaurant.getName());
+
+	    // Estructurar los datos en un array y devolverlo
+	    Object[] result = new Object[3];
+	    result[0] = restaurant;
+	    result[1] = dishes;
+	    result[2] = categoryList;
+	    return result;
 	}
 	
 	@GET

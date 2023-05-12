@@ -75,10 +75,11 @@ public class LoginFilter implements Filter {
 	        httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Missing or invalid Authorization header");
 	        return;
 	    }
-	    logger.info("LLEGAMOS: ");
+	    logger.info("Respuesta recibida: ");
 	
 	    String tokenValue = authHeader.substring("Bearer ".length()).trim();
-	    
+	    logger.info("Token enviado: ");
+	    logger.info(tokenValue);
 	        
 	    Connection conn = (Connection) servletContext.getAttribute("dbConn");
 	    JDBCTokenDAOImpl tokenDAO = new JDBCTokenDAOImpl();
