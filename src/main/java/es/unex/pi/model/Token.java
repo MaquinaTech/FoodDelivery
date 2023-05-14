@@ -1,6 +1,7 @@
 package es.unex.pi.model;
 import java.sql.Date;
 public class Token {
+	private long id;
     private String value;
     private long idU;
     private Date expiryDate;
@@ -13,6 +14,10 @@ public class Token {
 
     public String getValue() {
         return value;
+    }
+    
+    public long getId() {
+        return id;
     }
 
     public void setValue(String value) {

@@ -66,4 +66,14 @@ public interface TokenDAO {
 	 */
 	public boolean verify(String value);
 	
+	/**
+	 * Delete all tokens of user in DB.
+	 * 
+	 * @param idU
+	 * User id.
+	 * 
+	 * @return If Token is delete.
+	 */
+	public boolean delete(long idU);
+	
 }

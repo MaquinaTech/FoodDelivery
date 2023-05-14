@@ -37,7 +37,6 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	    return tokenList;
 	}
 
-	
 	@Override
 	public Token get(String value) {
 	    if (conn == null) return null;
@@ -120,6 +119,24 @@ public class JDBCTokenDAOImpl implements TokenDAO {
 	    }
 	}
 
+	@Override
+	public boolean delete(long idU) {
+		boolean done = false;
+		if (conn != null){
+
+			Statement stmt;
+			try {
+				stmt = conn.createStatement();
+				stmt.executeUpdate("DELETE FROM tokens WHERE idU = "+idU);
+				logger.info("deleting tokens for user: "+idU);
+				done= true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return done;
+	}
+	
 
 	
 	@Override

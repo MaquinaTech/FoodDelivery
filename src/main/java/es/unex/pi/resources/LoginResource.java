@@ -95,13 +95,42 @@ public class LoginResource {
 	    boolean verify = false;
 	    for (Token t : listTokens) {
 	        if (t.getValue().equals(token)) {
-	        	logger.info("Token verificado: ");
+	        	logger.info("Token verificado");
 	            verify = true;
 	            break;
 	        }
 	    }
 	    
 	    return verify;
+	}
+	
+	@DELETE
+	@Path("/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteToken(@Context HttpServletRequest request) {
+	    Connection conn = (Connection) sc.getAttribute("dbConn");
+	    String authHeader = request.getHeader("Authorization");
+		String token= authHeader.substring("Bearer ".length()).trim();
+	    TokenDAO tokenDAO = new JDBCTokenDAOImpl();
+	    tokenDAO.setConnection(conn);
+	    List<Token> listTokens = tokenDAO.getAll();
+	    long idU = -1;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	        	idU = t.getIdU();
+	        }
+	    }
+	    String response;
+	    if(idU != -1) {
+	    	tokenDAO.delete(idU);
+	    	logger.info("Tokens del usuario: " + idU +  "eliminados");
+	    	return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
+					.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	    }
+	    else {
+	    	logger.info("ERRORRRRRR: ");
+	    	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error").build();
+	    }
 	}
 
     private String generateRandomToken() {

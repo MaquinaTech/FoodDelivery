@@ -23,7 +23,8 @@ public class JDBCUserDAOImpl implements UserDAO {
 		
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id ="+id);			 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE id ="+id);
+			
 			if (!rs.next()) return null; 
 			user  = new User();	 
 			user.setId(rs.getInt("id"));

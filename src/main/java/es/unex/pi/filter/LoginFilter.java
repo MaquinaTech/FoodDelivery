@@ -85,7 +85,6 @@ public class LoginFilter implements Filter {
 	    boolean verify = false;
 	    for (Token t : listTokens) {
 	        if (t.getValue().equals(tokenValue)) {
-	        	logger.info("Token verificado: ");
 	        	verify = true;
 	            break;
 	        }
