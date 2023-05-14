@@ -86,9 +86,11 @@ public class LoginResource {
 	@POST
 	@Path("/verify")
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean verifyToken(@FormParam("token") String token,
-	                          @Context HttpServletRequest request) {
+	public Response verifyToken(@Context HttpServletRequest request) {
 	    Connection conn = (Connection) sc.getAttribute("dbConn");
+	    String authHeader = request.getHeader("Authorization");
+		String token= authHeader.substring("Bearer ".length()).trim();
+		
 	    TokenDAO tokenDAO = new JDBCTokenDAOImpl();
 	    tokenDAO.setConnection(conn);
 	    List<Token> listTokens = tokenDAO.getAll();
@@ -101,7 +103,13 @@ public class LoginResource {
 	        }
 	    }
 	    
-	    return verify;
+	    if(verify == true) {
+	    	return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
+					.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	    }
+	    else {
+	    	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error").build();
+	    }
 	}
 	
 	@DELETE
@@ -128,7 +136,6 @@ public class LoginResource {
 					.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	    }
 	    else {
-	    	logger.info("ERRORRRRRR: ");
 	    	return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error").build();
 	    }
 	}

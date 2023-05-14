@@ -28,6 +28,7 @@ public class JDBCDishDAOImpl implements DishDAO {
 			if (!rs.next()) return null; 
 			dish  = new Dish();	 
 			dish.setId(rs.getInt("id"));
+			dish.setIdr(rs.getInt("idr"));
 			dish.setName(rs.getString("name"));
 			dish.setPrice(rs.getInt("price"));
 			dish.setDescription(rs.getString("description"));
@@ -219,7 +220,7 @@ public class JDBCDishDAOImpl implements DishDAO {
 				stmt = conn.createStatement();
 				
 				stmt.executeUpdate("UPDATE Dishes SET name='"+dish.getName()
-				+"', price = " + dish.getPrice() +", description = '" + dish.getDescription() +"', idr= " + dish.getIdr()+"', img= " + dish.getImg()+ " WHERE id = "+dish.getId());
+				+"', price = " + dish.getPrice() +", description = '" + dish.getDescription() +"', idr= " + dish.getIdr()/*+"', img= " + dish.getImg()*/+ " WHERE id = "+dish.getId());
 				
 				logger.info("updating Dish: "+dish.getId()+" "+dish.getName()+" "+dish.getDescription());
 				

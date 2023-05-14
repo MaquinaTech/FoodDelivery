@@ -35,6 +35,7 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 			restaurant.setGradesAverage(rs.getInt("gradesAverage"));
 			restaurant.setMinPrice(rs.getInt("minPrice"));
 			restaurant.setContactEmail(rs.getString("contactemail"));
+			restaurant.setIdu(rs.getInt("idu"));
 			restaurant.setMaxPrice(rs.getInt("maxPrice"));
 			restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
 			restaurant.setAvailable(rs.getInt("available"));

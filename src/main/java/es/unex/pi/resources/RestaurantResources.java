@@ -13,12 +13,17 @@ import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
+import es.unex.pi.dao.JDBCTokenDAOImpl;
+import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Dish;
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.RestaurantCategories;
+import es.unex.pi.model.Token;
 import es.unex.pi.dao.RestaurantDAO;
+import es.unex.pi.dao.TokenDAO;
+import es.unex.pi.dao.UserDAO;
 import es.unex.pi.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -86,13 +91,37 @@ public class RestaurantResources {
 	            categoryList.add(category);
 	        }
 	    }
+	    
+	    String authHeader = request.getHeader("Authorization");
+		String token= authHeader.substring("Bearer ".length()).trim();
+    	TokenDAO tokenDAO = new JDBCTokenDAOImpl();
+	    tokenDAO.setConnection(conn);
+	    List<Token> listTokens = tokenDAO.getAll();
+	    long idU = -1;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	            idU = t.getIdU();
+	            break;
+	        }
+	    }
+	    
+	    boolean owner = false;
+	    if(idU == restaurant.getIdu()) {
+	    	owner = true;
+	    }
 
 	    // Estructurar los datos en un array y devolverlo
-	    Object[] result = new Object[3];
+	    Object[] result = new Object[4];
 	    result[0] = restaurant;
 	    result[1] = dishes;
 	    result[2] = categoryList;
-	    return result;
+	    result[3] = owner;
+	    if(result.length == 4) {
+	    	return result;
+	    }
+	    else {
+	    	throw new WebApplicationException(Response.Status.BAD_REQUEST);
+	    }
 	}
 	
 	@GET
@@ -201,14 +230,72 @@ public class RestaurantResources {
 		}
 	}
 	
-	@PUT
-	@Path("/editarRest/{idR}")
+	@POST
+	@Path("/update")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response editarRest( Restaurant restaurant, @Context HttpServletRequest request) {
+	public Response updateRestaurant(@FormParam("id") long id
+							,@FormParam("name") String name
+							,@FormParam("address") String address
+							,@FormParam("telephone") String telephone
+							,@FormParam("city") String city
+							,@FormParam("minPrice") Integer minPrice
+							,@FormParam("maxPrice") Integer maxPrice
+							,@FormParam("bikeFriendly") Integer bikeFriendly
+							,@FormParam("available") Integer available
+							,@FormParam("contactEmail") String contactEmail
+							, @Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
-	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
-	    restaurantDAO.setConnection(conn);
-	    restaurantDAO.update(restaurant);
+		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
+		restaurantDAO.setConnection(conn);
+		Restaurant restaurant = new Restaurant();
+		restaurant.setId(id);
+		restaurant.setName(name);
+		restaurant.setAddress(address);
+		restaurant.setTelephone(telephone);
+		restaurant.setCity(city);
+		restaurant.setMinPrice(minPrice);
+		restaurant.setMaxPrice(maxPrice);
+		restaurant.setBikeFriendly(bikeFriendly);
+		restaurant.setAvailable(available);
+		restaurant.setContactEmail(contactEmail);
+		String authHeader = request.getHeader("Authorization");
+		String token= authHeader.substring("Bearer ".length()).trim();
+    	TokenDAO tokenDAO = new JDBCTokenDAOImpl();
+	    tokenDAO.setConnection(conn);
+	    List<Token> listTokens = tokenDAO.getAll();
+	    long idU = -1;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	            idU = t.getIdU();
+	            break;
+	        }
+	    }
+		restaurant.setIdu((int) idU);
+		restaurantDAO.update(restaurant);
+		
+		return Response.ok().build();
+	}
+	
+	@POST
+	@Path("/dish/update")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateDish(@FormParam("id") long id
+							,@FormParam("description") String description
+							,@FormParam("name") String name
+							,@FormParam("price") Integer price
+							, @Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl();
+		dishDAO.setConnection(conn);
+		Dish dish = dishDAO.get(id);
+		dish.setDescription(description);
+		dish.setName(name);
+		dish.setPrice(price);
+		logger.info("Actualizando Dish....");
+		logger.info(""+dish.getId());
+		logger.info(""+dish.getIdr());
+		dishDAO.update(dish);
+		
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
 				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
