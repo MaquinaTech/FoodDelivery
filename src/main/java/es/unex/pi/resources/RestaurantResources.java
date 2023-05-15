@@ -229,9 +229,8 @@ public class RestaurantResources {
 	
 	
 	@DELETE
-	@Path("/eliminarRestaurante/{idR}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response borrarRest(@PathParam("idR") long idR, @Context HttpServletRequest request) {
+	public Response borrarRest(@FormParam("idR") Integer idR, @Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
 		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 		restaurantDAO.setConnection(conn);
