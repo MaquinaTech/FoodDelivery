@@ -58,6 +58,42 @@ public class LoginResource {
 	    }
 	    return false;
 	}
+	
+	@POST
+	@Path("/register")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response register(@FormParam("email") String email,
+							  @FormParam("name") String name,
+							  @FormParam("surname") String surname,
+                              @FormParam("password") String password,
+                              @Context HttpServletRequest request) {
+    	Connection conn = (Connection) sc.getAttribute("dbConn");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+	    User user = new User();
+	    user.setEmail(email);
+	    user.setName(name);
+	    user.setSurname(surname);
+	    if(!password.equals("")) {
+		    if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
+		    	logger.info("Contraseña no válida");
+		    	return Response.status(Response.Status.PRECONDITION_FAILED).entity("Error").build();
+		    }
+	    }
+	    String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
+	    user.setPassword(encodedPassword);
+	    userDAO.add(user);
+	    List <User> listUsers = userDAO.getAll();
+	    for (User u : listUsers) {
+	    	if(u.getEmail().equals(email)) {
+	    		return Response.status(Response.Status.PRECONDITION_FAILED).entity("Error").build();
+	    	}
+	    }
+	    
+	   
+	    return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
+				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+    }
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)

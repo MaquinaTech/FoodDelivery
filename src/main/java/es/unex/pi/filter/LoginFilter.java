@@ -63,9 +63,10 @@ public class LoginFilter implements Filter {
 	    HttpServletResponse httpResponse = (HttpServletResponse) response;
 	    String loginPath = httpRequest.getContextPath() + "/rest/auth";
 	    String verifyPath = httpRequest.getContextPath() + "/rest/auth/verify";
+	    String registerPath = httpRequest.getContextPath() + "/rest/auth/register";
 	    
 	
-	    if (httpRequest.getRequestURI().equals(loginPath) || httpRequest.getRequestURI().equals(verifyPath) ) {
+	    if (httpRequest.getRequestURI().equals(loginPath) || httpRequest.getRequestURI().equals(verifyPath) || httpRequest.getRequestURI().equals(registerPath)  ) {
 	        chain.doFilter(request, response);
 	        return;
 	    }
