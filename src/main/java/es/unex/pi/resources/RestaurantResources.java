@@ -63,6 +63,23 @@ public class RestaurantResources {
 		return restaurantDAO.getAll();
 	}
 	
+	@GET
+	@Path("/categories")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Category> getCategories(@Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+	    CategoryDAO CategoryDAO = new JDBCCategoryDAOImpl();
+	    CategoryDAO.setConnection(conn);
+	    List<Category> categoryList = CategoryDAO.getAll();
+	    
+	    if(categoryList.size() > 0) {
+	    	return categoryList;
+	    }
+	    else {
+	    	throw new WebApplicationException(Response.Status.NOT_FOUND);
+	    }
+	}
+	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Object[] obtenerRestauranteDetalles(@FormParam("idR") long idR, @Context HttpServletRequest request) {
@@ -125,36 +142,62 @@ public class RestaurantResources {
 	}
 	
 	@POST
-	@Path("/crearRest")
+	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response crearRestaurante(Restaurant restaurant, @Context HttpServletRequest request) {
+	public Response createRestaurant(@FormParam("name") String name
+			,@FormParam("address") String address
+			,@FormParam("telephone") String telephone
+			,@FormParam("city") String city
+			,@FormParam("minPrice") Integer minPrice
+			,@FormParam("maxPrice") Integer maxPrice
+			,@FormParam("bikeFriendly") Integer bikeFriendly
+			,@FormParam("available") Integer available
+			,@FormParam("contactEmail") String contactEmail
+			,@FormParam("category") Integer category
+			,@Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
-		HttpSession sesion = request.getSession();
-		User usuario = (User) sesion.getAttribute("user");
+		String authHeader = request.getHeader("Authorization");
+		String token= authHeader.substring("Bearer ".length()).trim();
+    	TokenDAO tokenDAO = new JDBCTokenDAOImpl();
+	    tokenDAO.setConnection(conn);
+	    List<Token> listTokens = tokenDAO.getAll();
+	    long idU = -1;
+	    for (Token t : listTokens) {
+	        if (t.getValue().equals(token)) {
+	            idU = t.getIdU();
+	            break;
+	        }
+	    }
+		
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
-	    restaurant.setIdu((int)usuario.getId());
-		List<String> listaCategorias = null; 
-		if (request.getParameterValues("categorias") != null) { 
-			listaCategorias = new ArrayList<String>(Arrays.asList(request.getParameterValues("categorias")));
-		    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
-		    categoryDAO.setConnection(conn);
-		    RestaurantCategoriesDAO restaurantCatDAO = new JDBCRestaurantCategoriesDAOImpl();
-		    restaurantCatDAO.setConnection(conn);
-		    Long idR = restaurantDAO.add(restaurant);
-		    for (String categoria : listaCategorias) {
-				Category cat = categoryDAO.get(categoria);
-				RestaurantCategories restaurantCat = new RestaurantCategories();
-				restaurantCat.setIdr(idR);
-				restaurantCat.setIdct(cat.getId());
-				restaurantCatDAO.add(restaurantCat);
-			}
-			return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
-					.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
-		}
-		else {
-			throw new WebApplicationException(Response.Status.BAD_REQUEST);
-		}
+	    Restaurant restaurant = new Restaurant();
+	    restaurant.setIdu((int)idU);
+	    restaurant.setName(name);
+		restaurant.setAddress(address);
+		restaurant.setTelephone(telephone);
+		restaurant.setCity(city);
+		restaurant.setMinPrice(minPrice);
+		restaurant.setMaxPrice(maxPrice);
+		restaurant.setBikeFriendly(bikeFriendly);
+		restaurant.setAvailable(available);
+		restaurant.setContactEmail(contactEmail);
+		restaurantDAO.add(restaurant);
+		
+		RestaurantCategoriesDAO restaurantCategoriesDAO = new JDBCRestaurantCategoriesDAOImpl();
+		restaurantCategoriesDAO.setConnection(conn);
+		RestaurantCategories restCat = new RestaurantCategories();
+		restCat.setIdct(category);
+		
+		List<Restaurant> listRest = restaurantDAO.getAll();
+		restCat.setIdr(listRest.get(listRest.size()-1).getId());
+		restaurantCategoriesDAO.add(restCat);
+			
+		return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
+				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+		
+		//throw new WebApplicationException(Response.Status.BAD_REQUEST);
+		
 	}
 	
 	@POST

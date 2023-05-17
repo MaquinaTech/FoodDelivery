@@ -56,12 +56,18 @@ public class ReviewResources {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Review> getReviews(@FormParam("idR") Integer idR, @Context HttpServletRequest request) {
+	public Response getReviews(@FormParam("idR") Integer idR, @Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
 	    ReviewsDAO reviewsDAO = new JDBCReviewsDAOImpl();
 		reviewsDAO.setConnection(conn);
 		List<Review> listaReviews = reviewsDAO.getAllByRestaurant(idR);
-		return listaReviews;
+		if(listaReviews.size() > 0) {
+			return Response.ok(listaReviews).build();
+		}
+		else {
+			 String emptyListJson = "{\"empty\": true, \"message\": \"No hay datos disponibles.\"}";
+		        return Response.ok(emptyListJson).build();
+		}
 	}
 	
 	@POST
