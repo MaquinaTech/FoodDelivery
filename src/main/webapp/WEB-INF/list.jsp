@@ -40,7 +40,8 @@
 		</div>
 		
 		<div class="wrapList">
-			<div class="dropdown">
+			<div class="dropdown">	
+		<h2>Categorías</h2>
 				<c:forEach var="category" items="${categories}" varStatus="loopStatus">
 				    <c:choose>
 				        <c:when test="${loopStatus.index < 3}">

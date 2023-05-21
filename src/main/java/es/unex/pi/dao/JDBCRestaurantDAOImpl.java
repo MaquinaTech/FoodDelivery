@@ -49,6 +49,42 @@ public class JDBCRestaurantDAOImpl implements RestaurantDAO {
 		return restaurant;
 	}
 	
+	@Override
+	public Restaurant getByEmail(String email) {
+	    if (conn == null) return null;
+	    
+	    Restaurant restaurant = null;    
+	    
+	    try {
+	        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM restaurant WHERE contactemail = ?");
+	        stmt.setString(1, email);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (!rs.next()) return null; 
+	        
+	        restaurant = new Restaurant();    
+	        restaurant.setId(rs.getInt("id"));
+	        restaurant.setName(rs.getString("name"));
+	        restaurant.setAddress(rs.getString("address"));
+	        restaurant.setTelephone(rs.getString("telephone"));
+	        restaurant.setCity(rs.getString("city"));
+	        restaurant.setGradesAverage(rs.getInt("gradesAverage"));
+	        restaurant.setMinPrice(rs.getInt("minPrice"));
+	        restaurant.setContactEmail(rs.getString("contactemail"));
+	        restaurant.setIdu(rs.getInt("idu"));
+	        restaurant.setMaxPrice(rs.getInt("maxPrice"));
+	        restaurant.setBikeFriendly(rs.getInt("bikeFriendly"));
+	        restaurant.setAvailable(rs.getInt("available"));
+
+	        logger.info("fetching restaurant: " + restaurant.getContactEmail());
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return restaurant;
+	}
+
+	
 	public List<Restaurant> getAll() {
 
 		if (conn == null) return null;

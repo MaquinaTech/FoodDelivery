@@ -120,11 +120,13 @@ public class restaurantEditServlet extends HttpServlet {
 	    restaurant.setAvailable(ava);
 	    restaurantDAO.update(restaurant);
 	    
+	    Restaurant newRestaurant = restaurantDAO.getByEmail(email); 
+	    
 
 	    // Go to edit
 	    request.setAttribute("idR", restaurant.getId());
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");
-	    view.forward(request, response);
+	    response.sendRedirect(request.getContextPath() + "/restaurantDetailsServlet.do?idR=" + newRestaurant.getId());
+	    
 	}
 
 	

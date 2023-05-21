@@ -25,6 +25,16 @@ public interface RestaurantDAO {
 	 * @return Restaurant object with that id.
 	 */
 	public Restaurant get(long id);
+	
+	/**
+	 * Gets a restaurant from the DB using email.
+	 * 
+	 * @param id
+	 *            Restaurant Email.
+	 * 
+	 * @return Restaurant object with that email.
+	 */
+	public Restaurant getByEmail(String email);
 
 	/**
 	 * Gets all the notes from the database.

@@ -474,6 +474,10 @@
     position: relative;
     display: inline-block;
     width: 25%;
+    background-color: lightgray;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 15px;
   }
 
   .dropdown-contentVisible {
@@ -831,7 +835,8 @@
   
   input[type="radio"] {
     appearance: none;
-    border: 2px solid #ccc;
+    border: 2px solid white;
+    background-color:white;
     border-radius: 50%;
     width: 20px;
     height: 20px;
