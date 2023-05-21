@@ -17,6 +17,7 @@
       <img src="${pageContext.request.contextPath}/public/burguerking.png" alt="logoBurguerKing">
       <br><br>
       <h1>Datos Restaurante</h1>
+      <p>${empty requestScope.error ? "" : requestScope.error}</p>
       <div class="form-group">
           <label class="username" for="nombre">Nombre</label>
           <input type="text" id="name" name="name" required value="${restaurant.name}">
@@ -32,6 +33,7 @@
       <div class="form-group">
           <label class="username" for="email">Correo electrónico</label>
           <input type="email" id="email" name="email" required value="${restaurant.contactEmail}">
+          <input class="none" disabled type="email" id="emailOLD" name="emailOLD" value="${restaurant.contactEmail}">
       </div>
       <br><br>
       <h2>Rango de Precio</h2>

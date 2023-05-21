@@ -52,7 +52,10 @@ public class restaurantDetailsServlet extends HttpServlet {
 		logger.info("Get Restaurants Details");
 		
 		HttpSession session = request.getSession();
-		if (session != null) {
+		User userS = (User) session.getAttribute("user");
+		if (userS != null) {
+		    Long idUser = userS.getId();
+		    session.setAttribute("idUser", idUser);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);

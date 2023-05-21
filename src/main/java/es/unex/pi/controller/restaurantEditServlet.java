@@ -47,16 +47,20 @@ public class restaurantEditServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if (session != null) {
+    	HttpSession session = request.getSession();
+		User userS = (User) session.getAttribute("user");
+		if (userS != null) {
+		    Long idUser = userS.getId();
+		    session.setAttribute("idUser", idUser);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
 		}
-		String idParam= request.getParameter("idR");
+		String idParam = request.getParameter("idR");
 		Long restaurantId = null;
 	    if (idParam != null && !idParam.isEmpty()) {
 	        restaurantId = Long.parseLong(idParam);
+	        request.setAttribute("idR", restaurantId);
 	    }
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
@@ -74,6 +78,7 @@ public class restaurantEditServlet extends HttpServlet {
 	    session.setAttribute("restaurant", restaurant);
 	    request.setAttribute("categories", categories);
 	    request.setAttribute("dishes", dishes);
+	    
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");
 		view.forward(request,response);
 	}
@@ -82,6 +87,7 @@ public class restaurantEditServlet extends HttpServlet {
 		String name= request.getParameter("name");
 		String address= request.getParameter("address");
 		String email= request.getParameter("email");
+		String emailOLD= request.getParameter("emailOLD");
 		String telephone= request.getParameter("telephone");
 		String range_min = request.getParameter("range-min");
 		String range_max = request.getParameter("range-max");
@@ -94,6 +100,26 @@ public class restaurantEditServlet extends HttpServlet {
 	    Restaurant restaurant = new Restaurant();
 	    restaurant.setName(name);
 	    restaurant.setAddress(address);
+	    // Validate email
+	    if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+	        request.setAttribute("error", "El correo electrónico no es válido");
+	        logger.info("email not valid");
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
+	        view.forward(request, response);
+	        return;
+	    }
+	    // Check if email is already in use
+	    if(email != emailOLD) {
+	    	logger.info("email cambiado");
+	    	logger.info(email);
+	    	logger.info(emailOLD);
+		    Restaurant existingRestaurant = restaurantDAO.getByEmail(email);
+		    if (existingRestaurant != null && existingRestaurant.getContactEmail() != email ) {
+		    	logger.info("email igual");
+		        request.setAttribute("error", "El correo electrónico ya está registrado");;
+		        response.sendRedirect(request.getContextPath() + "/restaurantDetails.jsp?idR=" + existingRestaurant.getId());
+		    }
+	    }
 	    restaurant.setContactEmail(email);
 	    restaurant.setTelephone(telephone);
 	    Integer minPrice = Integer.parseInt(range_min);
@@ -111,20 +137,19 @@ public class restaurantEditServlet extends HttpServlet {
 	    restaurant.setMaxPrice(maxPrice);
 	    restaurant.setBikeFriendly(bike);
 	    HttpSession session = request.getSession();
-	    String emailU = (String) session.getAttribute("username");
-	    UserDAO userDAO = new JDBCUserDAOImpl();
-	    userDAO.setConnection(conn);
-	    User user = userDAO.getUserByEmail(emailU);
-	    restaurant.setIdu((int) user.getId());
+	    Integer idU = (Integer) session.getAttribute("idUser");
+	    restaurant.setIdu(idU);
 	    restaurant.setAvailable(ava);
-	    Restaurant newRestaurant = restaurantDAO.getByEmail(email);
+	    Restaurant newRestaurant = restaurantDAO.getByEmail(emailOLD);
+	    
+	    
 	    restaurant.setId(newRestaurant.getId());
 	    restaurantDAO.update(restaurant);
 
 	    // Go to edit
 	    request.setAttribute("idR", restaurant.getId());
-	    response.sendRedirect(request.getContextPath() + "/restaurantDetailsServlet.do?idR=" + newRestaurant.getId());
-	    
+	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
+	    view.forward(request,response);
 	}
 
 	
