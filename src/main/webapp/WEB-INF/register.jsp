@@ -10,6 +10,7 @@
 </head>
 <body>
   <div class="registrobox">
+  	<p>${empty requestScope.error ? "" : requestScope.error}</p>
     <form action="RegisterServlet.do" method="POST">
       <img src="${pageContext.request.contextPath}/public/logo.png" class="avatar" alt="Logo">
       <h1>Registro de cuenta</h1>

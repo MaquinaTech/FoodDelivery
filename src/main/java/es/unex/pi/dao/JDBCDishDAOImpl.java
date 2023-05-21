@@ -187,7 +187,7 @@ public class JDBCDishDAOImpl implements DishDAO {
 			try {
 				stmt = conn.createStatement();
 				stmt.executeUpdate("INSERT INTO Dishes (name,price,description,idr) VALUES('"
-									+dish.getName()+"', " + dish.getPrice() +", '" + dish.getDescription() +"', " + dish.getIdr()+"', " + dish.getImg()+ ")");
+									+dish.getName()+"', " + dish.getPrice() +", '" + dish.getDescription() +"', " + dish.getIdr()+ ")");
 				
 								
 			} catch (SQLException e) {

@@ -72,14 +72,14 @@ public class RegisterServlet extends HttpServlet {
 	    String lastName = request.getParameter("lastName");
 	    String email = request.getParameter("email");
 	    String password = request.getParameter("password");
-	    
+
 	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    UserDAO userDAO = new JDBCUserDAOImpl();
 	    userDAO.setConnection(conn);
 
 	    // Validate parameters
 	    if (firstName == null || lastName == null || email == null || password == null) {
-	    	logger.info("Error parametros");
+	        logger.info("Error parametros");
 	        response.sendRedirect("WEB-INF/register.jsp");
 	        return;
 	    }
@@ -87,7 +87,7 @@ public class RegisterServlet extends HttpServlet {
 	    // Validate email
 	    if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
 	        request.setAttribute("error", "El correo electrónico no es válido");
-	        logger.info("Error email");
+	        logger.info("email not valid");
 	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
 	        view.forward(request, response);
 	        return;
@@ -95,8 +95,17 @@ public class RegisterServlet extends HttpServlet {
 
 	    // Validate password
 	    if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
-	    	logger.info("password");
+	        logger.info("password not valid");
 	        request.setAttribute("error", "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula y un número");
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
+	        view.forward(request, response);
+	        return;
+	    }
+
+	    // Check if email is already in use
+	    User existingUser = userDAO.getUserByEmail(email);
+	    if (existingUser != null) {
+	        request.setAttribute("error", "El correo electrónico ya está registrado");
 	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
 	        view.forward(request, response);
 	        return;
@@ -105,7 +114,6 @@ public class RegisterServlet extends HttpServlet {
 	    // Encode password
 	    String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
 
-
 	    // Create User
 	    User user = new User();
 	    user.setEmail(email);
@@ -113,13 +121,13 @@ public class RegisterServlet extends HttpServlet {
 	    user.setPassword(encodedPassword);
 	    user.setSurname(lastName);
 	    // Insert user in DB
-	    userDAO.add(user); 
-	    
+	    userDAO.add(user);
 
 	    // Go to login
 	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 	    view.forward(request, response);
 	}
+
 
 	
 }

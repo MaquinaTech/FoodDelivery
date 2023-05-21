@@ -195,9 +195,6 @@ public class RestaurantResources {
 			
 		return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
 				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
-		
-		//throw new WebApplicationException(Response.Status.BAD_REQUEST);
-		
 	}
 	
 	@POST
@@ -270,10 +267,48 @@ public class RestaurantResources {
 				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
 	}
 	
+	@POST
+	@Path("/dish/add")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Long addDish(@FormParam("idR") long idR
+							,@FormParam("description") String description
+							,@FormParam("name") String name
+							,@FormParam("price") Integer price
+							, @Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl();
+		dishDAO.setConnection(conn);
+		Dish dish = new Dish();
+		dish.setDescription(description);
+		dish.setName(name);
+		dish.setPrice(price);
+		dish.setIdr(idR);
+		logger.info(name);
+		logger.info(description);
+		dishDAO.add(dish);
+		Dish newDish = dishDAO.get(name);
+		Long id = newDish.getId();
+		//String errorListJson = "{\"error\": false, \"data\": \"No hay datos disponibles.\"}";
+        //return Response.ok(errorJson).build();
+		return id;
+        
+	}
+	
+	@DELETE
+	@Path("/dish/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Integer deleteDish(@FormParam("id") Integer id, @Context HttpServletRequest request) {
+		Connection conn = (Connection) sc.getAttribute("dbConn");
+		DishDAO dishDAO = new JDBCDishDAOImpl();
+		dishDAO.setConnection(conn);
+		dishDAO.delete(id);
+        return id;
+	}
+	
 	
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response borrarRest(@FormParam("idR") Integer idR, @Context HttpServletRequest request) {
+	public Response deleteRest(@FormParam("idR") Integer idR, @Context HttpServletRequest request) {
 		Connection conn = (Connection) sc.getAttribute("dbConn");
 		RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 		restaurantDAO.setConnection(conn);

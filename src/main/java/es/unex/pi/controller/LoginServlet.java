@@ -67,17 +67,17 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.info("Inicio de sesión");
 		
-		String username = request.getParameter("username");
+		String email = request.getParameter("email");
 	    String password = request.getParameter("password");
 
 	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    UserDAO userDAO = new JDBCUserDAOImpl();
 	    userDAO.setConnection(conn);
-	    User user = userDAO.get(username);
+	    User user = userDAO.getUserByEmail(email);
 	    //User auth
-	    if (isValidUser(username, password)) {
+	    if (isValidUser(email, password)) {
 	        HttpSession session = request.getSession(true);
-	        session.setAttribute("username", username);
+	        session.setAttribute("username", email);
 	        Long idUser = user.getId();
 	        session.setAttribute("id", idUser);
 	        session.setAttribute("user", user);
@@ -98,18 +98,18 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 	
-	private boolean isValidUser(String username, String password) {
+	private boolean isValidUser(String email, String password) {
 	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    UserDAO userDAO = new JDBCUserDAOImpl();
 	    userDAO.setConnection(conn);
 
-	    User user = userDAO.get(username);    
+	    User user = userDAO.getUserByEmail(email);
 
 	    if(user != null) {
 	        String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
 	        if(user.getPassword().equals(encodedPassword)) {
 	            logger.info("Login user: ");
-	            logger.info(username);
+	            logger.info(email);
 	            return true;
 	        }
 	    }

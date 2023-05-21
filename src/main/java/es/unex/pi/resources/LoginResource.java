@@ -77,22 +77,26 @@ public class LoginResource {
 	    if(!password.equals("")) {
 		    if (!password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$")) {
 		    	logger.info("Contraseña no válida");
-		    	return Response.status(Response.Status.PRECONDITION_FAILED).entity("Error").build();
+		    	String errorJson = "{\"error\": true, \"message\": \"Contraseña no válida\"}";
+		        return Response.ok(errorJson).build();
 		    }
 	    }
 	    String encodedPassword = Base64.getEncoder().encodeToString(password.getBytes(StandardCharsets.UTF_8));
 	    user.setPassword(encodedPassword);
-	    userDAO.add(user);
+	    
 	    List <User> listUsers = userDAO.getAll();
 	    for (User u : listUsers) {
 	    	if(u.getEmail().equals(email)) {
-	    		return Response.status(Response.Status.PRECONDITION_FAILED).entity("Error").build();
+	    		logger.info("HOOOOOOOLAAA: ");
+	    		logger.info(email);
+	    		String errorJson = "{\"error\": true, \"message\": \"El correo ya existe\"}";
+		        return Response.ok(errorJson).build();
 	    	}
 	    }
-	    
+	    userDAO.add(user);
 	   
-	    return Response.accepted(uriInfo.getAbsolutePathBuilder().build())
-				.contentLocation(uriInfo.getAbsolutePathBuilder().build()).build();
+	    String errorJson = "{\"error\": false, \"message\": \"El correo ya existe\"}";
+        return Response.ok(errorJson).build();
     }
 
 	@POST

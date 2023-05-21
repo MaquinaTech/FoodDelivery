@@ -41,6 +41,32 @@ public class JDBCUserDAOImpl implements UserDAO {
 	}
 	
 	@Override
+	public User getUserByEmail(String email) {
+		if (conn == null) return null;
+		
+		User user = null;		
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
+
+			
+			if (!rs.next()) return null; 
+			user  = new User();	 
+			user.setId(rs.getInt("id"));
+			user.setName(rs.getString("name"));
+			user.setSurname(rs.getString("surname"));
+			user.setEmail(rs.getString("email"));
+			user.setPassword(rs.getString("password"));
+			logger.info("fetching User by email: "+email+" -> "+user.getId()+" "+user.getName()+" "+user.getEmail()+" "+user.getPassword());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	@Override
 	public User find(String email) {
 		if (conn == null) return null;
 		

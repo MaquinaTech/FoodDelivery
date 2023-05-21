@@ -48,6 +48,15 @@ public interface UserDAO {
 	public User get(String name);
 
 	/**
+	 * Gets an user from the DB using email.
+	 * 
+	 * @param email
+	 *            Email of the user.
+	 * 
+	 * @return User object with that email.
+	 */
+	public User getUserByEmail(String email);
+	/**
 	 * Gets all the users from the database.
 	 * 
 	 * @return List of all the users from the database.

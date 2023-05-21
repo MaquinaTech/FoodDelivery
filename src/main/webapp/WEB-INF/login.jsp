@@ -15,10 +15,9 @@
       <h1>Iniciar sesión</h1>
       <form action="LoginServlet.do" method="POST">
         <label class="inputRed" for="username">Nombre de usuario</label>
-        <input type="text" id="username" name="username" placeholder="Ingrese su nombre de usuario" required >
+        <input type="text" id="email" name="email" placeholder="Ingrese su email de usuario" required >
         <label class="inputGreen" for="password">Contraseña</label>
         <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required >
-        <a href="#">¿Olvidaste tu contraseña?</a>
         <br>
         <input class="inputSubmit" type="submit" value="Ingresar" >
       </form>
