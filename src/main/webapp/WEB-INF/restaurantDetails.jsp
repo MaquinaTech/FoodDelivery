@@ -22,33 +22,20 @@
                     <br>
                     <h1>Información del restaurante</h1>
                     <h2>${restaurant.name}</h2>
-                    <% if (request.getSession().getAttribute("username") != null) { %>
-	                    <div class="rating">
-						    <input type="radio" id="star5" name="rating" value="5" ${restaurant.gradesAverage == 5 ? 'checked' : ''}>
-						    <label for="star5">&#9733;</label>
-						    <input type="radio" id="star4" name="rating" value="4" ${restaurant.gradesAverage == 4 ? 'checked' : ''}>
-						    <label for="star4">&#9733;</label>
-						    <input type="radio" id="star3" name="rating" value="3" ${restaurant.gradesAverage == 3 ? 'checked' : ''}>
-						    <label for="star3">&#9733;</label>
-						    <input type="radio" id="star2" name="rating" value="2" ${restaurant.gradesAverage == 2 ? 'checked' : ''}>
-						    <label for="star2">&#9733;</label>
-						    <input type="radio" id="star1" name="rating" value="1" ${restaurant.gradesAverage	 == 1 ? 'checked' : ''}>
-						    <label for="star1">&#9733;</label>
-						</div>
-					<% } else { %>
-					    <div class="rating">
-					        <input type="radio" id="star5" name="rating" value="5" disabled>
-					        <label for="star5">&#9733;</label>
-					        <input type="radio" id="star4" name="rating" value="4" disabled>
-					        <label for="star4">&#9733;</label>
-					        <input type="radio" id="star3" name="rating" value="3" disabled>
-					        <label for="star3">&#9733;</label>
-					        <input type="radio" id="star2" name="rating" value="2" disabled>
-					        <label for="star2">&#9733;</label>
-					        <input type="radio" id="star1" name="rating" value="1" disabled>
-					        <label for="star1">&#9733;</label>
-					    </div>
-					<% } %>
+                    <div class="rating">
+                    <p>${restaurant.gradesAverage}</p>
+					    <input type="radio" id="star5" name="rating" value="5" disabled ${restaurant.gradesAverage == 5 ? 'checked' : ''}>
+					    <label for="star5">&#9733;</label>
+					    <input type="radio" id="star4" name="rating" value="4" disabled ${restaurant.gradesAverage == 4 ? 'checked' : ''}>
+					    <label for="star4">&#9733;</label>
+					    <input type="radio" id="star3" name="rating" value="3" disabled ${restaurant.gradesAverage == 3 ? 'checked' : ''}>
+					    <label for="star3">&#9733;</label>
+					    <input type="radio" id="star2" name="rating" value="2" disabled ${restaurant.gradesAverage == 2 ? 'checked' : ''}>
+					    <label for="star2">&#9733;</label>
+					    <input type="radio" id="star1" name="rating" value="1" disabled ${restaurant.gradesAverage == 1 ? 'checked' : ''}>
+					    <label for="star1">&#9733;</label>
+					</div>
+				
                     
                     <p><strong>Dirección:</strong> ${restaurant.address}</p>
                     <p><strong>Teléfono:</strong> ${restaurant.telephone}</p>
