@@ -9,13 +9,16 @@ import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.JDBCCategoryDAOImpl;
 import es.unex.pi.dao.JDBCDishDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantDAOImpl;
+import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.JDBCRestaurantCategoriesDAOImpl;
 import es.unex.pi.dao.RestaurantDAO;
+import es.unex.pi.dao.UserDAO;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
 import es.unex.pi.dao.DishDAO;
 import es.unex.pi.model.Category;
 import es.unex.pi.model.Restaurant;
 import es.unex.pi.model.RestaurantCategories;
+import es.unex.pi.model.User;
 import es.unex.pi.model.Dish;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -85,16 +88,6 @@ public class restaurantEditServlet extends HttpServlet {
 		String categories= request.getParameter("categorias");
 		String bikeFriendly = request.getParameter("bikeFriendly");
 		String available = request.getParameter("available");
-		logger.info("--------------------------------------------------");
-		logger.info(name);
-		logger.info(address);
-		logger.info(email);
-		logger.info(telephone);
-		logger.info(range_min);
-		logger.info(range_max);
-		logger.info(categories);
-		logger.info(bikeFriendly);
-		logger.info("--------------------------------------------------");
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
@@ -117,11 +110,16 @@ public class restaurantEditServlet extends HttpServlet {
 	    restaurant.setMinPrice(minPrice);
 	    restaurant.setMaxPrice(maxPrice);
 	    restaurant.setBikeFriendly(bike);
+	    HttpSession session = request.getSession();
+	    String emailU = (String) session.getAttribute("username");
+	    UserDAO userDAO = new JDBCUserDAOImpl();
+	    userDAO.setConnection(conn);
+	    User user = userDAO.getUserByEmail(emailU);
+	    restaurant.setIdu((int) user.getId());
 	    restaurant.setAvailable(ava);
+	    Restaurant newRestaurant = restaurantDAO.getByEmail(email);
+	    restaurant.setId(newRestaurant.getId());
 	    restaurantDAO.update(restaurant);
-	    
-	    Restaurant newRestaurant = restaurantDAO.getByEmail(email); 
-	    
 
 	    // Go to edit
 	    request.setAttribute("idR", restaurant.getId());
