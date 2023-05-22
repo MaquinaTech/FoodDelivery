@@ -12,10 +12,8 @@
       </div>
       <nav class="footer-nav">
         <ul>
-          <li><a href="#">Sobre nosotros</a></li>
-          <li><a href="#">Ayuda</a></li>
-          <li><a href="#">Contacto</a></li>
-          <li><a href="#">Email</a></li>
+        	<li><a href="#">Contactar para cualquier duda</a></li>
+          	<li><a href="#">Email de ayuda:  nilopezde@alumnos.unex.es</a></li>
         </ul>
       </nav>
     </footer>
