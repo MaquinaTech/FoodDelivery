@@ -50,7 +50,7 @@ public class dishServlet extends HttpServlet {
 		User userS = (User) session.getAttribute("user");
 		if (userS != null) {
 		    Long idUser = userS.getId();
-		    session.setAttribute("idUser", idUser);
+		    session.setAttribute("id", idUser);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
@@ -74,7 +74,7 @@ public class dishServlet extends HttpServlet {
 		User userS = (User) session.getAttribute("user");
 		if (userS != null) {
 		    Long idUser = userS.getId();
-		    session.setAttribute("idUser", idUser);
+		    session.setAttribute("id", idUser);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
@@ -95,10 +95,60 @@ public class dishServlet extends HttpServlet {
 	    newDish.setIdr(idR);
 	    newDish.setDescription(description);
 	    newDish.setPrice(Integer.parseInt(price));
-	    dishDAO.add(newDish);
+	    String idD = request.getParameter("idD");
+	    if(idD != null) {
+	    	newDish.setId(Long.parseLong(idD));
+	    	dishDAO.update(newDish);
+	    }
+	    else {
+	    	dishDAO.add(newDish);
+	    }
 	    response.sendRedirect(request.getContextPath() + "/restaurantDetailsServlet.do?idR=" + idR);
 		
 	}
+	
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    HttpSession session = request.getSession();
+	    logger.info("LLEGAMOS ");
+	    User userS = (User) session.getAttribute("user");
+	    logger.info("LLEGAMOS2 ");
+	    String idD = request.getParameter("idD");
+	    String idR = request.getParameter("idR");
+	    logger.info("PASAMO ");
+	    if (userS != null) {
+	        Long idUser = userS.getId();
+	        session.setAttribute("id", idUser);
+	    } else {
+	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
+	        view.forward(request, response);
+	    }
+	    
+	    
+	    logger.info("Id del plato: " + idD);
+	    Long dishId = null;
+	    if (idD != null && !idD.isEmpty()) {
+	        dishId = Long.parseLong(idD);
+	    }
+
+	    
+	    logger.info("Id del restaurante: "+idR);
+	    Long restId = null;
+	    if (idR != null) {
+	    	restId = Long.parseLong(idR);
+	    }
+	    
+	    Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+	    DishDAO dishDAO = new JDBCDishDAOImpl();
+	    dishDAO.setConnection(conn);
+	    
+	    dishDAO.delete(dishId);
+	    
+	    response.sendRedirect(request.getContextPath() + "/restaurantDetailsServlet.do?idR=" + restId);
+	}
+
 
 }
 

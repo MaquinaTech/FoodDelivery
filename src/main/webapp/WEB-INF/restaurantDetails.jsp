@@ -64,10 +64,31 @@
                     <c:forEach var="dish" items="${dishes}">
                         <div class="dish-card">
                             <div class="dish-info">
-	                            <h3>${dish.name}</h3>
-	                            <p>${dish.description}</p>
-	                            <p class="price">${dish.price}€</p>
-                        	</div>
+							    <c:choose>
+							        <c:when test="${restaurant.idu == id}">
+							            <form action="dishServlet.do" method="POST">
+							                <input type="text" name="dishName" value="${dish.name}" required>
+							                <input type="text" name="dishDescription" value="${dish.description}" required>
+							                <input type="number" name="dishPrice" value="${dish.price}" required>
+							                <input class="none" type="number" name="idR" value="${restaurant.id}">
+							                <input class="none" type="number" name="idD" value="${dish.id}">
+							                <input type="submit" value="Editar">
+							            </form>
+							            <form action="dishDeleteServlet.do" method="POST">
+							                <input class="none" type="number" name="idD" value="${dish.id}">
+							                <input class="none" type="number" name="idR" value="${restaurant.id}">
+							                <button type="submit">Eliminar</button>
+							            </form>
+							        </c:when>
+							        <c:otherwise>
+							            <h3>${dish.name}</h3>
+							            <p>${dish.description}</p>
+							            <p class="price">${dish.price}€</p>
+							        </c:otherwise>
+							    </c:choose>
+							</div>
+
+                        	
                         </div>
                    </c:forEach>    
                 </div>

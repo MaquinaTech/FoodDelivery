@@ -730,6 +730,9 @@
 
   .menuList {
     width: 650px;
+    max-height:1000px;
+    min-height:800px;
+    overflow-y:overlay;
     background-color: #f8ede9;
     color: #333;
     padding: 10px;
