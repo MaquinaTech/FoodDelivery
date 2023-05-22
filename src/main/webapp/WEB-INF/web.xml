@@ -149,4 +149,16 @@
     <servlet-name>pedidoServlet</servlet-name>
     <url-pattern>/pedidoServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>dishServlet</display-name>
+    <servlet-name>dishServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.dishServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dishServlet</servlet-name>
+    <url-pattern>/dishServlet.do</url-pattern>
+  </servlet-mapping>
+	  
 </web-app>

@@ -51,7 +51,7 @@ public class restaurantEditServlet extends HttpServlet {
 		User userS = (User) session.getAttribute("user");
 		if (userS != null) {
 		    Long idUser = userS.getId();
-		    session.setAttribute("idUser", idUser);
+		    session.setAttribute("id", idUser);
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
 			view.forward(request,response);
@@ -71,12 +71,24 @@ public class restaurantEditServlet extends HttpServlet {
 	    categoryDAO.setConnection(conn);
 	    List<Category> categories = categoryDAO.getAll();
 	    
+	    RestaurantCategoriesDAO restaurantCategoryDAO = new JDBCRestaurantCategoriesDAOImpl();
+	    restaurantCategoryDAO.setConnection(conn);
+	    
+	    List <RestaurantCategories> catRes = restaurantCategoryDAO.getAllByRestaurant(restaurantId);
+	    RestaurantCategories firstCategory = null;
+	    if (!catRes.isEmpty()) {
+	      firstCategory = catRes.get(0);
+	      Category CategoryDefault = categoryDAO.get(firstCategory.getIdct());
+	      request.setAttribute("categoryName", CategoryDefault.getName());
+	    }
+	    
 	    DishDAO dishDAO = new JDBCDishDAOImpl();
 	    dishDAO.setConnection(conn);
 	    List<Dish> dishes = dishDAO.getByRestaurant(restaurantId);
 	    
 	    session.setAttribute("restaurant", restaurant);
 	    request.setAttribute("categories", categories);
+	    
 	    request.setAttribute("dishes", dishes);
 	    
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantEdit.jsp");
@@ -91,33 +103,47 @@ public class restaurantEditServlet extends HttpServlet {
 		String telephone= request.getParameter("telephone");
 		String range_min = request.getParameter("range-min");
 		String range_max = request.getParameter("range-max");
-		String categories= request.getParameter("categorias");
+		String categories = request.getParameter("categorias");
 		String bikeFriendly = request.getParameter("bikeFriendly");
 		String available = request.getParameter("available");
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 	    RestaurantDAO restaurantDAO = new JDBCRestaurantDAOImpl();
 	    restaurantDAO.setConnection(conn);
+	    
+	    CategoryDAO categoryDAO = new JDBCCategoryDAOImpl();
+	    categoryDAO.setConnection(conn);
+	    RestaurantCategoriesDAO restaurantCategoryDAO = new JDBCRestaurantCategoriesDAOImpl();
+	    restaurantCategoryDAO.setConnection(conn);
+	    Restaurant existingRestaurant = restaurantDAO.getByEmail(emailOLD);
+	    
+	    Category cat = categoryDAO.get(categories);
+	    RestaurantCategories resCat = new RestaurantCategories();
+	    resCat.setIdct(cat.getId());
+	    resCat.setIdr(existingRestaurant.getId());
+	    restaurantCategoryDAO.add(resCat);
 	    Restaurant restaurant = new Restaurant();
 	    restaurant.setName(name);
 	    restaurant.setAddress(address);
+	    
 	    // Validate email
 	    if (!email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
 	        request.setAttribute("error", "El correo electrónico no es válido");
 	        logger.info("email not valid");
-	        RequestDispatcher view = request.getRequestDispatcher("WEB-INF/register.jsp");
-	        view.forward(request, response);
+	        //response.sendRedirect(request.getContextPath() + "/restaurantDetails.jsp?idR=" + existingRestaurant.getId());
+	        doGet(request, response);
 	        return;
 	    }
 	    // Check if email is already in use
-	    if(email != emailOLD) {
+	    if(!email.equals(emailOLD)) {
 	    	logger.info("email cambiado");
 	    	logger.info(email);
 	    	logger.info(emailOLD);
-		    Restaurant existingRestaurant = restaurantDAO.getByEmail(email);
 		    if (existingRestaurant != null && existingRestaurant.getContactEmail() != email ) {
 		    	logger.info("email igual");
-		        request.setAttribute("error", "El correo electrónico ya está registrado");;
-		        response.sendRedirect(request.getContextPath() + "/restaurantDetails.jsp?idR=" + existingRestaurant.getId());
+		        request.setAttribute("error", "El correo electrónico ya está registrado");
+		        request.setAttribute("idR", existingRestaurant.getId());
+		        //response.sendRedirect(request.getContextPath() + "/restaurantDetails.jsp?idR=" + existingRestaurant.getId());
+		        doGet(request, response);
 		    }
 	    }
 	    restaurant.setContactEmail(email);
@@ -125,31 +151,34 @@ public class restaurantEditServlet extends HttpServlet {
 	    Integer minPrice = Integer.parseInt(range_min);
 	    Integer maxPrice = Integer.parseInt(range_max);
 	    Integer bike = 0;
-	    if(bikeFriendly == "on") {
+	    if(bikeFriendly.equals("1")) {
 	    	bike = 1;
 	    }
+	    else {
+	    	bike = 0;
+	    }
 	    Integer ava = 0;
-	    if(available == "on") {
+	    if(available.equals("1")) {
 	    	ava = 1;
+	    }
+	    else {
+	    	ava = 0;
 	    }
 	    
 	    restaurant.setMinPrice(minPrice);
 	    restaurant.setMaxPrice(maxPrice);
 	    restaurant.setBikeFriendly(bike);
 	    HttpSession session = request.getSession();
-	    Integer idU = (Integer) session.getAttribute("idUser");
+	    Integer idU = (int) (long) session.getAttribute("id");
 	    restaurant.setIdu(idU);
+	    session.setAttribute("id", idU);
 	    restaurant.setAvailable(ava);
 	    Restaurant newRestaurant = restaurantDAO.getByEmail(emailOLD);
-	    
-	    
 	    restaurant.setId(newRestaurant.getId());
 	    restaurantDAO.update(restaurant);
 
 	    // Go to edit
-	    request.setAttribute("idR", restaurant.getId());
-	    RequestDispatcher view = request.getRequestDispatcher("WEB-INF/restaurantDetails.jsp");
-	    view.forward(request,response);
+	    response.sendRedirect(request.getContextPath() + "/restaurantDetailsServlet.do?idR=" + restaurant.getId());
 	}
 
 	

@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.RestaurantDAO;
 import es.unex.pi.dao.RestaurantCategoriesDAO;
@@ -54,6 +54,15 @@ public class ListRestaurantServlet extends HttpServlet {
 		
 		
 		logger.info("Atendiendo GET");
+		HttpSession session = request.getSession();
+		User userS = (User) session.getAttribute("user");
+		if (userS != null) {
+		    Long idUser = userS.getId();
+		    session.setAttribute("id", idUser);
+		} else {
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
+			view.forward(request,response);
+		}
 		
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		UserDAO userDAO = new JDBCUserDAOImpl();
@@ -108,7 +117,16 @@ public class ListRestaurantServlet extends HttpServlet {
 	}
 	
 	protected void doPost (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.info("Atendiendo GET");
+		logger.info("Atendiendo POST");
+		HttpSession session = request.getSession();
+		User userS = (User) session.getAttribute("user");
+		if (userS != null) {
+		    Long idUser = userS.getId();
+		    session.setAttribute("id", idUser);
+		} else {
+			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/login.jsp");
+			view.forward(request,response);
+		}
 		
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		UserDAO userDAO = new JDBCUserDAOImpl();

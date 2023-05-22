@@ -85,7 +85,7 @@ public class restaurantDetailsServlet extends HttpServlet {
 	    
 	    CategoryDAO catDAO = new JDBCCategoryDAOImpl();
 	    catDAO.setConnection(conn);
-	    if(resCatList != null) {
+	    if(!resCatList.isEmpty() && resCatList != null) {
 	    	Category cat = catDAO.get(resCatList.get(0).getIdct());
 	    	request.setAttribute("category", cat);
 	    }

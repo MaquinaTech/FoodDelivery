@@ -36,40 +36,40 @@
 					    <label for="star1">&#9733;</label>
 					</div>
 				
-                    
                     <p><strong>Dirección:</strong> ${restaurant.address}</p>
                     <p><strong>Teléfono:</strong> ${restaurant.telephone}</p>
                     <p><strong>Correo de contacto:</strong> ${restaurant.contactEmail}</p>
                     <p><strong>Rango de precio:</strong> ${restaurant.minPrice}€-${restaurant.maxPrice}€</p>
                     <p><strong>Media de valoraciones:</strong> ${restaurant.gradesAverage}</p>
-                    <p><strong>Bike Friendly:</strong> <input disabled type="checkbox" value="${restaurant.bikeFriendly}"></p>
+                    <p><strong>Bike Friendly:</strong> <input type="checkbox" value="${restaurant.bikeFriendly}" ${restaurant.bikeFriendly == 1 ? 'checked' : ''} disabled></p>
                     <c:choose>
 		    			<c:when test="${restaurant.idu==id}">
-		    					<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
-		    				</c:when>
+		    				<a href="restaurantEditServlet.do?idR=${restaurant.id}"><img src="${pageContext.request.contextPath}/public/editar.png" alt="editIcon"></a>
+		    			</c:when>
 		    		</c:choose>
 		    		<c:choose>
 		    			<c:when test="${restaurant.idu!=id}">
-		    					<a href="reviewServlet.do?idR=${restaurant.id}">Añadir Review</a>
-		    				</c:when>
+		    				<a href="reviewServlet.do?idR=${restaurant.id}">Añadir Review</a>
+		    			</c:when>
 		    		</c:choose>
 		    			
                 </div>
                 <div class="menuList">
-                    <section id="principales">
+                	<c:choose>
+		    			<c:when test="${restaurant.idu==id}">
+		    				<a href="dishServlet.do?idR=${restaurant.id}"><img width="50px" src="${pageContext.request.contextPath}/public/add.png" alt="addIcon"></a>
+		    			</c:when>
+		    		</c:choose>
                     <h1>Platos</h1>
                     <c:forEach var="dish" items="${dishes}">
                         <div class="dish-card">
-                            <img src="${pageContext.request.contextPath}/public/${dish.img}" alt="Imagen del plato">
                             <div class="dish-info">
-                            <h3>${dish.name}</h3>
-                            <p>${dish.description}</p>
-                            <p class="price">${dish.price}€</p>
-                            
-                            </div>
+	                            <h3>${dish.name}</h3>
+	                            <p>${dish.description}</p>
+	                            <p class="price">${dish.price}€</p>
+                        	</div>
                         </div>
-                   </c:forEach>
-                    </section>                    
+                   </c:forEach>    
                 </div>
             </div>
             <div class="pedido-box">
