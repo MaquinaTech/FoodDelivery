@@ -160,5 +160,16 @@
     <servlet-name>dishServlet</servlet-name>
     <url-pattern>/dishServlet.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <description></description>
+    <display-name>dishDeleteServlet</display-name>
+    <servlet-name>dishDeleteServlet</servlet-name>
+    <servlet-class>es.unex.pi.controller.dishDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dishDeleteServlet</servlet-name>
+    <url-pattern>/dishDeleteServlet.do</url-pattern>
+  </servlet-mapping>
 	  
 </web-app>

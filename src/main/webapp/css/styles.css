@@ -730,8 +730,7 @@
 
   .menuList {
     width: 650px;
-    max-height:1000px;
-    min-height:800px;
+    height: min-content;
     overflow-y:overlay;
     background-color: #f8ede9;
     color: #333;
@@ -739,7 +738,6 @@
     border-radius: 5px;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.3);
     display: grid;
-    height: auto;
     margin-bottom: 20px;
   }
 
