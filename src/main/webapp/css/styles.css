@@ -727,6 +727,10 @@
   .dish-info h3{
     display: inline;
   }
+  
+  .red {
+  	color:red !important;
+  }
 
   .menuList {
     width: 650px;

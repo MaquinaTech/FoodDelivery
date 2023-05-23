@@ -69,6 +69,8 @@
 				<div class="estados">
 					<h2>Filtro por Estado de Restaurante</h2>
         			<form method="post" action="SearchServlet.do" class="estado">
+        			<label for="acepta" class="acepta"><h3>Todos</h3></label>
+            		<input type="radio" id="all" name="estado" value="all" ${requestScope.all} required >
         			<label for="acepta" class="acepta"><h3>Acepta Pedidos</h3></label>
             		<input type="radio" id="acepta" name="estado" value="acepta" ${requestScope.acepta} required >
             		<label for="noacepta" class="noacepta"><h3>No acepta pedidos</h3></label>
@@ -107,7 +109,10 @@
 								<img src="${pageContext.request.contextPath}/public/estrella.png" alt="calificación" >
 							</div>
 							<p class="subtitle">
-								<b>Restaurante disponible en Food Delivery.</b>
+								<b class="${restaurant.available == 1 ? '' : 'red'}">
+								  ${restaurant.available == 1 ? 'Restaurante disponible en Food Delivery' : 'Restaurante no disponible'}
+								</b>
+
 							</p>
 						</div>
 						<div class="services">

@@ -115,6 +115,7 @@ public class SearchServlet extends HttpServlet {
 		
 		//Set categories to request
 		request.setAttribute("categories", categories);
+		request.setAttribute("all", "checked");
 		RequestDispatcher view = request.getRequestDispatcher("WEB-INF/list.jsp");
 		view.forward(request,response);
 		
@@ -147,6 +148,12 @@ public class SearchServlet extends HttpServlet {
 				}
 			}
 			request.setAttribute("acepta", "checked");
+		} else {
+			for (Restaurant rest : restaurantsAll) {
+				restaurants.add(rest);
+			}
+			request.setAttribute("all", "checked");
+			
 		}
 		request.setAttribute("restaurants", restaurants);
 		HttpSession sesion = request.getSession();

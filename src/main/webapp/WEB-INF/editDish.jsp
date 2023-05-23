@@ -33,9 +33,7 @@
 				        <input type="submit" value="Añadir" >
 				      </div>
 			        </form>
-			        
 			      </div>
-                				                      
                 </div>
             </div>
         </div>
