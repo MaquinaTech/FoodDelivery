@@ -21,13 +21,13 @@
 			        <form action="dishServlet.do" method="POST">
 			          <h2>Nuevo Plato</h2>
 			          <label>Nombre:</label>
-			          <input type="text" name="dishName" placeholder="Nombre del plato">
+			          <input required type="text" name="dishName" placeholder="Nombre del plato">
 			          <input class="none" type="number" name="idR" value="${idR}">
 			          
 			          <label>Descripción:</label>
-			          <textarea name="dishDescription" placeholder="Descripción del plato"></textarea>
+			          <textarea required name="dishDescription" placeholder="Descripción del plato"></textarea>
 			          <label>Precio:</label>
-			          <input type="number" name="dishPrice" step="0.01" placeholder="Precio del plato (usar . para decimales)">
+			          <input required type="number" name="dishPrice" placeholder="Precio del plato (no se permiten decimales)">
 			          
 			          <div class="center">
 				        <input type="submit" value="Añadir" >
